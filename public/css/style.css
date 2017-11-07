@@ -509,19 +509,20 @@ section {
     padding-bottom: 120px;
     padding-top: 110px;
   }
-  .irs-courses-one::after {
-    background-color: #ededed;
-    content: "";
-    height: 1px;
-    position: absolute;
-    top: 21.8%;
-    width: 100%;
-    z-index: -1;
-  }
+  /*.irs-courses-one::after {*/
+    /*background-color: #ededed;*/
+    /*content: "";*/
+    /*height: 1px;*/
+    /*position: absolute;*/
+    /*top: 21.8%;*/
+    /*width: 100%;*/
+    /*z-index: -1;*/
+  /*}*/
   .irs-course-tab{
     border: none;
     margin-bottom: 45px;
     position: relative;
+    border-bottom: solid 1px #ededed;
   }
   .irs-course-tab .irs-course-title{
     padding-left: 15px;
@@ -599,8 +600,11 @@ section {
     padding-bottom: 10px;
   }
   .irs-studend-thumb > img {
-      left: 25px;
-      position: absolute;
+    left: 25px;
+    position: absolute;
+    max-width: 60px;
+    height: 60px;
+    background: #0b0b0b;
   }
   .irs-student-name{
     padding-left: 50px;
@@ -2146,7 +2150,7 @@ section {
   }
   .irs-bc-title {
     color: #fff;
-    color: font-size: 40px;
+    font-size: 40px;
     margin-top: 0;
   }
   .irs-bb-right {
@@ -2420,7 +2424,7 @@ section {
     -moz-border-left-colors: none;
     -moz-border-right-colors: none;
     -moz-border-top-colors: none;
-    border-color: -moz-use-text-color -moz-use-text-color #e8e8e8;
+    border-color: #e8e8e8;
     border-image: none;
     border-radius: 0 !important;
     border-style: none none solid;
@@ -2510,7 +2514,7 @@ section {
     -moz-border-left-colors: none;
     -moz-border-right-colors: none;
     -moz-border-top-colors: none;
-    border-color: -moz-use-text-color -moz-use-text-color #e8e8e8;
+    border-color: #e8e8e8;
     border-image: none;
     border-radius: 0 !important;
     border-style: none none solid;
