@@ -11,8 +11,16 @@
 |
 */
 
-Route::get('/', 'IndexController@index');
+Route::get('/', 'IndexController@index')->name('index');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware(['auth'])->group(function(){
+    Route::prefix('user')->group(function(){
+        Route::get('profile', 'HomeController@profile')->name('profile');
+        Route::get('edit', 'HomeController@edit')->name('user.edit');
+        Route::put('update', 'HomeController@update')->name('user.update');
+    });
+});
+
+Route::resource('course', 'CourseController');

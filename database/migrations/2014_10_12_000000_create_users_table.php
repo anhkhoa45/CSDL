@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('address')->nullable();
             $table->string('balance')->nullable();
             $table->string('level', 15)->nullable();
+            $table->string('avatar', 30)->nullable();
             $table->smallInteger('role');
             $table->bigInteger('learning_score')->default(0);
             $table->bigInteger('teaching_score')->default(0);
