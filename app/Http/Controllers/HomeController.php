@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateUser;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -62,5 +63,10 @@ class HomeController extends Controller
 
         return redirect()->route('profile')
             ->with('success','Your profile updated successfully ');
+    }
+
+    public function enrollCourse($course){
+        \Auth::user()->enrolled_courses()->attach($course, ['date_bought' => Carbon::now()]);
+        return 'Enroll successfully';
     }
 }

@@ -1,5 +1,13 @@
 @extends('layouts.main')
 
+@section('style')
+  <style>
+    .irs-bb-right {
+      margin-bottom: 0;
+    }
+  </style>
+@endsection
+
 @section('content')
 
   <!-- Breadcrumbs html --> 
@@ -29,11 +37,28 @@
                 <h2>{{ $course->name }}</h2>
                   <ul class="list-inline irs-cl-teacher-info">
                     <li class="irs-cl-thumb"><img src="{{ asset('images/courses/s4.png') }}" alt="s4.png"></li>
-                    <li class="irs-cl-info">with <span class="text-thm2"> {{ $course->teacher->name }}</span></li>
+                    <li class="irs-cl-info">with
+                      <a href="{{ route('teacher-info', ['id' => $course->teacher->id]) }}">
+                        <span class="text-thm2"> {{ $course->teacher->name }}</span>
+                      </a>
+                    </li>
                     <li> <span class="text-thm2 flaticon-social-2"></span> {{ $course->buyers->count() }}</li>
                     <li> <span class="text-thm2 flaticon-interface-1"></span> 10</li>
                     <li> <span class="text-thm2 flaticon-folder"></span> Languages / Foreign</li>
-                    <li class="pull-right"> <a href="#" class="btn btn-default irs-button-styledark"> Take This Course</a></li>
+
+                    @if(\Auth::check() && \Auth::user()->enrolled_courses()->get()->pluck('id')->contains($course->id))
+                      <li class="pull-right">
+                        <a href="#" class="btn btn-default irs-button-styledark disabled">
+                          Enrolled
+                        </a>
+                      </li>
+                    @else
+                      <li class="pull-right">
+                        <a href="{{ route('enroll-course', ['course' => $course->id]) }}" class="btn btn-default irs-button-styledark">
+                          Take This Course
+                        </a>
+                      </li>
+                    @endif
                   </ul>
               </div>
               <div class="irs-courses-details-thumb">
@@ -49,7 +74,7 @@
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#description" aria-controls="description" role="tab" data-toggle="tab">Description</a></li>
-                    <li role="presentation"><a href="#curriculum" aria-controls="curriculum" role="tab" data-toggle="tab">Curriculum</a></li>
+                    <li role="presentation"><a href="#curriculum" aria-controls="curriculum" role="tab" data-toggle="tab">Lectures</a></li>
                     <li role="presentation"><a href="#teachers" aria-controls="teachers" role="tab" data-toggle="tab">Teachers</a></li>
                     <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Comments</a></li>
                   </ul>
@@ -82,119 +107,36 @@
                           </div>
                         </div>
                       </div>
-                      <div class="row">
-
-                        <div class="col-md-12">
-                          <h1>Table of contents</h1>
-                          <h3>Videos</h3>
-                          <table class="table table-striped">
-
-                            <tr>
-                              <th>#</th>
-                              <th>Video</th>
-                            </tr>
-                            @foreach($course->videos()->orderBy('order_in_course')->get() as $video)
-                              <tr>
-                                <td>{{ $video->order_in_course }}</td>
-                                <td>{{ $video->name }}</td>
-                              </tr>
-                            @endforeach
-
-                          </table>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-12">
-                          <h3>Projects</h3>
-                          <table class="table table-striped">
-
-                            <tr>
-                              <th>#</th>
-                              <th>Project name</th>
-                            </tr>
-                            @foreach($course->projects as $project)
-                              <tr>
-                                <td>{{ $project->order_in_course }}</td>
-                                <td>{{ $project->project_name }}</td>
-                              </tr>
-                            @endforeach
-
-                          </table>
-                        </div>
-                      </div>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="curriculum">
                       <div class="col-md-12">
                         <div class="irs-cdtls-feture-bot2">
                           <ul class="list-group">
-                            <li>
-                              <a class="list-group-item" href="#">
-                                <ul class="list-inline">
-                                  <li><span class="flaticon-business text-thm2"></span> Lecture 1.1 </li>
-                                  <li><div class="its-tdu">Practical language work </div></li>
-                                  <li><span class="btn btn-sm irs-btn-thm3"> See Course</span></li>
-                                  <li class="pull-right"> 2 hrs. </li>
-                                </ul>                                
-                              </a>
-                            </li>
-                            <li>
-                              <a class="list-group-item" href="#">
-                                <ul class="list-inline">
-                                  <li><span class="flaticon-business text-thm2"></span> Lecture 1.2 </li>
-                                  <li><div class="its-tdu">Study of important works and/or topics </div></li>
-                                  <li><span class="btn btn-sm irs-btn-thm3"> See Course</span></li>
-                                  <li class="pull-right"> 1 hr. </li>
-                                </ul>
-                              </a>
-                            </li>
-                            <li>
-                              <a class="list-group-item" href="#">
-                                <ul class="list-inline">
-                                  <li><span class="flaticon-tool text-thm2"></span> Lecture 1.3 </li>
-                                  <li><div class="its-tdu">Literature of the language </div></li>
-                                  <li><span class="btn btn-sm irs-btn-thm3"> See Course</span></li>
-                                  <li class="pull-right"> 1.20 hrs. </li>
-                                </ul>
-                              </a>
-                            </li>
-                            <li>
-                              <a class="list-group-item" href="#">
-                                <ul class="list-inline">
-                                  <li><span class="flaticon-business text-thm2"></span> Lecture 1.4 </li>
-                                  <li><div class="its-tdu">General linguistics </div></li>
-                                  <li><span class="btn btn-sm irs-btn-thm3"> See Course</span></li>
-                                  <li class="pull-right"> 2 hrs. </li>
-                                </ul>
-                              </a>
-                            </li>
-                            <li>
-                              <a class="list-group-item" href="#">
-                                <ul class="list-inline">
-                                  <li><span class="flaticon-business text-thm2"></span> Lecture 1.5 </li>
-                                  <li><div class="its-tdu">Phonetics and phonology </div></li>
-                                  <li><span class="btn btn-sm irs-btn-thm3"> See Course</span></li>
-                                  <li class="pull-right"> 3 hrs. </li>
-                                </ul>
-                              </a>
-                            </li>
-                            <li>
-                              <a class="list-group-item" href="#">
-                                <ul class="list-inline">
-                                  <li><span class="flaticon-business text-thm2"></span> Lecture 1.6 </li>
-                                  <li><div class="its-tdu">Grammatical analysis </div></li>
-                                  <li class="pull-right"> 1.30 hrs. </li>
-                                </ul>
-                              </a>
-                            </li>
-                            <li>
-                              <a class="list-group-item irs-bbn" href="#">
-                                <ul class="list-inline">
-                                  <li><span class="flaticon-pen text-thm2"></span> Quizzes </li>
-                                  <li><div class="its-tdu">History of the language test </div></li>
-                                  <li class="pull-right"> 30 mins. </li>
-                                </ul>
-                              </a>
-                            </li>
+                            @foreach($course->videos()->orderBy('order_in_course')->get() as $video)
+                              <li>
+                                <a class="list-group-item" href="#">
+                                  <ul class="list-inline">
+                                    <li><span class="flaticon-business text-thm2"></span> Video #{{$video->order_in_course}} </li>
+                                    <li><div class="its-tdu">{{$video->name}} </div></li>
+                                    <li><span class="btn btn-sm irs-btn-thm3"> Preview</span></li>
+                                  </ul>
+                                </a>
+                              </li>
+                            @endforeach
+                          </ul>
+
+                          <ul class="list-group">
+                            @foreach($course->projects as $project)
+                              <li>
+                                <a class="list-group-item" href="#">
+                                  <ul class="list-inline">
+                                    <li><span class="flaticon-business text-thm2"></span> Project #{{$project->order_in_course}} </li>
+                                    <li><div class="its-tdu">{{$project->project_name}} </div></li>
+                                    <li><span class="btn btn-sm irs-btn-thm3"> Preview</span></li>
+                                  </ul>
+                                </a>
+                              </li>
+                            @endforeach
                           </ul>
                         </div>
                       </div>

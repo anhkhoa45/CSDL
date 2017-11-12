@@ -25,7 +25,7 @@
   <style>
     .header-nav {
       position: static;
-      margin-bottom: 50px;
+      /*margin-bottom: 50px;*/
     }
   </style>
 
