@@ -35,4 +35,8 @@ class Course extends Model
     {
         return $this->hasMany(RequiredProject::class);
     }
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
 }

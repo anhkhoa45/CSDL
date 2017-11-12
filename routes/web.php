@@ -24,5 +24,9 @@ Route::middleware(['auth'])->group(function(){
     });
 });
 
+
+Route::resource('course', 'CourseController');
+Route::get('course_list/{category}','CategoryController@courseList')->name('course.list');
+
 Route::get('course-info/{id}', 'IndexController@showCourseInfo')->name('course-info');
 Route::get('teacherinfo/{id}', 'IndexController@showTeacherInfo')->name('teacher-info');
