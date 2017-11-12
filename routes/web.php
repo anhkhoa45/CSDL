@@ -20,7 +20,9 @@ Route::middleware(['auth'])->group(function(){
         Route::get('profile', 'HomeController@profile')->name('profile');
         Route::get('edit', 'HomeController@edit')->name('user.edit');
         Route::put('update', 'HomeController@update')->name('user.update');
+        Route::get('enroll-course/{course}', 'HomeController@enrollCourse')->name('enroll-course');
     });
 });
 
-Route::resource('course', 'CourseController');
+Route::get('course-info/{id}', 'IndexController@showCourseInfo')->name('course-info');
+Route::get('teacherinfo/{id}', 'IndexController@showTeacherInfo')->name('teacher-info');

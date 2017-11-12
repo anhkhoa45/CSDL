@@ -42,31 +42,33 @@
                   <div class="col-xs-12 col-sm-6 col-md-3 irs-ext-pad animatedParent">
                     <div class="irs-courses-fstcol animated fadeIn delay-250">
                       <div class="irs-course-thumb">
-                        <img class="img-responsive img-fluid" src="images/courses/1.jpg" alt="1.jpg">
+                        <a href="{{ route('course-info', ['id' => $course->id ]) }}">
+                          <img class="img-responsive img-fluid" src="images/courses/1.jpg" alt="1.jpg">
+                        </a>
                       </div>
                       <div class="irs-course-details">
                         <ul class="list-inline">
                           <li class="irs-user"><a href="#"><span
-                                  class="flaticon-people-1"></span> {{ $course->buyers->count() }}</a></li>
+                                  class="flaticon-people-1"></span> {{ $course->buyers()->count() }}</a></li>
                           <li class="irs-ccomment"><a href="#"><span class="flaticon-interface"></span> 4</a></li>
                           <li class="irs-course-price"><a href="#" class="text-thm2"><span class=""></span>
                               ${{ $course->cost }}</a></li>
                         </ul>
-                        <h3><a href="{{ route('course.show', ['id' => $course->id ]) }}">{{ $course->name }}</a></h3>
+                        <h3><a href="{{ route('course-info', ['id' => $course->id ]) }}">{{ $course->name }}</a></h3>
                         <div class="irs-student-info">
                           <div class="irs-studend-thumb"><img class="img-responsive img-circle"
                                                               src="{{ Storage::url($course->teacher->avatar) }}"
                                                               alt="student1.png"></div>
                           <div class="irs-student-name">
-                            <a href="">with <span class="text-thm2">{{ $course->teacher->name }}</span></a></div>
+                            <a href="{{ route('teacher-info', ['id' => $course->teacher->id]) }}">
+                              with <span class="text-thm2">{{ $course->teacher->name }}</span>
+                            </a>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 @endforeach
-                <div class="pagination-links col-xs-12 irs-ext-pad animatedParent">
-                  {{--{{ $courses->links() }}--}}
-                </div>
               </div>
               <div role="tabpanel" class="tab-pane" id="profile">
                 @foreach($p_courses as $course)
@@ -77,20 +79,23 @@
                       <div class="irs-course-details">
                         <ul class="list-inline">
                           <li class="irs-user"><a href="#"><span
-                                  class="flaticon-people-1"></span> {{ $course->buyers->count() }}</a></li>
+                                  class="flaticon-people-1"></span> {{ $course->buyers()->count() }}</a></li>
                           <li class="irs-ccomment"><a href="#"><span class="flaticon-interface"></span> 4</a></li>
                           <li class="irs-course-price"><a href="#" class="text-thm2"><span class=""></span>
                               ${{ $course->cost }}</a></li>
                         </ul>
-                        <h3><a href="{{ route('course.show', ['id' => $course->id ]) }}">{{ $course->name }}</a></h3>
+                        <h3><a href="{{ route('course-info', ['id' => $course->id ]) }}">{{ $course->name }}</a></h3>
                         <div class="irs-student-info">
                           <div class="irs-studend-thumb">
                             <img class="img-responsive img-circle"
                                  src="{{ Storage::url($course->teacher->avatar) }}"
                                  alt="student1.png">
                           </div>
-                          <div class="irs-student-name"><a href="">with <span
-                                  class="text-thm2">{{ $course->teacher->name }}</span></a></div>
+                          <div class="irs-student-name">
+                            <a href="{{ route('teacher-info', ['id' => $course->teacher->id]) }}">with
+                              <span class="text-thm2">{{ $course->teacher->name }}</span>
+                            </a>
+                          </div>
                         </div>
                       </div>
                     </div>
