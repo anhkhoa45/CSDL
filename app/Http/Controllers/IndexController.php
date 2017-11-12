@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 class IndexController extends Controller
 {
     public function index(){
+
         $recently_courses = Course::orderBy('created_at', 'desc')->take(4)->get();
         $popular_courses = Course::find(
             DB::table('buy_courses')

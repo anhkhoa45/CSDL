@@ -24,3 +24,4 @@ Route::middleware(['auth'])->group(function(){
 });
 
 Route::resource('course', 'CourseController');
+Route::get('course_list/{category}','CategoryController@courseList')->name('course.list');
