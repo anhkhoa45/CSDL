@@ -10,7 +10,7 @@
 
 @section('content')
 
-  <!-- Breadcrumbs html --> 
+  <!-- Breadcrumbs html -->
   <section class="irs-ip-brdcrumb">
     <div class="container">
       <div class="row">
@@ -35,36 +35,37 @@
             <div class="col-lg-12">
               <div class="irs-courses-details-title">
                 <h2>{{ $course->name }}</h2>
-                  <ul class="list-inline irs-cl-teacher-info">
-                    <li class="irs-cl-thumb"><img src="{{ asset('images/courses/s4.png') }}" alt="s4.png"></li>
-                    <li class="irs-cl-info">with
-                      <a href="{{ route('teacher-info', ['id' => $course->teacher_id]) }}">
-                        <span class="text-thm2"> {{ $course->teacher_name }}</span>
+                <ul class="list-inline irs-cl-teacher-info">
+                  <li class="irs-cl-thumb"><img src="{{ asset('images/courses/s4.png') }}" alt="s4.png"></li>
+                  <li class="irs-cl-info">with
+                    <a href="{{ route('teacher-info', ['id' => $course->teacher_id]) }}">
+                      <span class="text-thm2"> {{ $course->teacher_name }}</span>
+                    </a>
+                  </li>
+                  <li><span class="text-thm2 flaticon-social-2"></span> {{ $course->buyers }}</li>
+                  <li><span class="text-thm2 flaticon-interface-1"></span> 10</li>
+                  <li><span class="text-thm2 flaticon-folder"></span> Languages / Foreign</li>
+
+                  @if(\Auth::check() && \Auth::user()->enrolled_courses()->get()->pluck('id')->contains($course->id))
+                    <li class="pull-right">
+                      <a href="#" class="btn btn-default irs-button-styledark disabled">
+                        Enrolled
                       </a>
                     </li>
-                    <li> <span class="text-thm2 flaticon-social-2"></span> {{ $course->buyers }}</li>
-                    <li> <span class="text-thm2 flaticon-interface-1"></span> 10</li>
-                    <li> <span class="text-thm2 flaticon-folder"></span> Languages / Foreign</li>
-
-                    @if(\Auth::check() && \Auth::user()->enrolled_courses()->get()->pluck('id')->contains($course->id))
-                      <li class="pull-right">
-                        <a href="#" class="btn btn-default irs-button-styledark disabled">
-                          Enrolled
-                        </a>
-                      </li>
-                    @else
-                      <li class="pull-right">
-                        <a href="{{ route('enroll-course', ['course' => $course->id]) }}" class="btn btn-default irs-button-styledark">
-                          Take This Course
-                        </a>
-                      </li>
-                    @endif
-                  </ul>
+                  @else
+                    <li class="pull-right">
+                      <a href="{{ route('enroll-course', ['course' => $course->id]) }}"
+                         class="btn btn-default irs-button-styledark">
+                        Take This Course
+                      </a>
+                    </li>
+                  @endif
+                </ul>
               </div>
               <div class="irs-courses-details-thumb">
                 <img class="img-responsive img-fluid" src="{{ asset('images/courses/cd1.jpg') }}" alt="cd1.jpg">
                 <div class="irs-cdtls-price"><p>${{ $course->cost }}</p></div>
-              </div>              
+              </div>
             </div>
           </div>
           <div class="row irs-mrngtp-svnty">
@@ -73,10 +74,14 @@
                 <div class="irs-cdetails-tab">
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#description" aria-controls="description" role="tab" data-toggle="tab">Description</a></li>
-                    <li role="presentation"><a href="#curriculum" aria-controls="curriculum" role="tab" data-toggle="tab">Lectures</a></li>
-                    <li role="presentation"><a href="#teachers" aria-controls="teachers" role="tab" data-toggle="tab">Teachers</a></li>
-                    <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Comments</a></li>
+                    <li role="presentation" class="active"><a href="#description" aria-controls="description" role="tab"
+                                                              data-toggle="tab">Description</a></li>
+                    <li role="presentation"><a href="#curriculum" aria-controls="curriculum" role="tab"
+                                               data-toggle="tab">Lectures</a></li>
+                    <li role="presentation"><a href="#teachers" aria-controls="teachers" role="tab" data-toggle="tab">Teachers</a>
+                    </li>
+                    <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Comments</a>
+                    </li>
                   </ul>
 
                   <!-- Tab panes -->
@@ -87,16 +92,20 @@
                           <div class="irs-cdtls-feture-bot">
                             <ul class="list-group">
                               <li>
-                                <a class="list-group-item"><span class="flaticon-business text-thm2"></span> Lecture <span class="pull-right"> {{ $course->videos->count() }} </span></a>
+                                <a class="list-group-item"><span class="flaticon-business text-thm2"></span> Lecture
+                                  <span class="pull-right"> {{ $course->videos->count() }} </span></a>
                               </li>
                               <li>
-                                <a class="list-group-item"><span class="flaticon-pen text-thm2"></span> Project <span class="pull-right"> {{ $course->projects->count() }} </span></a>
+                                <a class="list-group-item"><span class="flaticon-pen text-thm2"></span> Project <span
+                                      class="pull-right"> {{ $course->projects->count() }} </span></a>
                               </li>
                               <li>
-                                <a class="list-group-item"><span class="flaticon-people-1 text-thm2"></span> Students <span class="pull-right"> {{ $course->buyers }} </span></a>
+                                <a class="list-group-item"><span class="flaticon-people-1 text-thm2"></span> Students
+                                  <span class="pull-right"> {{ $course->buyers }} </span></a>
                               </li>
                               <li>
-                                <a class="list-group-item irs-bbn"><span class="flaticon-technology text-thm2"></span> Assessments <span class="pull-right"> self </span></a>
+                                <a class="list-group-item irs-bbn"><span class="flaticon-technology text-thm2"></span>
+                                  Assessments <span class="pull-right"> self </span></a>
                               </li>
                             </ul>
                           </div>
@@ -116,8 +125,11 @@
                               <li>
                                 <a class="list-group-item" href="#">
                                   <ul class="list-inline">
-                                    <li><span class="flaticon-business text-thm2"></span> Video #{{$video->order_in_course}} </li>
-                                    <li><div class="its-tdu">{{$video->name}} </div></li>
+                                    <li><span class="flaticon-business text-thm2"></span> Video
+                                      #{{$video->order_in_course}} </li>
+                                    <li>
+                                      <div class="its-tdu">{{$video->name}} </div>
+                                    </li>
                                     <li><span class="btn btn-sm irs-btn-thm3"> Preview</span></li>
                                   </ul>
                                 </a>
@@ -130,8 +142,11 @@
                               <li>
                                 <a class="list-group-item" href="#">
                                   <ul class="list-inline">
-                                    <li><span class="flaticon-business text-thm2"></span> Project #{{$project->order_in_course}} </li>
-                                    <li><div class="its-tdu">{{$project->project_name}} </div></li>
+                                    <li><span class="flaticon-business text-thm2"></span> Project
+                                      #{{$project->order_in_course}} </li>
+                                    <li>
+                                      <div class="its-tdu">{{$project->project_name}} </div>
+                                    </li>
                                     <li><span class="btn btn-sm irs-btn-thm3"> Preview</span></li>
                                   </ul>
                                 </a>
@@ -154,8 +169,8 @@
                           <div class="col-md-10 irs-mrgnbtm-sxty irs-all-course-bb">
                             <div class="irs-courses-td-sngle-dtls">
                               <ul class="list-unstyled">
-                                  <li class="irs-name-tdsd">Louise M. Ross</li>
-                                  <li class="irs-psot-tdsd">History of Arts Teacher</li>
+                                <li class="irs-name-tdsd">Louise M. Ross</li>
+                                <li class="irs-psot-tdsd">History of Arts Teacher</li>
                               </ul>
                               <div class="irs-social-icon-td-sngle-dtls pull-right">
                                 <ul class="list-inline irs-courses-tdetls">
@@ -165,7 +180,9 @@
                                   <li class="linkdin"><a href="#"><span class="flaticon-linkedin-logo"></span> </a></li>
                                 </ul>
                               </div>
-                              <p>Your week’s work will include a tutorial on linguistics and one on literature, in or arranged by your college, a linguistics class and language classes on different skills relating to the language or languages you study, and five or six lectures.</p>
+                              <p>Your week’s work will include a tutorial on linguistics and one on literature, in or
+                                arranged by your college, a linguistics class and language classes on different skills
+                                relating to the language or languages you study, and five or six lectures.</p>
                             </div>
                           </div>
                         </div>
@@ -191,7 +208,9 @@
                                   <li class="linkdin"><a href="#"><span class="flaticon-linkedin-logo"></span> </a></li>
                                 </ul>
                               </div>
-                              <p>Your week’s work will include a tutorial on linguistics and one on literature, in or arranged by your college, a linguistics class and language classes on different skills relating to the language or languages you study, and five or six lectures.</p>
+                              <p>Your week’s work will include a tutorial on linguistics and one on literature, in or
+                                arranged by your college, a linguistics class and language classes on different skills
+                                relating to the language or languages you study, and five or six lectures.</p>
                             </div>
                           </div>
                         </div>
@@ -206,8 +225,8 @@
                           <div class="col-md-10 irs-mrgnbtm-sxty irs-all-course-bb">
                             <div class="irs-courses-td-sngle-dtls">
                               <ul class="list-unstyled">
-                                  <li class="irs-name-tdsd">Rebecca J. Wagner</li>
-                                  <li class="irs-psot-tdsd">Earth Sciences (Geology) Teacher</li>
+                                <li class="irs-name-tdsd">Rebecca J. Wagner</li>
+                                <li class="irs-psot-tdsd">Earth Sciences (Geology) Teacher</li>
                               </ul>
                               <div class="irs-social-icon-td-sngle-dtls pull-right">
                                 <ul class="list-inline irs-courses-tdetls">
@@ -217,7 +236,9 @@
                                   <li class="linkdin"><a href="#"><span class="flaticon-linkedin-logo"></span> </a></li>
                                 </ul>
                               </div>
-                              <p>Your week’s work will include a tutorial on linguistics and one on literature, in or arranged by your college, a linguistics class and language classes on different skills relating to the language or languages you study, and five or six lectures.</p>
+                              <p>Your week’s work will include a tutorial on linguistics and one on literature, in or
+                                arranged by your college, a linguistics class and language classes on different skills
+                                relating to the language or languages you study, and five or six lectures.</p>
                             </div>
                           </div>
                         </div>
@@ -229,17 +250,19 @@
                           <div class="col-md-2 irs-mrgnbtm-sxty">
                             <div class="irs-courses-td-sngle">
                               <div class="irs-ctds-thumb">
-                                <img class="img-responsive img-fluid img-circle" src="images/team/tsm1.png" alt="tsm1.png">
+                                <img class="img-responsive img-fluid img-circle" src="images/team/tsm1.png"
+                                     alt="tsm1.png">
                               </div>
                             </div>
                           </div>
                           <div class="col-md-10 irs-mrgnbtm-sxty irs-all-course-bb">
                             <div class="irs-courses-td-sngle-dtls">
                               <ul class="list-unstyled">
-                                  <li class="irs-psot-tdsd">Delicia Memphis</li>
-                                  <li class="irs-name-tdsd">This course is so awesome</li>
+                                <li class="irs-psot-tdsd">Delicia Memphis</li>
+                                <li class="irs-name-tdsd">This course is so awesome</li>
                               </ul>
-                              <p>Practical laboratory work is an integral part of teaching and there is a compulsory one-week field trip for all first-year students to Pembrokeshire to study ecology.</p>
+                              <p>Practical laboratory work is an integral part of teaching and there is a compulsory
+                                one-week field trip for all first-year students to Pembrokeshire to study ecology.</p>
                             </div>
                           </div>
                         </div>
@@ -247,7 +270,8 @@
                           <div class="col-md-2 irs-mrgnbtm-sxty">
                             <div class="irs-courses-td-sngle">
                               <div class="irs-ctds-thumb">
-                                <img class="img-responsive img-fluid img-circle" src="images/team/tsm2.png" alt="tsm2.png">
+                                <img class="img-responsive img-fluid img-circle" src="images/team/tsm2.png"
+                                     alt="tsm2.png">
                               </div>
                             </div>
                           </div>
@@ -257,7 +281,9 @@
                                 <li class="irs-psot-tdsd">Wayne C. Trussell</li>
                                 <li class="irs-name-tdsd">I strongly recommend this course</li>
                               </ul>
-                              <p>After graduation, Jenny spent several years in a medical communication agency environment, and now has her own business, working directly with major global pharmaceutical companies. </p>
+                              <p>After graduation, Jenny spent several years in a medical communication agency
+                                environment, and now has her own business, working directly with major global
+                                pharmaceutical companies. </p>
                             </div>
                           </div>
                         </div>
@@ -265,17 +291,19 @@
                           <div class="col-md-2 irs-mrgnbtm-sxty">
                             <div class="irs-courses-td-sngle">
                               <div class="irs-ctds-thumb">
-                                <img class="img-responsive img-fluid img-circle" src="images/team/tsm3.png" alt="tsm3.png">
+                                <img class="img-responsive img-fluid img-circle" src="images/team/tsm3.png"
+                                     alt="tsm3.png">
                               </div>
                             </div>
                           </div>
                           <div class="col-md-10 irs-mrgnbtm-sxty irs-all-course-bb">
                             <div class="irs-courses-td-sngle-dtls">
                               <ul class="list-unstyled">
-                                  <li class="irs-psot-tdsd">Patricia J. Norwood</li>
-                                  <li class="irs-name-tdsd">It went out really great for me</li>
+                                <li class="irs-psot-tdsd">Patricia J. Norwood</li>
+                                <li class="irs-name-tdsd">It went out really great for me</li>
                               </ul>
-                              <p>Hannah, now a research assistant at the Royal Veterinary College, reports: ‘My degree gave me a keen interest in my subject and the skills to pursue it. </p>
+                              <p>Hannah, now a research assistant at the Royal Veterinary College, reports: ‘My degree
+                                gave me a keen interest in my subject and the skills to pursue it. </p>
                             </div>
                           </div>
                         </div>
@@ -335,7 +363,7 @@
           </div>
           <div class="irs-sb-bcome-teacher">
             <div class="irs-sb-bct-details text-center">
-              <h3>Become an Instructor Today!</h3>                
+              <h3>Become an Instructor Today!</h3>
               <a href="#" class="btn btn-lg irs-btn-thm2"> Read More</a>
             </div>
           </div>
@@ -384,7 +412,8 @@
       <div class="row">
         <div class="col-lg-6 irs-pad-zero style2">
           <h2 class="irs-lc-title">Latest Courses</h2>
-          <p class="irs-lc-tpara">Edu Hub offers lots of courses, of all types. Take a moment and see our latest ones:</p>
+          <p class="irs-lc-tpara">Edu Hub offers lots of courses, of all types. Take a moment and see our latest
+            ones:</p>
         </div>
         <div class="col-lg-6 irs-pad-zero style2 irs-all-courses text-right">
           <a href="#" class="btn btn-sm irs-btn-thm"><span> See All Courses</span></a>
@@ -491,7 +520,7 @@
                   </div>
                   <div class="irs-lc-hover-part">See Course</div>
                 </div>
-              </div>            
+              </div>
             </div>
             <div class="item animatedParent">
               <div class="irs-lc-grid text-center animated growIn delay-250">
@@ -553,7 +582,7 @@
   <section class="irs-social-media">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-12 col-sm-6 col-md-6 text-right style2">              
+        <div class="col-sm-12 col-sm-6 col-md-6 text-right style2">
           <h3 class="irs-social-media-ttl">Edu Hub Social Networks:</h3>
         </div>
         <div class="col-sm-12 col-sm-6 col-md-6">

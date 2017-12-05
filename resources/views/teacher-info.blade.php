@@ -11,7 +11,7 @@
 
 @section('content')
 
-  <!-- Breadcrumbs Styles -->  
+  <!-- Breadcrumbs Styles -->
   <section class="irs-ip-breadcrumbs">
     <div class="container">
       <div class="row">
@@ -22,7 +22,7 @@
     </div>
   </section>
 
-  <!-- Breadcrumbs html --> 
+  <!-- Breadcrumbs html -->
   <section class="irs-ip-brdcrumb">
     <div class="container">
       <div class="row">
@@ -42,7 +42,7 @@
   <section class="irs-ip-details irs-padb-svnty">
     <div class="container">
       <div class="row clearfix">
-        <div class="col-sm-12 col-md-8 col-lg-9 clearfix">        
+        <div class="col-sm-12 col-md-8 col-lg-9 clearfix">
           <div class="row">
             <div class="col-md-4 irs-mrgnbtm-sxty">
               <div class="irs-courses-td-sngle">
@@ -56,7 +56,8 @@
                 <h2>{{ $teacher->gender.$teacher->name }}</h2>
                 <p style="color: grey"><i class="fa fa-birthday-cake" aria-hidden="true"></i> {{ $teacher->DOB }}</p>
                 <h3>Teaching score:</h3>
-                <p><i style="color: gold" class="fa fa-trophy" aria-hidden="true"></i> {{ $teacher->teaching_score }}</p>
+                <p><i style="color: gold" class="fa fa-trophy" aria-hidden="true"></i> {{ $teacher->teaching_score }}
+                </p>
 
               </div>
               <ul class="list-inline irs-tctt">
@@ -76,8 +77,14 @@
           <div class="row">
             <div class="col-md-12">
               <div class="irs-tdetails-content">
-                <p>Following graduation Edward joined the Sul Lab at the University of California (UC), Berkeley in the Department of NutritionSciences and Toxicology, as a post doctoral fellow.  While at UC Berkeley, she carried out studies aimed at examining to role of lipases in regulation of obesity and insulin secretion.</p>
-                <p>Following his time as at UC Edu Hub, Edward accepted a position as a Research Scholar in the Endocrine Research Unit, VA Medical Center, UC San Francisco. His work at UCSF focused on the examination of potential regulators of mesenchymal stem cell commitment towards adipocyte lineages. </p>
+                <p>Following graduation Edward joined the Sul Lab at the University of California (UC), Berkeley in the
+                  Department of NutritionSciences and Toxicology, as a post doctoral fellow. While at UC Berkeley, she
+                  carried out studies aimed at examining to role of lipases in regulation of obesity and insulin
+                  secretion.</p>
+                <p>Following his time as at UC Edu Hub, Edward accepted a position as a Research Scholar in the
+                  Endocrine Research Unit, VA Medical Center, UC San Francisco. His work at UCSF focused on the
+                  examination of potential regulators of mesenchymal stem cell commitment towards adipocyte
+                  lineages. </p>
               </div>
               <div class="irs-cdtls-ttbg2">
                 <h3>Enrolled Courses</h3>
@@ -188,40 +195,40 @@
                         </div>
                         <div class="irs-lc-hover-part">See Course</div>
                       </div>
-                    </div>            
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="irs-cdtls-ttbg2">
                 <h3>Events</h3>
-                <table class="table"> 
-                  <thead> 
-                    <tr class="irs-table-deading"> 
-                      <th class="text-center">ID</th> 
-                      <th>Name</th> 
-                      <th>Duration</th> 
-                      <th>Start Date</th> 
-                    </tr> 
-                  </thead> 
-                  <tbody class="irs-table-body"> 
-                    <tr>
-                      <th scope="row">#432</th>
-                        <td>Philosophy and Modern Languages</td>
-                        <td>2.30 hrs.</td>
-                        <td>22/02/2017</td> 
-                    </tr>
-                    <tr> 
-                      <th scope="row">#409</th> 
-                        <td>Psychology, Philosophy and Linguistics</td> 
-                        <td>1.45 hrs.</td> 
-                        <td>20/02/2017</td> 
-                    </tr> 
-                    <tr> 
-                      <th scope="row">#416</th> 
-                        <td>Modern Languages</td> 
-                        <td>30 mins.</td> 
-                        <td>19/02/2017</td> 
-                    </tr> 
+                <table class="table">
+                  <thead>
+                  <tr class="irs-table-deading">
+                    <th class="text-center">ID</th>
+                    <th>Name</th>
+                    <th>Duration</th>
+                    <th>Start Date</th>
+                  </tr>
+                  </thead>
+                  <tbody class="irs-table-body">
+                  <tr>
+                    <th scope="row">#432</th>
+                    <td>Philosophy and Modern Languages</td>
+                    <td>2.30 hrs.</td>
+                    <td>22/02/2017</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">#409</th>
+                    <td>Psychology, Philosophy and Linguistics</td>
+                    <td>1.45 hrs.</td>
+                    <td>20/02/2017</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">#416</th>
+                    <td>Modern Languages</td>
+                    <td>30 mins.</td>
+                    <td>19/02/2017</td>
+                  </tr>
                   </tbody>
                 </table>
               </div>
@@ -278,7 +285,7 @@
           </div>
           <div class="irs-sb-bcome-teacher">
             <div class="irs-sb-bct-details text-center">
-              <h3>Become an Instructor Today!</h3>                
+              <h3>Become an Instructor Today!</h3>
               <a href="#" class="btn btn-lg irs-btn-thm2"> Read More</a>
             </div>
           </div>
