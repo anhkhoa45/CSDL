@@ -38,11 +38,11 @@
                   <ul class="list-inline irs-cl-teacher-info">
                     <li class="irs-cl-thumb"><img src="{{ asset('images/courses/s4.png') }}" alt="s4.png"></li>
                     <li class="irs-cl-info">with
-                      <a href="{{ route('teacher-info', ['id' => $course->teacher->id]) }}">
-                        <span class="text-thm2"> {{ $course->teacher->name }}</span>
+                      <a href="{{ route('teacher-info', ['id' => $course->teacher_id]) }}">
+                        <span class="text-thm2"> {{ $course->teacher_name }}</span>
                       </a>
                     </li>
-                    <li> <span class="text-thm2 flaticon-social-2"></span> {{ $course->buyers->count() }}</li>
+                    <li> <span class="text-thm2 flaticon-social-2"></span> {{ $course->buyers }}</li>
                     <li> <span class="text-thm2 flaticon-interface-1"></span> 10</li>
                     <li> <span class="text-thm2 flaticon-folder"></span> Languages / Foreign</li>
 
@@ -87,16 +87,16 @@
                           <div class="irs-cdtls-feture-bot">
                             <ul class="list-group">
                               <li>
-                                <a class="list-group-item" href="#"><span class="flaticon-business text-thm2"></span> Lecture <span class="pull-right"> {{ $course->videos->count() }} </span></a>
+                                <a class="list-group-item"><span class="flaticon-business text-thm2"></span> Lecture <span class="pull-right"> {{ $course->videos->count() }} </span></a>
                               </li>
                               <li>
-                                <a class="list-group-item" href="#"><span class="flaticon-pen text-thm2"></span> Project <span class="pull-right"> {{ $course->projects->count() }} </span></a>
+                                <a class="list-group-item"><span class="flaticon-pen text-thm2"></span> Project <span class="pull-right"> {{ $course->projects->count() }} </span></a>
                               </li>
                               <li>
-                                <a class="list-group-item" href="#"><span class="flaticon-people-1 text-thm2"></span> Students <span class="pull-right"> {{ $course->buyers->count() }} </span></a>
+                                <a class="list-group-item"><span class="flaticon-people-1 text-thm2"></span> Students <span class="pull-right"> {{ $course->buyers }} </span></a>
                               </li>
                               <li>
-                                <a class="list-group-item irs-bbn" href="#"><span class="flaticon-technology text-thm2"></span> Assessments <span class="pull-right"> self </span></a>
+                                <a class="list-group-item irs-bbn"><span class="flaticon-technology text-thm2"></span> Assessments <span class="pull-right"> self </span></a>
                               </li>
                             </ul>
                           </div>
