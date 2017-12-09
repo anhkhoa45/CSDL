@@ -25,15 +25,22 @@
   <link href="{{ asset('css/darkblue.min.css') }}" rel="stylesheet" type="text/css" id="style_color"/>
   <link href="{{ asset('css/custom.min.css') }}" rel="stylesheet" type="text/css"/>
   <link rel="shortcut icon" href="favicon.ico"/>
+  @yield('style')
+
+  <style>
+    .page-content-wrapper .page-content {
+      margin-left: 0;
+    }
+  </style>
+
 </head>
-@yield('style')
 
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-sidebar-fixed page-md">
 @include('includes.dashboard.menu')
 <div class="clearfix"></div>
 
 <div class="page-container">
-@include('includes.dashboard.left_sidebar')
+{{--@include('includes.dashboard.left_sidebar')--}}
   <div class="page-content-wrapper">
     <div class="page-content">
       @yield('content')

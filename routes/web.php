@@ -18,9 +18,11 @@ Auth::routes();
 Route::middleware(['auth'])->group(function(){
     Route::prefix('user')->group(function(){
         Route::get('profile', 'HomeController@profile')->name('profile');
-        Route::get('edit', 'HomeController@edit')->name('user.edit');
-        Route::put('update', 'HomeController@update')->name('user.update');
+        Route::put('update-info', 'HomeController@updateInfo')->name('user.update_info');
+        Route::put('update-ava', 'HomeController@updateAvatar')->name('user.update_ava');
+        Route::put('change-password', 'HomeController@changePassword')->name('user.change_password');
         Route::get('enroll-course/{course}', 'HomeController@enrollCourse')->name('enroll-course');
+        Route::get('create-course', 'HomeController@createCourse')->name('user.create_course');
     });
 });
 
