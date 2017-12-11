@@ -18,9 +18,15 @@ class CreateCoursesTable extends Migration
             $table->string('name');
             $table->string('description',500)->nullable();
             $table->integer('cost');
-            $table->string('status', 15);
+            $table->tinyInteger('status')->unsigned();
             $table->integer('teacher_id')->unsigned();
+            $table->string('avatar')->default('public/courses/avatars/default.jpg');
+            $table->string('cover')->default('public/courses/covers/default.jpg');
+            $table->integer('course_category_id')->unsigned();
             $table->timestamps();
+
+            $table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('course_category_id')->references('id')->on('course_categories')->onDelete('cascade');
         });
     }
 

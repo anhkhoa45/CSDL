@@ -1,74 +1,45 @@
-@extends('layouts.main')
+@extends('layouts.dashboard')
 
 @section('style')
-  <style>
-    .user-links {
-      background: white;
-      padding: 15px 15px;
-      list-style: none;
-    }
-
-    .user-links li {
-      background: white;
-      margin: 15px 0;
-    }
-
-    .user-links li.active {
-      font-weight: bold;
-    }
-
-    .t-center {
-      text-align: center;
-    }
-  </style>
+  <link rel="stylesheet" href="{{ asset('css/pages/profile.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/bootstrap-fileinput.css') }}">
+  <link rel="shortcut icon" href="favicon.ico"/>
 @endsection
 
 @section('content')
+  @php
+  $user = auth()->user();
+  @endphp
   <div class="container">
-    <div class="row">
-      <div class="col-md-3 panel panel-default">
-        <ul class="user-links">
-          <li class="active"><a href="">My profile</a></li>
-          <li><a href="">Enrolled Courses</a></li>
-          <li><a href="">Teaching Courses</a></li>
+    <div class="profile">
+      <div class="tabbable-line tabbable-full-width">
+        <ul class="nav nav-tabs">
+          @if (old('page'))
+            <li>
+              <a href="#tab_1_1" data-toggle="tab"> Overview </a>
+            </li>
+            <li class="active">
+              <a href="#tab_1_3" data-toggle="tab"> Account </a>
+            </li>
+          @else
+            <li class="active">
+              <a href="#tab_1_1" data-toggle="tab"> Overview </a>
+            </li>
+            <li>
+              <a href="#tab_1_3" data-toggle="tab"> Account </a>
+            </li>
+          @endif
+
         </ul>
-      </div>
-      <div class="col-md-8 col-md-offset-1">
-        @if (Session::has('success'))
-          <div class="alert alert-success">
-            <p>{{ Session::get('success') }}</p>
-          </div>
-        @endif
-        <div class="panel panel-default">
-          <div class="panel-heading"><h3>My profile</h3></div>
-
-          <div class="panel-body">
-            <div class="row">
-              <div class="col-md-8">
-                @if (session('status'))
-                  <div class="alert alert-success">
-                    {{ session('status') }}
-                  </div>
-                @endif
-
-                <p><strong>Name: </strong> {{ Auth::user()->name }}</p>
-                <p><strong>Email: </strong> {{ Auth::user()->email }}</p>
-                <p><strong>Date of birth: </strong> {{ Auth::user()->DOB }}</p>
-                <p><strong>Gender: </strong> {{ Auth::user()->gender }}</p>
-                <p><strong>Address: </strong> {{ Auth::user()->address }}</p>
-                <p><strong>Learning score: </strong> {{ Auth::user()->learning_score }}</p>
-                <p><strong>Teaching score: </strong> {{ Auth::user()->teaching_score }}</p>
-
-                <a class="btn btn-primary" href="{{ route('user.edit') }}">Update info</a>
-              </div>
-              <div class="col-md-4 t-center">
-                <h4>Avatar</h4>
-                <img class="img-responsive img-rounded" src="{{ Storage::url(Auth::user()->avatar) }}" alt="Avatar">
-              </div>
-            </div>
-          </div>
+        <div class="tab-content">
+          @include('user.profile-partials.overview')
+          @include('user.profile-partials.account')
         </div>
       </div>
     </div>
   </div>
+@endsection
+
+@section('script')
+  <script src="{{ asset('js/bootstrap-fileinput.js') }}" type="text/javascript"></script>
 @endsection

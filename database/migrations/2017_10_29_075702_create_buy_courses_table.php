@@ -17,7 +17,11 @@ class CreateBuyCoursesTable extends Migration
             $table->integer('course_id')->unsigned();
             $table->integer('buyer_id')->unsigned();
             $table->datetime('date_bought');
-            $table->integer('rating')->unsigned()->nullable();           
+            $table->integer('rating')->unsigned()->nullable();
+
+            $table->primary(['course_id', 'buyer_id']);
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
+            $table->foreign('buyer_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

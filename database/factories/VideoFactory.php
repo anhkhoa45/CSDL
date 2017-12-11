@@ -18,6 +18,7 @@ $factory->define(\App\Video::class, function (Faker $faker) {
             'order_in_course' => $videos + 1,
             'course_id' => $course_id,
             'url' => 'https://www.youtube.com/watch?v=Tsr3NgoExfo&index=4&list=PL55RiY5tL51qUXDyBqx0mKVOhLNFwwxvH',
+            'type' => 0,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
     ];

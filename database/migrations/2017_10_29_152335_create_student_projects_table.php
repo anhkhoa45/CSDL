@@ -16,9 +16,12 @@ class CreateStudentProjectsTable extends Migration
             Schema::create('student_projects', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('performer_id')->unsigned();
-            $table->integer('project_req_id')->unsigned();
+            $table->integer('required_project_id')->unsigned();
             $table->string('status');
             $table->timestamps();
+
+            $table->foreign('performer_id')->references('id')->on('courses')->onDelete('cascade');
+            $table->foreign('required_project_id')->references('id')->on('required_projects')->onDelete('cascade');
         });
     }
 

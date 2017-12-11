@@ -16,11 +16,13 @@ class CreateProjectFilesTable extends Migration
        Schema::create('project_files', function (Blueprint $table) {
             $table->increments('id');
             $table->string('link');
-            $table->integer('id_student_project')->unsigned();
+            $table->integer('student_project_id')->unsigned();
             $table->string('name');
             $table->string('type');
             $table->string('description',500)->nullable();
-        });
+
+           $table->foreign('student_project_id')->references('id')->on('student_projects')->onDelete('cascade');
+       });
     }
 
     /**

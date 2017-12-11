@@ -16,9 +16,12 @@ class CreateWatchVideosTable extends Migration
         Schema::create('watch_videos', function (Blueprint $table) {
             $table->integer('user_id')->unsigned();
             $table->integer('video_id')->unsigned();
-            $table->primary('user_id','video_id');
             $table->datetime('last_seen')->nullable();
             $table->integer('total_view')->unsigned()->nullable();
+
+            $table->primary(['user_id','video_id']);
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('video_id')->references('id')->on('videos')->onDelete('cascade');
         });
     }
 

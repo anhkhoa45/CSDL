@@ -13,9 +13,9 @@ $factory->define(\App\RequiredProject::class, function (Faker $faker) {
     $required_projects = DB::table('required_projects')->where('course_id', $course_id)->count();
 
     return [
-            'project_name' => $faker->text(80),
+            'name' => $faker->text(80),
             'description' => $faker->realText(300),
-            'project_score' => rand(200, 500),
+            'score' => rand(200, 500),
             'order_in_course' => $videos + $required_projects + 1,
             'course_id' => $course_id,
             'created_at' => date('Y-m-d H:i:s'),

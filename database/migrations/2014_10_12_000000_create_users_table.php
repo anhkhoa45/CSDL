@@ -21,10 +21,10 @@ class CreateUsersTable extends Migration
             $table->date('DOB')->nullable();
             $table->string('gender', 10);
             $table->string('address')->nullable();
-            $table->string('balance')->nullable();
+            $table->integer('balance')->nullable();
+            $table->string('avatar')->default('public/users/avatars/default.png');
+            $table->text('description')->nullable();
             $table->string('level', 15)->nullable();
-            $table->string('avatar', 30)->nullable();
-            $table->smallInteger('role');
             $table->bigInteger('learning_score')->default(0);
             $table->bigInteger('teaching_score')->default(0);
             $table->rememberToken();

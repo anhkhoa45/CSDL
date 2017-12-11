@@ -11,9 +11,22 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->truncate();
+        $faker = Faker\Factory::create();
 
-        factory(App\User::class, 1)->states('admin')->create();
-        factory(\App\User::class, 10)->create();
+        $emails = ['khoa.1997a@gmail.com', 'user1@test.com', 'user2@test.com'];
+
+        foreach ($emails as $email){
+            DB::table('users')->insert([
+                'email'         => $email,
+                'password'      => Hash::make('123456'),
+                'name'          => $faker->name(),
+                'DOB'           => $faker->date('Y-m-d', 'now'),
+                'gender'        => $faker->title(),
+                'address'       => $faker->address(),
+                'balance'       => rand(0, 10000),
+                'created_at'     => date('Y-m-d H:i:s'),
+                'updated_at'    => date('Y-m-d H:i:s')
+            ]);
+        }
     }
 }

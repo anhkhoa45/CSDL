@@ -17,10 +17,12 @@ class CreateRequiredProjectsTable extends Migration
             $table->increments('id');
             $table->integer('course_id')->unsigned();
             $table->integer('order_in_course');
-            $table->string('project_name',80);
+            $table->string('name',80);
             $table->string('description',500)->nullable();
-            $table->integer('project_score')->nullable();
+            $table->integer('score')->nullable();
             $table->timestamps();
+
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
         });
     }
 
