@@ -4,22 +4,22 @@
       <ul class="list-unstyled profile-nav">
         <li>
           <img src="{{ Storage::url($user->avatar) }}" class="img-responsive pic-bordered" alt=""/>
-          <a href="javascript:;" class="profile-edit"> edit </a>
+          <a href="" class="profile-edit"> edit </a>
         </li>
-        <li>
-          <a href="javascript:;"> Projects </a>
-        </li>
-        <li>
-          <a href="javascript:;"> Messages
-            <span> 3 </span>
-          </a>
-        </li>
-        <li>
-          <a href="javascript:;"> Friends </a>
-        </li>
-        <li>
-          <a href="javascript:;"> Settings </a>
-        </li>
+        {{--<li>--}}
+          {{--<a href="javascript:;"> Projects </a>--}}
+        {{--</li>--}}
+        {{--<li>--}}
+          {{--<a href="javascript:;"> Messages--}}
+            {{--<span> 3 </span>--}}
+          {{--</a>--}}
+        {{--</li>--}}
+        {{--<li>--}}
+          {{--<a href="javascript:;"> Friends </a>--}}
+        {{--</li>--}}
+        {{--<li>--}}
+          {{--<a href="javascript:;"> Settings </a>--}}
+        {{--</li>--}}
       </ul>
     </div>
     <div class="col-md-9">
@@ -31,7 +31,7 @@
       <div class="tabbable-line tabbable-custom-profile">
         <ul class="nav nav-tabs">
           <li class="active">
-            <a href="#tab_1_11" data-toggle="tab"> Latest Customers </a>
+            <a href="#tab_1_11" data-toggle="tab"> My courses </a>
           </li>
           <li>
             <a href="#tab_1_22" data-toggle="tab"> Feeds </a>

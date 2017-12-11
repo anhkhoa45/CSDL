@@ -16,7 +16,10 @@ class CreateTableUserTitles extends Migration
         Schema::create('user_titles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('related_category_id');
+            $table->integer('related_category_id')->unsigned();
+            $table->timestamps();
+
+            $table->foreign('related_category_id')->references('id')->on('course_categories')->ondelete('cascade');
         });
     }
 

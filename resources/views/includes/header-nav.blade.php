@@ -41,8 +41,21 @@
                     </a>
 
                     <ul class="dropdown-menu">
-                      <li><a href="{{ route('profile') }}">My profile <i
-                              class="fa fa-user-circle-o" aria-hidden="true"></i></a></li>
+                      <li>
+                        <a href="{{ route('profile') }}">
+                          My profile <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="{{ route('user.enrolled_courses') }}">
+                          Enrolled courses <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="">
+                          Teaching courses <i class="fa fa-line-chart" aria-hidden="true"></i>
+                        </a>
+                      </li>
                       <li>
                         <a href="{{ route('logout') }}"
                            onclick="event.preventDefault();
@@ -58,13 +71,11 @@
                     </ul>
                   </li>
                   @else
-                    <li><a href="{{ route('login') }}">Login</a></li>
-                    <li><a href="{{ route('register') }}">Register</a></li>
+                    <li><a href="{{ route('login') }}">Login / Register</a></li>
                     @endauth
                   @endif
             </ul>
           </div>
-          <!-- /.navbar-collapse -->
         </div>
       </nav>
     </div>

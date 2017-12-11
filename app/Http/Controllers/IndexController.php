@@ -9,7 +9,15 @@ use Illuminate\Support\Facades\DB;
 class IndexController extends Controller
 {
     public function index(){
+        if(auth()->check()) {
+            $enrolledCourses = auth()->user()->enrolledCourses->pluck('id');
+        }
+        else {
+            $enrolledCourses = [];
+        }
         $courses = DB::table('courses')
+            ->where('courses.status', '=', Course::STATUS_ACTIVE)
+            ->whereNotIn('courses.id', $enrolledCourses)
             ->leftJoin('users as teacher', 'teacher_id', '=', 'teacher.id')
             ->leftJoin('buy_courses', 'courses.id', '=', 'course_id')
             ->leftJoin('users as buyers', 'buyer_id', '=', 'buyers.id')
@@ -28,7 +36,7 @@ class IndexController extends Controller
     }
 
     public function showTeacherInfo($id){
-        $teacher = User::with('teaching_courses')->findOrFail($id);
+        $teacher = User::with('teachingCourses')->findOrFail($id);
         return view('teacher-info', ['teacher' => $teacher]);
     }
 
@@ -37,11 +45,12 @@ class IndexController extends Controller
             ->leftJoin('users as teacher', 'teacher_id', '=', 'teacher.id')
             ->leftJoin('buy_courses', 'courses.id', '=', 'course_id')
             ->leftJoin('users as buyers', 'buyer_id', '=', 'buyers.id')
-            ->groupBy(['courses.id', 'teacher.name', 'teacher.avatar'])
+            ->groupBy(['courses.id', 'teacher.name', 'teacher.avatar', 'teacher.description'])
             ->select([
                 'courses.*',
                 'teacher.name as teacher_name',
                 'teacher.avatar as teacher_avatar',
+                'teacher.description as teacher_description',
                 DB::raw('count(buyers.id) as buyers')
             ])->first();
 

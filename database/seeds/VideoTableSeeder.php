@@ -11,7 +11,7 @@ class VideoTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('videos')->truncate();
+//        DB::table('videos')->truncate();
         factory(\App\Video::class, 50)->create();
     }
 }

@@ -17,6 +17,7 @@
         type="text/css"/>
   <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet" type="text/css"/>
   <link href="{{ asset('css/simple-line-icons.min.css') }}" rel="stylesheet" type="text/css"/>
+  <link href="{{ asset('css/jquery-ui.min.css') }}" rel="stylesheet" type="text/css"/>
   <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
   <link href="{{ asset('css/bootstrap-switch.min.css') }}" rel="stylesheet" type="text/css"/>
   <link href="{{ asset('css/components-md.min.css') }}" rel="stylesheet" id="style_components" type="text/css"/>
@@ -56,6 +57,7 @@
 <script src="{{ asset('js/respond.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/excanvas.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/jquery.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/jquery-ui.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/js.cookie.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/bootstrap-hover-dropdown.min.js') }}" type="text/javascript"></script>
@@ -64,6 +66,7 @@
 <script src="{{ asset('js/bootstrap-switch.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/app.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/dashboard/layout.min.js') }}" type="text/javascript"></script>
+@yield('script')
 </body>
 
 </html>

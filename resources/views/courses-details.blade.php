@@ -36,7 +36,9 @@
               <div class="irs-courses-details-title">
                 <h2>{{ $course->name }}</h2>
                 <ul class="list-inline irs-cl-teacher-info">
-                  <li class="irs-cl-thumb"><img src="{{ asset('images/courses/s4.png') }}" alt="s4.png"></li>
+                  <li class="irs-cl-thumb">
+                    <img style="height: 50px; width: 50px" src="{{ Storage::url($course->teacher_avatar) }}" alt="s4.png">
+                  </li>
                   <li class="irs-cl-info">with
                     <a href="{{ route('teacher-info', ['id' => $course->teacher_id]) }}">
                       <span class="text-thm2"> {{ $course->teacher_name }}</span>
@@ -46,24 +48,26 @@
                   <li><span class="text-thm2 flaticon-interface-1"></span> 10</li>
                   <li><span class="text-thm2 flaticon-folder"></span> Languages / Foreign</li>
 
-                  @if(\Auth::check() && \Auth::user()->enrolled_courses()->get()->pluck('id')->contains($course->id))
-                    <li class="pull-right">
-                      <a href="#" class="btn btn-default irs-button-styledark disabled">
-                        Enrolled
-                      </a>
-                    </li>
-                  @else
-                    <li class="pull-right">
-                      <a href="{{ route('enroll-course', ['course' => $course->id]) }}"
-                         class="btn btn-default irs-button-styledark">
-                        Take This Course
-                      </a>
-                    </li>
+                  @if(!auth()->check() || $course->teacher_id !== auth()->user()->id)
+                    @if(auth()->check() && auth()->user()->enrolledCourses()->get()->pluck('id')->contains($course->id))
+                      <li class="pull-right">
+                        <a href="#" class="btn btn-default irs-button-styledark disabled">
+                          Enrolled
+                        </a>
+                      </li>
+                    @else
+                      <li class="pull-right">
+                        <a href="{{ route('enroll-course', ['course' => $course->id]) }}"
+                           class="btn btn-default irs-button-styledark">
+                          Take This Course
+                        </a>
+                      </li>
+                    @endif
                   @endif
                 </ul>
               </div>
               <div class="irs-courses-details-thumb">
-                <img class="img-responsive img-fluid" src="{{ asset('images/courses/cd1.jpg') }}" alt="cd1.jpg">
+                <img class="img-responsive img-fluid" src="{{ Storage::url($course->cover) }}" alt="cd1.jpg">
                 <div class="irs-cdtls-price"><p>${{ $course->cost }}</p></div>
               </div>
             </div>
@@ -78,7 +82,7 @@
                                                               data-toggle="tab">Description</a></li>
                     <li role="presentation"><a href="#curriculum" aria-controls="curriculum" role="tab"
                                                data-toggle="tab">Lectures</a></li>
-                    <li role="presentation"><a href="#teachers" aria-controls="teachers" role="tab" data-toggle="tab">Teachers</a>
+                    <li role="presentation"><a href="#teachers" aria-controls="teachers" role="tab" data-toggle="tab">Teacher</a>
                     </li>
                     <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Comments</a>
                     </li>
@@ -162,15 +166,14 @@
                           <div class="col-md-2 irs-mrgnbtm-sxty">
                             <div class="irs-courses-td-sngle">
                               <div class="irs-ctds-thumb">
-                                <img class="img-responsive img-fluid" src="images/team/tsm1.png" alt="tsm1.png">
+                                <img class="img-responsive img-fluid" src="{{ Storage::url($course->teacher_avatar) }}" alt="tsm1.png">
                               </div>
                             </div>
                           </div>
                           <div class="col-md-10 irs-mrgnbtm-sxty irs-all-course-bb">
                             <div class="irs-courses-td-sngle-dtls">
                               <ul class="list-unstyled">
-                                <li class="irs-name-tdsd">Louise M. Ross</li>
-                                <li class="irs-psot-tdsd">History of Arts Teacher</li>
+                                <li class="irs-name-tdsd">{{ $course->teacher_name }}</li>
                               </ul>
                               <div class="irs-social-icon-td-sngle-dtls pull-right">
                                 <ul class="list-inline irs-courses-tdetls">
@@ -180,65 +183,7 @@
                                   <li class="linkdin"><a href="#"><span class="flaticon-linkedin-logo"></span> </a></li>
                                 </ul>
                               </div>
-                              <p>Your week’s work will include a tutorial on linguistics and one on literature, in or
-                                arranged by your college, a linguistics class and language classes on different skills
-                                relating to the language or languages you study, and five or six lectures.</p>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-2 irs-mrgnbtm-sxty">
-                            <div class="irs-courses-td-sngle">
-                              <div class="irs-ctds-thumb">
-                                <img class="img-responsive img-fluid" src="images/team/tsm2.png" alt="tsm2.png">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-md-10 irs-mrgnbtm-sxty irs-all-course-bb">
-                            <div class="irs-courses-td-sngle-dtls">
-                              <ul class="list-unstyled">
-                                <li class="irs-name-tdsd">Miguel M. Ball</li>
-                                <li class="irs-psot-tdsd">Physics and Philosophy Teacher</li>
-                              </ul>
-                              <div class="irs-social-icon-td-sngle-dtls pull-right">
-                                <ul class="list-inline irs-courses-tdetls">
-                                  <li class="fbok"><a href="#"><span class="flaticon-social-3"></span> </a></li>
-                                  <li class="twtr"><a href="#"><span class="flaticon-social-4"></span> </a></li>
-                                  <li class="gplus"><a href="#"><span class="flaticon-social-media-1"></span> </a></li>
-                                  <li class="linkdin"><a href="#"><span class="flaticon-linkedin-logo"></span> </a></li>
-                                </ul>
-                              </div>
-                              <p>Your week’s work will include a tutorial on linguistics and one on literature, in or
-                                arranged by your college, a linguistics class and language classes on different skills
-                                relating to the language or languages you study, and five or six lectures.</p>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-2 irs-mrgnbtm-sxty">
-                            <div class="irs-courses-td-sngle">
-                              <div class="irs-ctds-thumb">
-                                <img class="img-responsive img-fluid" src="images/team/tsm3.png" alt="tsm3.png">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-md-10 irs-mrgnbtm-sxty irs-all-course-bb">
-                            <div class="irs-courses-td-sngle-dtls">
-                              <ul class="list-unstyled">
-                                <li class="irs-name-tdsd">Rebecca J. Wagner</li>
-                                <li class="irs-psot-tdsd">Earth Sciences (Geology) Teacher</li>
-                              </ul>
-                              <div class="irs-social-icon-td-sngle-dtls pull-right">
-                                <ul class="list-inline irs-courses-tdetls">
-                                  <li class="fbok"><a href="#"><span class="flaticon-social-3"></span> </a></li>
-                                  <li class="twtr"><a href="#"><span class="flaticon-social-4"></span> </a></li>
-                                  <li class="gplus"><a href="#"><span class="flaticon-social-media-1"></span> </a></li>
-                                  <li class="linkdin"><a href="#"><span class="flaticon-linkedin-logo"></span> </a></li>
-                                </ul>
-                              </div>
-                              <p>Your week’s work will include a tutorial on linguistics and one on literature, in or
-                                arranged by your college, a linguistics class and language classes on different skills
-                                relating to the language or languages you study, and five or six lectures.</p>
+                              <p>{{ $course->teacher_description }}</p>
                             </div>
                           </div>
                         </div>

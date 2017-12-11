@@ -11,7 +11,7 @@ class RequiredProjectTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('required_projects')->truncate();
+//        DB::table('required_projects')->truncate();
 
         factory(\App\RequiredProject::class, 20)->create();
     }

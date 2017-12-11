@@ -21,7 +21,10 @@ class CreateVideosTable extends Migration
             $table->integer('order_in_course')->unsigned();
             $table->integer('course_id')->unsigned();
             $table->string('url');
+            $table->tinyInteger('type');
             $table->timestamps();
+
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
         });
     }
 

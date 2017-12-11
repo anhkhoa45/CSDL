@@ -22,7 +22,13 @@ Route::middleware(['auth'])->group(function(){
         Route::put('update-ava', 'HomeController@updateAvatar')->name('user.update_ava');
         Route::put('change-password', 'HomeController@changePassword')->name('user.change_password');
         Route::get('enroll-course/{course}', 'HomeController@enrollCourse')->name('enroll-course');
-        Route::get('create-course', 'HomeController@createCourse')->name('user.create_course');
+        Route::get('create-course', 'HomeController@getCreateCoursePage')->name('user.get_create_course');
+        Route::post('create-course', 'HomeController@createCourse')->name('user.create_course');
+        Route::get('enrolled-courses', 'HomeController@enrolledCourses')->name('user.enrolled_courses');
+
+        Route::middleware(['enrolled'])->group(function() {
+            Route::get('learn-course/{course}', 'HomeController@learnCourse')->name('user.learn_course');
+        });
     });
 });
 

@@ -11,13 +11,6 @@
   $user = auth()->user();
   @endphp
   <div class="container">
-    <div class="page-bar">
-      <ul class="page-breadcrumb">
-        <li><span> Home </span><i class="fa fa-circle"></i></li>
-        <li> User </li>
-      </ul>
-    </div>
-    <h3 class="page-title"> My Profile </h3>
     <div class="profile">
       <div class="tabbable-line tabbable-full-width">
         <ul class="nav nav-tabs">

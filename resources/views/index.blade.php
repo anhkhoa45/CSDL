@@ -15,7 +15,7 @@
 @endsection
 
 @section('content')
-
+  @include('includes.slider')
   <!-- Services Section -->
   <section class="irs-courses-one">
     <div class="container">
@@ -43,7 +43,7 @@
                     <div class="irs-courses-fstcol animated fadeIn delay-250">
                       <div class="irs-course-thumb">
                         <a href="{{ route('course-info', ['id' => $course->id ]) }}">
-                          <img class="img-responsive img-fluid" src="images/courses/1.jpg" alt="1.jpg">
+                          <img class="img-responsive img-fluid" src="{{ Storage::url($course->avatar) }}" alt="1.jpg">
                         </a>
                       </div>
                       <div class="irs-course-details">
