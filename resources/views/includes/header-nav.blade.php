@@ -19,9 +19,11 @@
               <li class="dropdown"><a href="#" class="dropdown-toggle"
                                       data-toggle="dropdown">Categories</a>
                 <ul class="dropdown-menu">
-                  <li><a href="page-courses-grid.html">Courses Grid</a></li>
-                  <li><a href="page-courses-list.html">Courses List</a></li>
-                  <li><a href="page-courses-details.html">Courses Details</a></li>
+                   @foreach($categories as $category)
+
+                  <li><a href="page-courses-category.html">{{$category->name}}</a></li>
+
+                  @endforeach
                 </ul>
               </li>
               <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Features</a>
