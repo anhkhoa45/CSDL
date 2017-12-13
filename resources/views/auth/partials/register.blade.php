@@ -18,9 +18,9 @@
     <div class="input-icon">
       <i class="fa fa-user"></i>
       <select class="form-control" name="gender" >
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-        <option value="other">Other</option>
+        <option value="{{ \App\User::GENDER_MALE }}">Male</option>
+        <option value="{{ \App\User::GENDER_FEMALE }}">Female</option>
+        <option value="{{ \App\User::GENDER_OTHER }}">Other</option>
       </select>
     </div>
   </div>

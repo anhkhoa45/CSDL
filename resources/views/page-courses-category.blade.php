@@ -88,7 +88,9 @@
 
             @endforeach
           </div>
-          {!! $courses->links() !!}
+          <div class="text-center">
+            {!! $courses->links() !!}
+          </div>
         </div>
         @include('includes.right-sidebar')
       </div>

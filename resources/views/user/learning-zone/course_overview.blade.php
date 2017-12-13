@@ -1,52 +1,38 @@
 @extends('layouts.main')
 
 @section('style')
-  <style>
-    .irs-bb-right {
-      margin-bottom: 0;
-    }
-  </style>
+  <link rel="stylesheet" href="{{asset('css/bootstrap-rating.css')}}">
 @endsection
 
 @section('content')
-
-  <!-- Breadcrumbs html -->
-  <section class="irs-ip-brdcrumb">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 text-right irs-bb-right">
-          <ul class="list-inline irs-brdcrmb">
-            <li><a href="#">Home</a></li>
-            <li><a href="#"> > </a></li>
-            <li><a href="#">Courses</a></li>
-            <li><a href="#"> > </a></li>
-            <li><a class="active" href="#">Grid</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section class="irs-ip-details irs-padb-svnty">
     <div class="container">
       <div class="row clearfix">
-        <div class="col-sm-12 col-md-8 col-lg-9 clearfix">
+        <div class="col-sm-12 clearfix">
           <div class="row">
             <div class="col-lg-12">
               <div class="irs-courses-details-title">
                 <h2>{{ $course->name }}</h2>
                 <ul class="list-inline irs-cl-teacher-info">
                   <li class="irs-cl-thumb">
-                    <img style="height: 50px; width: 50px" src="{{ Storage::url($course->teacher_avatar) }}" alt="s4.png">
+                    <img style="height: 50px; width: 50px" src="{{ Storage::url($course->teacher->avatar) }}" alt="s4.png">
                   </li>
                   <li class="irs-cl-info">with
-                    <a href="{{ route('teacher-info', ['id' => $course->teacher_id]) }}">
-                      <span class="text-thm2"> {{ $course->teacher_name }}</span>
+                    <a href="{{ route('teacher-info', ['id' => $course->teacher->id]) }}">
+                      <span class="text-thm2"> {{ $course->teacher->name }}</span>
                     </a>
                   </li>
-                  <li><span class="text-thm2 flaticon-social-2"></span> {{ $course->buyers }}</li>
-                  <li><span class="text-thm2 flaticon-interface-1"></span> 10</li>
-                  <li><span class="text-thm2 flaticon-folder"></span> Languages / Foreign</li>
+                  <li>
+                    <form action="{{ route('user.rate_course', ['course' => $course->id]) }}" method="POST">
+                      {{ csrf_field() }}
+                      <input type="hidden" class="rating"
+                             data-filled="text-thm2 fa fa-star"
+                             data-filled-selected="text-thm2 fa fa-star"
+                             data-empty="text-thm2 fa fa-star-o"
+                             value="{{ $course->pivot->rating }}" name="rating"/>
+                      <button type="submit" style="color: gold; background: none; border: none">Update my rating</button>
+                    </form>
+                  </li>
                 </ul>
               </div>
               <div class="irs-courses-details-thumb">
@@ -117,4 +103,16 @@
       </div>
     </div>
   </section>
+@endsection
+
+@section('script')
+  <script type="text/javascript" src="{{ asset('js/bootstrap-rating.min.js') }}"></script>
+  <script>
+    $(document).ready(() => {
+        $(".rating").rating({
+            start: 0,
+            stop: 5,
+        });
+    });
+  </script>
 @endsection
