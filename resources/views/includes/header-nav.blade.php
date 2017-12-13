@@ -12,16 +12,20 @@
                   src="{{ asset('images/header-logo.png') }}" class="logo" alt="header-logo.png"></a>
           </div>
           <!-- End Header Navigation -->
-
+          @php
+            $categories = \App\CourseCategory::all();
+          @endphp
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="navbar-menu">
             <ul class="nav navbar-nav navbar-left">
               <li class="dropdown"><a href="#" class="dropdown-toggle"
                                       data-toggle="dropdown">Categories</a>
                 <ul class="dropdown-menu">
-                  <li><a href="page-courses-grid.html">Courses Grid</a></li>
-                  <li><a href="page-courses-list.html">Courses List</a></li>
-                  <li><a href="page-courses-details.html">Courses Details</a></li>
+                   @foreach($categories as $category)
+
+                  <li><a href="{{route('category', ['id' => $category->id])}}">{{$category->name}}</a></li>
+
+                  @endforeach
                 </ul>
               </li>
               <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Features</a>
