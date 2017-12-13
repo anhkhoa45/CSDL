@@ -33,10 +33,12 @@ class IndexController extends Controller
 
         $recently_courses = $courses->sortByDesc('created_at')->take(4);
         $popular_courses = $courses->sortByDesc('buyers')->take(4);
+        $toprating_courses = $courses->sortByDesc('avg_rating')->take(4);
 
         $data = [
             'r_courses' => $recently_courses,
-            'p_courses' => $popular_courses
+            'p_courses' => $popular_courses,
+            't_courses' => $toprating_courses
         ];
 
         return view('index', $data);
@@ -68,7 +70,7 @@ class IndexController extends Controller
     {
         $category = CourseCategory::findOrFail($category_id);
         $courses = $category->courses()
-            ->with(['teacher', 'buyers'])->paginate(4);
+            ->with(['teacher', 'buyers'])->paginate(config('view.paginate'));
 
         $data = [
             'category' => $category,
