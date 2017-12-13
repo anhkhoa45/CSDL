@@ -45,21 +45,35 @@
                     </a>
                   </li>
                   <li><span class="text-thm2 flaticon-social-2"></span> {{ $course->buyers }}</li>
-                  <li><span class="text-thm2 flaticon-interface-1"></span> 10</li>
-                  <li><span class="text-thm2 flaticon-folder"></span> Languages / Foreign</li>
+                  <li><span class="text-thm2 fa fa-star" aria-hidden="true"></span> {{ number_format($course->avg_rating, 0) }}</li>
 
-                  @if(!auth()->check() || $course->teacher_id !== auth()->user()->id)
-                    @if(auth()->check() && auth()->user()->enrolledCourses()->get()->pluck('id')->contains($course->id))
-                      <li class="pull-right">
-                        <a href="#" class="btn btn-default irs-button-styledark disabled">
-                          Enrolled
-                        </a>
-                      </li>
+                  @if(!auth()->check())
+                    <li class="pull-right">
+                      <a href="{{ route('enroll-course', ['course' => $course->id]) }}"
+                         class="btn btn-default irs-button-styledark">
+                        Take This Course
+                      </a>
+                    </li>
+                  @else
+                    @if(auth()->user()->id !== $course->teacher_id)
+                      @if(auth()->user()->enrolledCourses()->get()->pluck('id')->contains($course->id))
+                        <li class="pull-right">
+                          <a href="#" class="btn btn-default irs-button-styledark disabled">
+                            Enrolled
+                          </a>
+                        </li>
+                      @else
+                        <li class="pull-right">
+                          <a href="{{ route('enroll-course', ['course' => $course->id]) }}"
+                             class="btn btn-default irs-button-styledark">
+                            Take This Course
+                          </a>
+                        </li>
+                      @endif
                     @else
                       <li class="pull-right">
-                        <a href="{{ route('enroll-course', ['course' => $course->id]) }}"
-                           class="btn btn-default irs-button-styledark">
-                          Take This Course
+                        <a href="#" class="btn btn-default irs-button-styledark disabled">
+                          Own course
                         </a>
                       </li>
                     @endif

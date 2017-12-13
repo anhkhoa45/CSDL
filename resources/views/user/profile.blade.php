@@ -8,13 +8,29 @@
 
 @section('content')
   @php
-  $user = auth()->user();
+  $hasPrevPage = false;
+  $prevPage = '';
+
+  if(session()->has('page')){
+      $hasPrevPage = true;
+      $prevPage = session()->get('page');
+  } elseif (old('page')){
+      $hasPrevPage = true;
+      $prevPage = old('page');
+  }
   @endphp
   <div class="container">
     <div class="profile">
+      <div class="col-md-12">
+        @if (session('success'))
+          <div class="alert alert-success">
+            {{ session('success') }}
+          </div>
+        @endif
+      </div>
       <div class="tabbable-line tabbable-full-width">
         <ul class="nav nav-tabs">
-          @if (old('page'))
+          @if ($hasPrevPage)
             <li>
               <a href="#tab_1_1" data-toggle="tab"> Overview </a>
             </li>

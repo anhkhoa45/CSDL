@@ -48,9 +48,9 @@
                       </div>
                       <div class="irs-course-details">
                         <ul class="list-inline">
-                          <li class="irs-user"><a href="#"><span
-                                  class="flaticon-people-1"></span> {{ $course->buyers }}</a></li>
-                          <li class="irs-ccomment"><a href="#"><span class="flaticon-interface"></span> 4</a></li>
+                          <li class="irs-user">
+                            <a href="#"><span class="flaticon-people-1"></span> {{ $course->buyers }}</a></li>
+                          <li class="irs-ccomment"><a href="#"><span class="fa fa-star" aria-hidden="true"></span> {{ number_format($course->avg_rating, 0) }}</a></li>
                           <li class="irs-course-price"><a href="#" class="text-thm2"><span class=""></span>
                               ${{ $course->cost }}</a></li>
                         </ul>
@@ -74,26 +74,27 @@
                 @foreach($p_courses as $course)
                   <div class="col-xs-12 col-sm-6 col-md-3 irs-ext-pad animatedParent">
                     <div class="irs-courses-fstcol animated fadeIn delay-250">
-                      <div class="irs-course-thumb"><img class="img-responsive img-fluid" src="images/courses/1.jpg"
-                                                         alt="1.jpg"></div>
+                      <div class="irs-course-thumb">
+                        <a href="{{ route('course-info', ['id' => $course->id ]) }}">
+                          <img class="img-responsive img-fluid" src="{{ Storage::url($course->avatar) }}" alt="1.jpg">
+                        </a>
+                      </div>
                       <div class="irs-course-details">
                         <ul class="list-inline">
-                          <li class="irs-user"><a href="#"><span
-                                  class="flaticon-people-1"></span> {{ $course->buyers }}</a></li>
-                          <li class="irs-ccomment"><a href="#"><span class="flaticon-interface"></span> 4</a></li>
+                          <li class="irs-user">
+                            <a href="#"><span class="flaticon-people-1"></span> {{ $course->buyers }}</a></li>
+                          <li class="irs-ccomment"><a href="#"><span class="fa fa-star" aria-hidden="true"></span> {{ number_format($course->avg_rating, 0) }}</a></li>
                           <li class="irs-course-price"><a href="#" class="text-thm2"><span class=""></span>
                               ${{ $course->cost }}</a></li>
                         </ul>
                         <h3><a href="{{ route('course-info', ['id' => $course->id ]) }}">{{ $course->name }}</a></h3>
                         <div class="irs-student-info">
-                          <div class="irs-studend-thumb">
-                            <img class="img-responsive img-circle"
-                                 src="{{ Storage::url($course->teacher_avatar) }}"
-                                 alt="student1.png">
-                          </div>
+                          <div class="irs-studend-thumb"><img class="img-responsive img-circle"
+                                                              src="{{ Storage::url($course->teacher_avatar) }}"
+                                                              alt="student1.png"></div>
                           <div class="irs-student-name">
-                            <a href="{{ route('teacher-info', ['id' => $course->teacher_id]) }}">with
-                              <span class="text-thm2">{{ $course->teacher_name }}</span>
+                            <a href="{{ route('teacher-info', ['id' => $course->teacher_id]) }}">
+                              with <span class="text-thm2">{{ $course->teacher_name }}</span>
                             </a>
                           </div>
                         </div>
@@ -105,8 +106,11 @@
               <div role="tabpanel" class="tab-pane" id="messages">
                 <div class="col-xs-12 col-sm-6 col-md-3 irs-ext-pad animatedParent">
                   <div class="irs-courses-fstcol animated fadeIn delay-250">
-                    <div class="irs-course-thumb"><img class="img-responsive img-fluid" src="images/courses/1.jpg"
-                                                       alt="1.jpg"></div>
+                    <div class="irs-course-thumb">
+
+                      <img class="img-responsive img-fluid" src="images/courses/1.jpg"
+                                                       alt="1.jpg">
+                    </div>
                     <div class="irs-course-details">
                       <ul class="list-inline">
                         <li class="irs-user"><a href="#"><span class="flaticon-people-1"></span> 321</a></li>

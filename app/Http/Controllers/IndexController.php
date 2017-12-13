@@ -26,7 +26,8 @@ class IndexController extends Controller
                 'courses.*',
                 'teacher.name as teacher_name',
                 'teacher.avatar as teacher_avatar',
-                DB::raw('count(buyers.id) as buyers')
+                DB::raw('count(buyers.id) as buyers'),
+                DB::raw('avg(buy_courses.rating) as avg_rating'),
             ])->get();
 
         $recently_courses = $courses->sortByDesc('created_at')->take(4);
@@ -51,7 +52,8 @@ class IndexController extends Controller
                 'teacher.name as teacher_name',
                 'teacher.avatar as teacher_avatar',
                 'teacher.description as teacher_description',
-                DB::raw('count(buyers.id) as buyers')
+                DB::raw('count(buyers.id) as buyers'),
+                DB::raw('avg(buy_courses.rating) as avg_rating'),
             ])->first();
 
         return view('courses-details', ['course' => $course]);
