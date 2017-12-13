@@ -5,7 +5,7 @@
             @php
                 $categories = \App\CourseCategory::all();
             @endphp
-            <li class="active"><a href="{{route('index')}}"><span class="flaticon-arrows-3"></span> All Courses</a></li>
+            <li class="active"><a href="{{route('all-course')}}"><span class="flaticon-arrows-3"></span> All Courses</a></li>
             @foreach($categories as $category)
             <li><a href="{{route('category', ['id' => $category->id])}}"><span class="flaticon-arrows-3"></span> {{$category->name}}</a></li>
             @endforeach
