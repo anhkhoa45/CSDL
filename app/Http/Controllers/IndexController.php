@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\CourseCategory;
 use App\User;
 use Illuminate\Support\Facades\DB;
 
@@ -33,7 +34,12 @@ class IndexController extends Controller
         $recently_courses = $courses->sortByDesc('created_at')->take(4);
         $popular_courses = $courses->sortByDesc('buyers')->take(4);
 
-        return view('index', ['r_courses' => $recently_courses, 'p_courses' => $popular_courses]);
+        $data = [
+            'r_courses' => $recently_courses,
+            'p_courses' => $popular_courses
+        ];
+
+        return view('index', $data);
     }
 
     public function showTeacherInfo($id){
@@ -58,4 +64,18 @@ class IndexController extends Controller
 
         return view('courses-details', ['course' => $course]);
     }
+    public function showCategoryCourse($category_id)
+    {
+        $category = CourseCategory::findOrFail($category_id);
+        $courses = $category->courses()
+            ->with(['teacher', 'buyers'])->paginate(4);
+
+        $data = [
+            'category' => $category,
+            'courses' => $courses
+        ];
+
+        return view('page-courses-category', $data);
+    }
+
 }
