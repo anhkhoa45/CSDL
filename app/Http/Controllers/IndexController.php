@@ -62,5 +62,18 @@ class IndexController extends Controller
 
         return view('courses-details', ['course' => $course]);
     }
+    public function showCategoryCourse($category_id)
+    {
+        $category = CourseCategory::findOrFail($category_id);
+        $courses = $category->courses()
+            ->with(['teacher', 'buyers'])->paginate(4);
+
+        $data = [
+            'category' => $category,
+            'courses' => $courses
+        ];
+
+        return view('page-courses-category', $data);
+    }
 
 }
