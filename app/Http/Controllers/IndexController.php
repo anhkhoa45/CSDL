@@ -33,12 +33,9 @@ class IndexController extends Controller
         $recently_courses = $courses->sortByDesc('created_at')->take(4);
         $popular_courses = $courses->sortByDesc('buyers')->take(4);
 
-        $categories = CourseCategory::all();
-
         $data = [
             'r_courses' => $recently_courses,
-            'p_courses' => $popular_courses,
-            'categories' => $categories
+            'p_courses' => $popular_courses
         ];
 
         return view('index', $data);
