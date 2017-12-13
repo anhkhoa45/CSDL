@@ -88,7 +88,9 @@
 
             @endforeach
           </div>
-          {!! $courses->links() !!}
+          <div class="text-center">
+            {!! $courses->links() !!}
+          </div>
         </div>
         <div class="col-sm-12 col-md-4 col-lg-3">
           <div class="irs-sb-courses">

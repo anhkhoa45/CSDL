@@ -2,7 +2,9 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @property mixed $teacher
@@ -44,7 +46,35 @@ class Course extends Model
         return $this->hasMany(RequiredProject::class);
     }
 
-    public function category(){
+    public function category()
+    {
         return $this->belongsTo(CourseCategory::class);
+    }
+
+    public function getTotalBuyers()
+    {
+        $buyers = $this->buyers()->count();
+        return $buyers;
+    }
+
+    public function getMonthBuyers()
+    {
+        $buyers = $this->buyers
+            ->wherePivot('date_bought', '>=', Carbon::now()->subDays(30))->count();
+        return $buyers;
+    }
+
+    public function getWeekBuyers()
+    {
+        $buyers = $this->buyers
+            ->wherePivot('date_bought', '>=', Carbon::now()->subDays(7))->count();
+        return $buyers;
+    }
+
+    public function getTodayBuyers()
+    {
+        $buyers = $this->buyers
+            ->wherePivot('date_bought', '>=', Carbon::today())->count();
+        return $buyers;
     }
 }
