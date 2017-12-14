@@ -79,5 +79,11 @@ class IndexController extends Controller
 
         return view('page-courses-category', $data);
     }
+    public function  showAllCourse()
+    {
+        $courses = Course::paginate(config('view.paginate'));
+
+        return view('page-all-courses',['courses'=>$courses]);
+    }
 
 }
