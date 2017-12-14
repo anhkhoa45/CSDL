@@ -72,7 +72,7 @@
                     <div class="irs-lct-thumb"><img style="max-height: 50px; max-width: 50px;" src="{{ Storage::url($course->teacher->avatar) }}" alt="s3.png"></div>
                     <div class="irs-lct-info">with <span class="text-thm2"> {{ $course->teacher->name }}</span></div>
                   </div>
-                  <h4><a href="#">{{ $course->name }}</a></h4>
+                  <h4><a href="{{ route('course-info', ['id' => $course->id ]) }}">{{ $course->name }}</a></h4>
                 </div>
                 <div class="irs-lc-footer">
                   <div class="irs-lc-normal-part">

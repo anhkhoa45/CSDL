@@ -50,6 +50,7 @@
             <div class="col-sm-6 col-md-6 col-lg-4 clearfix">
               <div class="irs-lc-grid style2 text-center">
                 <div class="irs-lc-grid-thumb">
+
                   <img class="img-responsive img-fluid" src="{{ Storage::url($course->avatar) }}" alt="5.jpg">
                   <div class="irs-lc-overlay"></div>
                   <div class="irs-lc-price">{{ $course->price }}</div>
@@ -59,7 +60,7 @@
                     <div class="irs-lct-thumb"><img style="max-height: 50px; max-width: 50px;" src="{{ Storage::url($course->teacher->avatar) }}" alt="s3.png"></div>
                     <div class="irs-lct-info">with <span class="text-thm2"> {{ $course->teacher->name }}</span></div>
                   </div>
-                  <h4><a href="#">{{ $course->name }}</a></h4>
+                  <h4><a href="{{ route('course-info', ['id' => $course->id ]) }}">{{ $course->name }}</a></h4>
                 </div>
                 <div class="irs-lc-footer">
                   <div class="irs-lc-normal-part">
