@@ -43,3 +43,4 @@ Route::middleware(['auth'])->group(function(){
 Route::get('course-info/{id}', 'IndexController@showCourseInfo')->name('course-info');
 Route::get('teacherinfo/{id}', 'IndexController@showTeacherInfo')->name('teacher-info');
 Route::get('category/{id}','IndexController@showCategoryCourse')->name('category');
+Route::get('all-course','IndexController@showAllCourse')->name('all-course');

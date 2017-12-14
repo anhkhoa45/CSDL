@@ -13,29 +13,12 @@
     }
   </style>
 @endsection
-
 @section('content')
   <section class="irs-ip-breadcrumbs">
     <div class="container">
       <div class="row">
         <div class="col-lg-6 col-lg-offset-3 text-center">
           <h1 class="irs-bc-title">Courses</h1>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="irs-ip-brdcrumb">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 text-right irs-bb-right">
-          <ul class="list-inline irs-brdcrmb">
-            <li><a href="#">Home</a></li>
-            <li><a href="#"> > </a></li>
-            <li><a href="#">Courses</a></li>
-            <li><a href="#"> > </a></li>
-            <li><a class="active" href="#">{{ $category->name }}</a></li>
-          </ul>
         </div>
       </div>
     </div>
@@ -49,7 +32,11 @@
             <ul class="list-inline pull-left">
               <li><a href="#"><span class="flaticon-squares text-thm2"></span></a></li>
               <li><a href="#"><span class="flaticon-signs-3"></span></a></li>
-              <li><a href="#">Showing 1-2 of 39 results</a></li>
+              <li>
+                <a href="#">
+                  Showing {{ ($courses->currentPage()-1)*12 }}-{{ $courses->currentPage()*12 < $courses->total() ? $courses->currentPage()*12:$courses->total() }} of {{ $courses->total() }} results
+                </a>
+              </li>
             </ul>
             <div class="input-group irs-nav-search-form">
               <input type="text" class="form-control pull-right" placeholder="Search courses">
@@ -63,14 +50,14 @@
             <div class="col-sm-6 col-md-6 col-lg-4 clearfix">
               <div class="irs-lc-grid style2 text-center">
                 <div class="irs-lc-grid-thumb">
+
                   <img class="img-responsive img-fluid" src="{{ Storage::url($course->avatar) }}" alt="5.jpg">
-                  <div class="irs-lc-price">$ {{ $course->cost }}</div>
+                  <div class="irs-lc-overlay"></div>
+                  <div class="irs-lc-price">{{ $course->price }}</div>
                 </div>
                 <div class="irs-lc-details">
                   <div class="irs-lc-teacher-info">
-                    <div class="irs-lct-thumb">
-                      <img style="border-radius: 50%; max-height: 50px; max-width: 50px;" src="{{ Storage::url($course->teacher->avatar) }}" alt="s3.png">
-                    </div>
+                    <div class="irs-lct-thumb"><img style="max-height: 50px; max-width: 50px;" src="{{ Storage::url($course->teacher->avatar) }}" alt="s3.png"></div>
                     <div class="irs-lct-info">with <span class="text-thm2"> {{ $course->teacher->name }}</span></div>
                   </div>
                   <h4><a href="{{ route('course-info', ['id' => $course->id ]) }}">{{ $course->name }}</a></h4>
