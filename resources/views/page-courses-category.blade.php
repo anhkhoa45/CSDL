@@ -64,12 +64,13 @@
               <div class="irs-lc-grid style2 text-center">
                 <div class="irs-lc-grid-thumb">
                   <img class="img-responsive img-fluid" src="{{ Storage::url($course->avatar) }}" alt="5.jpg">
-                  <div class="irs-lc-overlay"></div>
-                  <div class="irs-lc-price">{{ $course->price }}</div>
+                  <div class="irs-lc-price">$ {{ $course->cost }}</div>
                 </div>
                 <div class="irs-lc-details">
                   <div class="irs-lc-teacher-info">
-                    <div class="irs-lct-thumb"><img style="max-height: 50px; max-width: 50px;" src="{{ Storage::url($course->teacher->avatar) }}" alt="s3.png"></div>
+                    <div class="irs-lct-thumb">
+                      <img style="border-radius: 50%; max-height: 50px; max-width: 50px;" src="{{ Storage::url($course->teacher->avatar) }}" alt="s3.png">
+                    </div>
                     <div class="irs-lct-info">with <span class="text-thm2"> {{ $course->teacher->name }}</span></div>
                   </div>
                   <h4><a href="#">{{ $course->name }}</a></h4>

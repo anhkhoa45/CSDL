@@ -34,6 +34,8 @@ Route::middleware(['auth'])->group(function(){
         Route::middleware(['enrolled'])->group(function() {
             Route::get('learn-course/{course}', 'LearningController@learnCourse')->name('user.learn_course');
             Route::post('rate-course/{course}', 'LearningController@rateCourse')->name('user.rate_course');
+            Route::get('{course}/watch-video/{video}', 'LearningController@watchVideo')->name('user.watch_video');
+            Route::get('{course}/earn-video-score/{video}', 'LearningController@earnVideoScore')->name('user.earn_video_score');
         });
     });
 });

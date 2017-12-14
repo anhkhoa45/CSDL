@@ -96,12 +96,16 @@ class HomeController extends Controller
         }
 
         if($user->balance < $course->cost){
-            return redirect()->route('user.add_money')
-                ->with('page', 'balance')
-                ->withErrors(['Your balance id not enough, add some money to continue']);
+            return redirect()->route('profile')
+                ->with('page', 'update_balance')
+                ->withErrors(['balance' => 'Your balance id not enough, add some money to continue']);
         }
 
         auth()->user()->enrolledCourses()->attach($course_id, ['date_bought' => Carbon::now()]);
+
+        auth()->user()->update([
+            'balance' => auth()->user()->balance - $course->cost,
+        ]);
 
         $course->teacher()->update([
            'balance' => $course->teacher->balance + $course->cost,

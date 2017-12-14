@@ -40,7 +40,7 @@
 </head>
 <body>
 <div class="wrapper">
-  @include('includes.header-nav');
+  @include('includes.header-nav')
 
   @yield('content')
 

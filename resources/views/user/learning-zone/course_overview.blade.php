@@ -61,7 +61,7 @@
                           <ul class="list-group">
                             @foreach($course->videos()->orderBy('order_in_course')->get() as $video)
                               <li>
-                                <a class="list-group-item" href="#">
+                                <a class="list-group-item" href="{{ route('user.watch_video', ['course' => $course->id, 'video' => $video->id]) }}">
                                   <ul class="list-inline">
                                     <li><span class="flaticon-business text-thm2"></span> Video
                                       #{{$video->order_in_course}} </li>
