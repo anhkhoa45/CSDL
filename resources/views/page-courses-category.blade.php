@@ -49,7 +49,9 @@
             <ul class="list-inline pull-left">
               <li><a href="#"><span class="flaticon-squares text-thm2"></span></a></li>
               <li><a href="#"><span class="flaticon-signs-3"></span></a></li>
-              <li><a href="#">Showing 1-2 of 39 results</a></li>
+              <a href="#">
+                Showing {{ ($courses->currentPage()-1)*12 }}-{{ $courses->currentPage()*12 < $courses->total() ? $courses->currentPage()*12:$courses->total() }} of {{ $courses->total() }} results
+              </a>
             </ul>
             <div class="input-group irs-nav-search-form">
               <input type="text" class="form-control pull-right" placeholder="Search courses">
@@ -65,7 +67,6 @@
                 <div class="irs-lc-grid-thumb">
                   <img class="img-responsive img-fluid" src="{{ Storage::url($course->avatar) }}" alt="5.jpg">
                   <div class="irs-lc-overlay"></div>
-                  <div class="irs-lc-price">{{ $course->price }}</div>
                 </div>
                 <div class="irs-lc-details">
                   <div class="irs-lc-teacher-info">
@@ -79,6 +80,7 @@
                     <ul class="list-inline">
                       <li><a href="#"><i class="fa fa-users"></i> {{ $course->buyers->count() }}</a></li>
                       <li class="irs-ccomment"><a href="#"><span class="fa fa-star" aria-hidden="true"></span> {{ number_format($course->avg_rating, 0) }}</a></li>
+                      <li class="irs-sblc-price text-thm2">${{$course->cost}}</li>
                     </ul>
                   </div>
                   <div class="irs-lc-hover-part">See Course</div>

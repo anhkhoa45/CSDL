@@ -53,7 +53,7 @@
 
                   <img class="img-responsive img-fluid" src="{{ Storage::url($course->avatar) }}" alt="5.jpg">
                   <div class="irs-lc-overlay"></div>
-                  <div class="irs-lc-price">{{ $course->price }}</div>
+                  <div class="irs-lc-price">{{ $course->cost }}</div>
                 </div>
                 <div class="irs-lc-details">
                   <div class="irs-lc-teacher-info">
@@ -61,12 +61,14 @@
                     <div class="irs-lct-info">with <span class="text-thm2"> {{ $course->teacher->name }}</span></div>
                   </div>
                   <h4><a href="{{ route('course-info', ['id' => $course->id ]) }}">{{ $course->name }}</a></h4>
+                  <p class="irs-sblc-price text-thm2">${{$course->cost}}</p>
                 </div>
                 <div class="irs-lc-footer">
                   <div class="irs-lc-normal-part">
                     <ul class="list-inline">
                       <li><a href="#"><i class="fa fa-users"></i> {{ $course->buyers->count() }}</a></li>
                       <li class="irs-ccomment"><a href="#"><span class="fa fa-star" aria-hidden="true"></span> {{ number_format($course->avg_rating, 0) }}</a></li>
+                      <li class="irs-sblc-price text-thm2">${{$course->cost}}</li>
                     </ul>
                   </div>
                   <div class="irs-lc-hover-part">See Course</div>

@@ -73,7 +73,9 @@
                     <div class="irs-lc-normal-part">
                       <ul class="list-inline">
                         <li><a href="#"><i class="fa fa-users"></i> {{ $course->buyers->count() }}</a></li>
-                        <li><a href="#"><i class="fa fa-commenting"></i> 4</a></li>
+                        <li><span class="text-thm2 fa fa-star" aria-hidden="true"></span> {{ number_format($course->avg_rating, 0) }}</li>
+
+                        <li class="irs-sblc-price text-thm2">${{$course->cost}}</li>
                       </ul>
                     </div>
                     <div class="irs-lc-hover-part">See Course</div>
