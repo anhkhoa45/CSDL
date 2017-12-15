@@ -19,11 +19,5 @@
     <li>
       <i class="fa fa-money"></i> {{ $user->balance }}
     </li>
-    <li>
-      <i class="fa fa-star"></i> Top Seller
-    </li>
-    <li>
-      <i class="fa fa-heart"></i> BASE Jumping
-    </li>
   </ul>
 </div>

@@ -61,7 +61,7 @@ class HomeController extends Controller
 
         return redirect()->route('profile')
             ->with('success', 'Your profile updated successfully ')
-            ->with('page', 'update_avatar');
+            ->with('page', 'update_ava');
     }
     
     public function updateBalance(UpdateUserBalance $request){
@@ -142,9 +142,16 @@ class HomeController extends Controller
 
     public function teachingCourseDetail($course_id)
     {
-//        $user = auth()->user();
-//        $course = $user->teachingCourses()->findOrFail($course_id);
-//
+        $user = auth()->user();
+        $course = $user->teachingCourses()->findOrFail($course_id);
+        $monthlyBuyers = $course->getMonthlyBuyers();
+//        dd($monthlyBuyers);
+        $data = [
+            'course' => $course,
+            'monthlyBuyers' => $monthlyBuyers
+        ];
+
+        return view('user.teaching_course_detail', $data);
     }
 
 }

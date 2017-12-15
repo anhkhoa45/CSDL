@@ -68,7 +68,6 @@
                                     <li>
                                       <div class="its-tdu">{{$video->name}} </div>
                                     </li>
-                                    <li><span class="btn btn-sm irs-btn-thm3"> Preview</span></li>
                                   </ul>
                                 </a>
                               </li>
@@ -85,7 +84,6 @@
                                     <li>
                                       <div class="its-tdu">{{$project->project_name}} </div>
                                     </li>
-                                    <li><span class="btn btn-sm irs-btn-thm3"> Preview</span></li>
                                   </ul>
                                 </a>
                               </li>

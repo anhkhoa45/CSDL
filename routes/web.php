@@ -26,7 +26,7 @@ Route::middleware(['auth'])->group(function(){
         Route::get('enrolled-courses', 'HomeController@enrolledCourses')->name('user.enrolled_courses');
         Route::get('teaching-courses', 'HomeController@teachingCourses')->name('user.teaching_courses');
 
-        Route::get('create-course', 'CreateCourseController@createCourse')->name('user.get_create_course');
+        Route::get('create-course', 'CreateCourseController@getCreateCoursePage')->name('user.get_create_course');
         Route::post('create-course', 'CreateCourseController@createCourse')->name('user.create_course');
 
         Route::get('teaching-course/{course}', 'HomeController@teachingCourseDetail')->name('user.teaching_course_detail');

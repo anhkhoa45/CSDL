@@ -1,8 +1,9 @@
 <div class="page-header navbar navbar-fixed-top">
+  <div class="container">
   <div class="page-header-inner ">
     <div class="page-logo">
       <a href="{{ route('index') }}">
-        <img src="{{ asset('img/logo.png') }}" alt="logo" class="logo-default"/>
+        <img src="{{ asset('img/logo.png') }}" style="max-width: 161px; max-height: 50px; margin: 0; padding: 10px 0;" alt="logo" class="logo-default"/>
       </a>
     </div>
     <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse"
@@ -24,40 +25,35 @@
           <ul class="dropdown-menu dropdown-menu-default">
             <li>
               <a href="{{ route('profile') }}">
-                <i class="icon-user"></i> My Profile </a>
-            </li>
-            <li>
-              <a href="#">
-                <i class="icon-calendar"></i> My Calendar </a>
-            </li>
-            <li>
-              <a href="#">
-                <i class="icon-envelope-open"></i> My Inbox
-                <span class="badge badge-danger"> 3 </span>
+                My profile <i class="fa fa-user-circle-o" aria-hidden="true"></i>
               </a>
             </li>
             <li>
-              <a href="#">
-                <i class="icon-rocket"></i> My Tasks
-                <span class="badge badge-success"> 7 </span>
+              <a href="{{ route('user.enrolled_courses') }}">
+                Enrolled courses <i class="fa fa-graduation-cap" aria-hidden="true"></i>
               </a>
             </li>
-            <li class="divider"></li>
-
+            <li>
+              <a href="">
+                Teaching courses <i class="fa fa-line-chart" aria-hidden="true"></i>
+              </a>
+            </li>
             <li>
               <a href="{{ route('logout') }}"
                  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                <i class="icon-key"></i>
-                Logout
+                Logout <i class="fa fa-sign-out" aria-hidden="true"></i>
               </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                  {{ csrf_field() }}
-                </form>
+
+              <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                    style="display: none;">
+                {{ csrf_field() }}
+              </form>
             </li>
 
           </ul>
         </li>
       </ul>
     </div>
+  </div>
   </div>
 </div>
