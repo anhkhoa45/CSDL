@@ -65,7 +65,7 @@
                     </a>
                   </div>
                   <h4><a href="{{ route('course-info', ['id' => $course->id ]) }}">{{ $course->name }}</a></h4>
-                  <p class="irs-sblc-price text-thm2">${{$course->cost}}</p>
+
                 </div>
                   <div class="irs-lc-footer">
                     <div class="irs-lc-normal-part">
