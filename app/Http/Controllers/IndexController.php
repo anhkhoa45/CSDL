@@ -45,7 +45,7 @@ class IndexController extends Controller
     }
 
     public function showTeacherInfo($id){
-        $teacher = User::with('teachingCourses')->findOrFail($id);
+        $teacher = User::with(['teachingCourses'])->findOrFail($id);
         return view('teacher-info', ['teacher' => $teacher]);
     }
 

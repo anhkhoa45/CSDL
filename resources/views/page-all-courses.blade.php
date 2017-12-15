@@ -34,7 +34,7 @@
               <li><a href="#"><span class="flaticon-signs-3"></span></a></li>
               <li>
                 <a href="#">
-                  Showing {{ ($courses->currentPage()-1)*12 }}-{{ $courses->currentPage()*12 < $courses->total() ? $courses->currentPage()*12:$courses->total() }} of {{ $courses->total() }} results
+                  Showing {{ ($courses->currentPage()-1)*config('view.paginate') }}-{{ $courses->currentPage()*config('view.paginate') < $courses->total() ? $courses->currentPage()*config('view.paginate'):$courses->total() }} of {{ $courses->total() }} results
                 </a>
               </li>
             </ul>
@@ -50,32 +50,39 @@
             <div class="col-sm-6 col-md-6 col-lg-4 clearfix">
               <div class="irs-lc-grid style2 text-center">
                 <div class="irs-lc-grid-thumb">
-
-                  <img class="img-responsive img-fluid" src="{{ Storage::url($course->avatar) }}" alt="5.jpg">
-                  <div class="irs-lc-overlay"></div>
-                  <div class="irs-lc-price">{{ $course->cost }}</div>
+                  <a href="{{ route('course-info', ['id' => $course->id ]) }}">
+                    <img class="img-responsive img-fluid" src="{{ Storage::url($course->avatar) }}" alt="5.jpg">
+                    <div class="irs-lc-price">$ {{ $course->cost }}</div>
+                  </a>
                 </div>
                 <div class="irs-lc-details">
                   <div class="irs-lc-teacher-info">
-                    <div class="irs-lct-thumb"><img style="max-height: 50px; max-width: 50px;" src="{{ Storage::url($course->teacher->avatar) }}" alt="s3.png"></div>
+                    <a href="{{ route('teacher-info', ['id' => $course->teacher_id]) }}">
+                    <div class="irs-lct-thumb">
+                      <img class="img-responsive img-circle" style="max-height: 50px; max-width: 50px;" src="{{ Storage::url($course->teacher->avatar) }}" alt="s3.png">
+                    </div>
                     <div class="irs-lct-info">with <span class="text-thm2"> {{ $course->teacher->name }}</span></div>
+                    </a>
                   </div>
                   <h4><a href="{{ route('course-info', ['id' => $course->id ]) }}">{{ $course->name }}</a></h4>
                   <p class="irs-sblc-price text-thm2">${{$course->cost}}</p>
                 </div>
-                <div class="irs-lc-footer">
-                  <div class="irs-lc-normal-part">
-                    <ul class="list-inline">
-                      <li><a href="#"><i class="fa fa-users"></i> {{ $course->buyers->count() }}</a></li>
-                      <li class="irs-ccomment"><a href="#"><span class="fa fa-star" aria-hidden="true"></span> {{ number_format($course->avg_rating, 0) }}</a></li>
-                      <li class="irs-sblc-price text-thm2">${{$course->cost}}</li>
-                    </ul>
+                  <div class="irs-lc-footer">
+                    <div class="irs-lc-normal-part">
+                      <ul class="list-inline">
+                        <li><a href="{{ route('course-info', ['id' => $course->id ]) }}"><i class="fa fa-users"></i> {{ $course->buyers->count() }}</a></li>
+                        <li class="irs-ccomment">
+                          <a href="{{ route('course-info', ['id' => $course->id ]) }}">
+                            <span class="fa fa-star" aria-hidden="true"></span> {{ number_format($course->avg_rating, 0) }}
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="irs-lc-hover-part">See Course</div>
                   </div>
-                  <div class="irs-lc-hover-part">See Course</div>
-                </div>
+
               </div>
             </div>
-
             @endforeach
           </div>
           <div class="text-center">

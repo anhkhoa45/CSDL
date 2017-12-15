@@ -4,22 +4,7 @@
       <ul class="list-unstyled profile-nav">
         <li>
           <img src="{{ Storage::url($user->avatar) }}" class="img-responsive pic-bordered" alt=""/>
-          <a href="" class="profile-edit"> edit </a>
         </li>
-        {{--<li>--}}
-          {{--<a href="javascript:;"> Projects </a>--}}
-        {{--</li>--}}
-        {{--<li>--}}
-          {{--<a href="javascript:;"> Messages--}}
-            {{--<span> 3 </span>--}}
-          {{--</a>--}}
-        {{--</li>--}}
-        {{--<li>--}}
-          {{--<a href="javascript:;"> Friends </a>--}}
-        {{--</li>--}}
-        {{--<li>--}}
-          {{--<a href="javascript:;"> Settings </a>--}}
-        {{--</li>--}}
       </ul>
     </div>
     <div class="col-md-9">
