@@ -5,6 +5,12 @@
         <li>
           <img src="{{ Storage::url($user->avatar) }}" class="img-responsive pic-bordered" alt=""/>
         </li>
+        <li>
+          <a href="{{ route('user.enrolled_courses') }}"> Enrolled Courses </a>
+        </li>
+        <li>
+          <a href="javascript:;"> Teaching Courses </a>
+        </li>
       </ul>
     </div>
     <div class="col-md-9">
