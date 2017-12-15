@@ -25,7 +25,7 @@ class UserTableSeeder extends Seeder
                 'address'       => $faker->address(),
                 'balance'       => rand(0, 10000),
                 'created_at'     => date('Y-m-d H:i:s'),
-                'updated_at'    => date('Y-m-d H:i:s')
+                'updated_at'    => date('Y-m-d H:i:s'),
             ]);
         }
     }
