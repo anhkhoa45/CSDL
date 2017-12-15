@@ -5,6 +5,13 @@
     .irs-bb-right {
       margin-bottom: 0;
     }
+
+    .c-description {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      height: 3rem;
+    }
   </style>
 @endsection
 
@@ -18,7 +25,7 @@
             <li><a href="#"> > </a></li>
             <li><a href="#">Courses</a></li>
             <li><a href="#"> > </a></li>
-            <li><a class="active" href="#">Grid</a></li>
+            <li><a class="active" href="#">Enrolled</a></li>
           </ul>
         </div>
       </div>
@@ -31,10 +38,12 @@
         <div class="col-sm-12 col-md-8 col-lg-9 clearfix">
           <div class="irs-courses-shorting-heading clearfix">
             <ul class="list-inline pull-left">
-              <li><a href="#"><span class="flaticon-squares text-thm2"></span></a></li>
+              <li><a href="#"><span class="flaticon-signs-3"></span></a></li>
               <li>
                 <a href="#">
-                  Showing {{ ($courses->currentPage()-1)*12 }}-{{ $courses->currentPage()*12 < $courses->total() ? $courses->currentPage()*12:$courses->total() }} of {{ $courses->total() }} results
+                  Showing {{ ($courses->currentPage()-1)*12 }}
+                  -{{ $courses->currentPage()*12 < $courses->total() ? $courses->currentPage()*12:$courses->total() }}
+                  of {{ $courses->total() }} results
                 </a>
               </li>
             </ul>
@@ -43,46 +52,41 @@
               <span class="input-group-btn">
                 <button class="btn btn-default" type="button"><span class="flaticon-musica-searcher"></span></button>
               </span>
-            </div>
+            </div><!-- /input-group -->
           </div>
-          <div class="row irs-all-course-bb clearfix">
-            @foreach($courses as $course)
-            <div class="col-sm-6 col-md-6 col-lg-4 clearfix">
-              <div class="irs-lc-grid style2 text-center">
-                <div class="irs-lc-grid-thumb">
-                  <a href="{{ route('user.learn_course', ['id' => $course->id ]) }}">
-                    <img class="img-responsive img-fluid" src="{{ Storage::url($course->avatar) }}" alt="5.jpg">
-                  </a>
-                </div>
-                <div class="irs-lc-details">
-                  <a href="{{ route('teacher-info', ['id' => $course->teacher->id]) }}">
-                    <div class="irs-lc-teacher-info">
-                      <div class="irs-lct-thumb">
-                        <img style="border-radius: 50%; max-width: 50px; max-height: 50px"
-                             src="{{ Storage::url($course->teacher->avatar) }}" alt="s3.png">
-                      </div>
-                      <div class="irs-lct-info" style="margin-left: 20px;">
-                        with <span class="text-thm2">{{ $course->teacher->name }}</span>
-                      </div>
-                    </div>
-                  </a>
-                  <h4><a href="{{ route('user.learn_course', ['id' => $course->id ]) }}">{{ $course->name }}</a></h4>
-                </div>
-                <a href="{{ route('user.learn_course', ['id' => $course->id ]) }}">
-                  <div class="irs-lc-footer">
-                    <div class="irs-lc-normal-part">
-                      <ul class="list-inline">
-                        <li><a href="#"><i class="fa fa-users"></i> {{ $course->buyers->count() }}</a></li>
-                        <li><span class="text-thm2 fa fa-star" aria-hidden="true"></span> {{ number_format($course->avg_rating, 0) }}</li>
-                      </ul>
-                    </div>
-                    <div class="irs-lc-hover-part">See Course</div>
+          @foreach($courses as $course)
+            <div class="row clearfix">
+              <div class="irs-cl-list">
+                <div class="col-xs-12 col-lg-4">
+                  <div class="irs-cl-list-thumb">
+                    <a href="{{ route('user.learn_course', ['course' => $course->id]) }}">
+                      <img class="img-responsive img-fluid" src="{{ Storage::url($course->avatar) }}" alt="cl1.png">
+                    </a>
                   </div>
-                </a>
+                </div>
+                <div class="col-xs-12 col-lg-8">
+                  <div class="irs-cl-details">
+                    <h3>
+                      <a href="{{ route('user.learn_course', ['course' => $course->id]) }}">
+                        {{ $course->name }}
+                      </a>
+                    </h3>
+                    <p class="c-description">{{ $course->description }} </p>
+                    <ul class="list-inline irs-cl-teacher-info">
+                      <li class="irs-cl-info">with <span class="text-thm2"> {{ $course->teacher->name }} </span></li>
+                      <li class="irs-cl-thumb">
+                        <img class="avatar-img"
+                             src="{{ Storage::url($course->teacher->avatar) }}" alt="s3.png">
+                      </li>
+                      <li class="pull-right"> <small><cite> Enrolled in: {{ $course->pivot->date_bought }}</cite></small></li>
+                    </ul>
+                    <a href="{{ route('user.learn_course', ['course' => $course->id]) }}"
+                       class="btn btn-default irs-btn-thm3"> Check Course</a>
+                  </div>
+                </div>
               </div>
             </div>
-            @endforeach
-          </div>
+          @endforeach
           {{ $courses->links() }}
         </div>
         @include('includes.right-sidebar')
