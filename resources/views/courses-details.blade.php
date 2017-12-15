@@ -98,8 +98,6 @@
                                                data-toggle="tab">Lectures</a></li>
                     <li role="presentation"><a href="#teachers" aria-controls="teachers" role="tab" data-toggle="tab">Teacher</a>
                     </li>
-                    <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Comments</a>
-                    </li>
                   </ul>
 
                   <!-- Tab panes -->
@@ -148,7 +146,6 @@
                                     <li>
                                       <div class="its-tdu">{{$video->name}} </div>
                                     </li>
-                                    <li><span class="btn btn-sm irs-btn-thm3"> Preview</span></li>
                                   </ul>
                                 </a>
                               </li>
@@ -165,7 +162,6 @@
                                     <li>
                                       <div class="its-tdu">{{$project->project_name}} </div>
                                     </li>
-                                    <li><span class="btn btn-sm irs-btn-thm3"> Preview</span></li>
                                   </ul>
                                 </a>
                               </li>
@@ -198,71 +194,6 @@
                                 </ul>
                               </div>
                               <p>{{ $course->teacher_description }}</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div role="tabpanel" class="tab-pane fade" id="comments">
-                      <div class="irs-course-sd-teacher">
-                        <div class="row">
-                          <div class="col-md-2 irs-mrgnbtm-sxty">
-                            <div class="irs-courses-td-sngle">
-                              <div class="irs-ctds-thumb">
-                                <img class="img-responsive img-fluid img-circle" src="images/team/tsm1.png"
-                                     alt="tsm1.png">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-md-10 irs-mrgnbtm-sxty irs-all-course-bb">
-                            <div class="irs-courses-td-sngle-dtls">
-                              <ul class="list-unstyled">
-                                <li class="irs-psot-tdsd">Delicia Memphis</li>
-                                <li class="irs-name-tdsd">This course is so awesome</li>
-                              </ul>
-                              <p>Practical laboratory work is an integral part of teaching and there is a compulsory
-                                one-week field trip for all first-year students to Pembrokeshire to study ecology.</p>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-2 irs-mrgnbtm-sxty">
-                            <div class="irs-courses-td-sngle">
-                              <div class="irs-ctds-thumb">
-                                <img class="img-responsive img-fluid img-circle" src="images/team/tsm2.png"
-                                     alt="tsm2.png">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-md-10 irs-mrgnbtm-sxty irs-all-course-bb">
-                            <div class="irs-courses-td-sngle-dtls">
-                              <ul class="list-unstyled">
-                                <li class="irs-psot-tdsd">Wayne C. Trussell</li>
-                                <li class="irs-name-tdsd">I strongly recommend this course</li>
-                              </ul>
-                              <p>After graduation, Jenny spent several years in a medical communication agency
-                                environment, and now has her own business, working directly with major global
-                                pharmaceutical companies. </p>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-2 irs-mrgnbtm-sxty">
-                            <div class="irs-courses-td-sngle">
-                              <div class="irs-ctds-thumb">
-                                <img class="img-responsive img-fluid img-circle" src="images/team/tsm3.png"
-                                     alt="tsm3.png">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-md-10 irs-mrgnbtm-sxty irs-all-course-bb">
-                            <div class="irs-courses-td-sngle-dtls">
-                              <ul class="list-unstyled">
-                                <li class="irs-psot-tdsd">Patricia J. Norwood</li>
-                                <li class="irs-name-tdsd">It went out really great for me</li>
-                              </ul>
-                              <p>Hannah, now a research assistant at the Royal Veterinary College, reports: ‘My degree
-                                gave me a keen interest in my subject and the skills to pursue it. </p>
                             </div>
                           </div>
                         </div>

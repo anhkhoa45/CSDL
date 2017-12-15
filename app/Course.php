@@ -53,28 +53,29 @@ class Course extends Model
 
     public function getTotalBuyers()
     {
-        $buyers = $this->buyers()->count();
+        $buyers = $this->buyers->count();
         return $buyers;
     }
 
-    public function getMonthBuyers()
+    public function getBuyersInPeriod($period)
     {
-        $buyers = $this->buyers
-            ->wherePivot('date_bought', '>=', Carbon::now()->subDays(30))->count();
+        $buyers = 0;
+        foreach ($this->buyers as $buyer){
+            if($buyer->pivot->date_bought >= Carbon::now()->subDays($period)->toDateTimeString()){
+                $buyers++;
+            };
+        }
         return $buyers;
     }
 
-    public function getWeekBuyers()
+    public function getMonthlyBuyers()
     {
-        $buyers = $this->buyers
-            ->wherePivot('date_bought', '>=', Carbon::now()->subDays(7))->count();
-        return $buyers;
-    }
+        $monthlyBuyers = DB::table('buy_courses')
+            ->select([DB::raw("date_trunc('month', date_bought) as month"), DB::raw('COUNT(buyer_id) as buyers')])
+            ->where('course_id', $this->id)
+            ->groupBy(DB::raw("date_trunc('month', date_bought)"))
+            ->orderBy(DB::raw("date_trunc('month', date_bought)"))->get();
 
-    public function getTodayBuyers()
-    {
-        $buyers = $this->buyers
-            ->wherePivot('date_bought', '>=', Carbon::today())->count();
-        return $buyers;
+        return $monthlyBuyers;
     }
 }

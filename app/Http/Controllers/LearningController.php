@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Course;
 use App\Http\Requests\UpdateCourseRating;
+use App\Video;
 
 class LearningController extends Controller
 {
@@ -21,5 +23,31 @@ class LearningController extends Controller
         auth()->user()->enrolledCourses()->updateExistingPivot($course_id, ['rating' => $rating]);
 
         return redirect()->route('user.learn_course', ['course' => $course_id]);
+    }
+
+    public function watchVideo($course_id, $video_id){
+        $course = Course::findOrFail($course_id);
+        $video = $course->videos()->findOrFail($video_id);
+        $prev = $course->videos()->where('course_id', $course_id)->where('order_in_course', $video->order_in_course - 1)->first();
+        $next = $course->videos()->where('course_id', $course_id)->where('order_in_course', $video->order_in_course + 1)->first();
+
+        $data = [
+            'course' => $course,
+            'video' => $video,
+            'prev' => $prev,
+            'next' => $next
+        ];
+
+        return view('user.learning-zone.watch_video', $data);
+    }
+
+    public function earnVideoScore($course_id, $video_id){
+        $user = auth()->user();
+        $course = Course::findOrFail($course_id);
+        $video = $course->videos()->findOrFail($video_id);
+
+        $user->update([
+           'leaning_score' =>  $user->learning_score + $video->score
+        ]);
     }
 }
