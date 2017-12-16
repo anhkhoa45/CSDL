@@ -22,9 +22,34 @@ class HomeController extends Controller
         $paginate = config('view.paginate');
         $teachingCourses = $user->teachingCourses()->with('buyers')->orderBy('created_at', 'desc')->paginate($paginate);
 
+        $todayPay = DB::select('SELECT SUM(courses.cost) as pay 
+            FROM  courses, buy_courses, users
+            WHERE courses.id = buy_courses.course_id
+            AND users.id = buy_courses.buyer_id
+            AND (extract(day from now())=extract(day from date_bought))
+            AND (extract(month from now())=extract(month from date_bought))
+            AND (extract(year from now())=extract(year from date_bought))
+            GROUP BY users.id');
+        $weekPay = DB::select('SELECT SUM(courses.cost) as pay 
+            FROM  courses, buy_courses, users
+            WHERE courses.id = buy_courses.course_id
+            AND users.id = buy_courses.buyer_id
+            AND (extract(day from now())- extract(day from date_bought)<=7)
+            AND (extract(month from now())=extract(month from date_bought))
+            AND (extract(year from now())=extract(year from date_bought))
+            GROUP BY users.id');
+        $totalPay = DB::select('SELECT SUM(courses.cost) as pay 
+            FROM  courses, buy_courses, users
+            WHERE courses.id = buy_courses.course_id
+            AND users.id = buy_courses.buyer_id
+            GROUP BY users.id');
+
         $data = [
             'user' => $user,
-            'teachingCourses' => $teachingCourses
+            'teachingCourses' => $teachingCourses,
+            'todayPay' => $todayPay,
+            'weekPay' => $weekPay,
+            'totalPay' => $totalPay
         ];
         return view('user.profile', $data);
     }

@@ -55,4 +55,11 @@ class LearningController extends Controller
             'message' => 'Update score successfully'
         ];
     }
+
+    /**
+     * @param $course_id
+     * @param $user_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+
 }

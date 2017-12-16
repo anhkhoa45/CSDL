@@ -44,9 +44,3 @@ Route::get('course-info/{id}', 'IndexController@showCourseInfo')->name('course-i
 Route::get('teacherinfo/{id}', 'IndexController@showTeacherInfo')->name('teacher-info');
 Route::get('category/{id}','IndexController@showCategoryCourse')->name('category');
 Route::get('all-course','IndexController@showAllCourse')->name('all-course');
-
-Route::get('test', function(){
-    $rs = \App\Course::find(15)->getRatingRank();
-    dd($rs);
-    return view('user.course_created_message');
-});

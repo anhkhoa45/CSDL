@@ -46,7 +46,7 @@
                   </li>
                   <li><span class="text-thm2 flaticon-social-2"></span> {{ $course->buyers }}</li>
                   <li><span class="text-thm2 fa fa-star" aria-hidden="true"></span> {{ number_format($course->avg_rating, 0) }}</li>
-
+                  <li class="irs-sblc-price text-thm2">${{$course->cost}}</li>
                   @if(!auth()->check())
                     <li class="pull-right">
                       <a href="{{ route('enroll-course', ['course' => $course->id]) }}"
