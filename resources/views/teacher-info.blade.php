@@ -30,9 +30,7 @@
           <ul class="list-inline irs-brdcrmb">
             <li><a href="#">Home</a></li>
             <li><a href="#"> > </a></li>
-            <li><a href="#">Teacher</a></li>
-            <li><a href="#"> > </a></li>
-            <li><a class="active" href="#">Grid</a></li>
+            <li><a href="#">Teacher Information</a></li>
           </ul>
         </div>
       </div>

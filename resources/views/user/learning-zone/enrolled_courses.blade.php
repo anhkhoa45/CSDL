@@ -87,7 +87,6 @@
               </div>
             </div>
           @endforeach
-
           {{ $courses->links() }}
         </div>
         @include('includes.right-sidebar')

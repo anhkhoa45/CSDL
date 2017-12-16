@@ -26,7 +26,7 @@
             </div>
             <div class="irs-sblc-details">
                 <h5>{{$course->name}}</h5>
-                <p class="irs-sblc-price text-thm2">{{$course->cost}}</p>
+                <p class="irs-sblc-price text-thm2">${{$course->cost}}</p>
             </div>
         </div>
         @endforeach

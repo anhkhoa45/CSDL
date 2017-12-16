@@ -50,4 +50,11 @@ class LearningController extends Controller
            'leaning_score' =>  $user->learning_score + $video->score
         ]);
     }
+
+    /**
+     * @param $course_id
+     * @param $user_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+
 }
