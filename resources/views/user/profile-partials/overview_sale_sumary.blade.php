@@ -1,5 +1,5 @@
+<div class="col-md-3">
 
-<div class="col-md-4">
   <div class="portlet sale-summary">
     <div class="portlet-title">
       <div class="caption font-red sbold"> Pay Summary</div>

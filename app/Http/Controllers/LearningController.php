@@ -47,8 +47,13 @@ class LearningController extends Controller
         $video = $course->videos()->findOrFail($video_id);
 
         $user->update([
-           'leaning_score' =>  $user->learning_score + $video->score
+           'learning_score' =>  $user->learning_score + $video->score,
         ]);
+
+        return [
+            'status' => 200,
+            'message' => 'Update score successfully'
+        ];
     }
 
     /**

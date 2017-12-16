@@ -37,7 +37,7 @@
                 <h2>{{ $course->name }}</h2>
                 <ul class="list-inline irs-cl-teacher-info">
                   <li class="irs-cl-thumb">
-                    <img style="height: 50px; width: 50px" src="{{ Storage::url($course->teacher_avatar) }}" alt="s4.png">
+                    <img class="avatar-img" src="{{ Storage::url($course->teacher_avatar) }}" alt="s4.png">
                   </li>
                   <li class="irs-cl-info">with
                     <a href="{{ route('teacher-info', ['id' => $course->teacher_id]) }}">
@@ -183,7 +183,9 @@
                           <div class="col-md-10 irs-mrgnbtm-sxty irs-all-course-bb">
                             <div class="irs-courses-td-sngle-dtls">
                               <ul class="list-unstyled">
-                                <li class="irs-name-tdsd">{{ $course->teacher_name }}</li>
+                                <li class="irs-name-tdsd">
+                                  <h2>{{ $course->teacher_name }}</h2>
+                                </li>
                               </ul>
                               <div class="irs-social-icon-td-sngle-dtls pull-right">
                                 <ul class="list-inline irs-courses-tdetls">
@@ -193,7 +195,12 @@
                                   <li class="linkdin"><a href="#"><span class="flaticon-linkedin-logo"></span> </a></li>
                                 </ul>
                               </div>
-                              <p>{{ $course->teacher_description }}</p>
+
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h5>{{ $course->teacher_description }}</h5>
                             </div>
                           </div>
                         </div>

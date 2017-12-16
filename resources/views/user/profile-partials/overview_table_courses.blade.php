@@ -1,4 +1,4 @@
-<div class="tabbable-line tabbable-custom-profile">
+<div id="#tabTeachingCourse" class="tabbable-line tabbable-custom-profile">
   <ul class="nav nav-tabs">
     <li class="active">
       <a href="#tab_1_11" data-toggle="tab"> My courses </a>
@@ -15,15 +15,6 @@
               </a>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="btn-group pull-right">
-              <button class="btn green  btn-outline dropdown-toggle" data-toggle="dropdown">Tools
-                <i class="fa fa-angle-down"></i>
-              </button>
-              <ul class="dropdown-menu pull-right">
-              </ul>
-            </div>
-          </div>
         </div>
       </div>
       <div class="portlet-body">
@@ -31,11 +22,11 @@
           <thead>
           <tr>
             <th> # </th>
-            <th> <i class="fa fa-leanpub"></i> Course <i class="fa fa-sort pull-right" aria-hidden="true"></i></th>
-            <th> <i class="fa fa-star"></i> Status </th>
-            <th> <i class="fa fa-bookmark"></i> Price <i class="fa fa-sort pull-right" aria-hidden="true"></i></th>
-            <th> <i class="fa fa-users"></i> Buyers <i class="fa fa-sort pull-right" aria-hidden="true"></i></th>
-            <th> <i class="fa fa-money"></i> Total Revenue <i class="fa fa-sort pull-right" aria-hidden="true"></i></th>
+            <th> <i class="fa fa-leanpub"></i> Course</th>
+            <th> <i class="fa fa-star"></i> Status</th>
+            <th> <i class="fa fa-bookmark"></i> Price</th>
+            <th> <i class="fa fa-users"></i> Buyers</th>
+            <th> <i class="fa fa-money"></i> Total Revenue</th>
             <th></th>
           </tr>
           </thead>
