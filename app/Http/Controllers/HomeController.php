@@ -22,15 +22,15 @@ class HomeController extends Controller
         $paginate = config('view.paginate');
         $teachingCourses = $user->teachingCourses()->with('buyers')->orderBy('created_at', 'desc')->paginate($paginate);
 
-        $todayPay = DB::select('SELECT SUM(courses.cost) as pay 
+        $todayPay = DB::select('SELECT users.id as id,SUM(courses.cost) as pay 
             FROM  courses, buy_courses, users
             WHERE courses.id = buy_courses.course_id
             AND users.id = buy_courses.buyer_id
             AND (extract(day from now())=extract(day from date_bought))
             AND (extract(month from now())=extract(month from date_bought))
             AND (extract(year from now())=extract(year from date_bought))
-            AND users.id = {{$user->id}}');
-        $weekPay = DB::select('SELECT SUM(courses.cost) as pay 
+            GROUP BY users.id');
+        $weekPay = DB::select('SELECT users.id as id, SUM(courses.cost) as pay 
             FROM  courses, buy_courses, users
             WHERE courses.id = buy_courses.course_id
             AND users.id = buy_courses.buyer_id
@@ -38,18 +38,45 @@ class HomeController extends Controller
             AND (extract(month from now())=extract(month from date_bought))
             AND (extract(year from now())=extract(year from date_bought))
             GROUP BY users.id');
-        $totalPay = DB::select('SELECT SUM(courses.cost) as pay 
+        $totalPay = DB::select('SELECT users.id as id, SUM(courses.cost) as pay 
             FROM  courses, buy_courses, users
             WHERE courses.id = buy_courses.course_id
             AND users.id = buy_courses.buyer_id
             GROUP BY users.id');
+        $todaySale = DB::select('SELECT courses.teacher_id as id,SUM(courses.cost) as sale
+                                       FROM courses,users u1,users u2,buy_courses
+                                       WHERE u1.id = courses.teacher_id
+                                       AND u2.id = buy_courses.buyer_id
+                                       AND courses.id = buy_courses.course_id
+                                       AND (extract(day from now())=extract(day from date_bought))
+                                       AND (extract(month from now())=extract(month from date_bought))
+                                       AND (extract(year from now())=extract(year from date_bought))
+                                       GROUP BY courses.teacher_id;');
+        $weekSale = DB::select('SELECT courses.teacher_id as id,SUM(courses.cost) as sale
+                                       FROM courses,users u1,users u2,buy_courses
+                                       WHERE u1.id = courses.teacher_id
+                                       AND u2.id = buy_courses.buyer_id
+                                       AND courses.id = buy_courses.course_id
+                                       AND (extract(day from now())-extract(day from date_bought)<=7)
+                                       AND (extract(month from now())=extract(month from date_bought))
+                                       AND (extract(year from now())=extract(year from date_bought))
+                                       GROUP BY courses.teacher_id;');
+        $totalSale = DB::select('SELECT courses.teacher_id as id,SUM(courses.cost) as sale
+                                       FROM courses,users u1,users u2,buy_courses
+                                       WHERE u1.id = courses.teacher_id
+                                       AND u2.id = buy_courses.buyer_id
+                                       AND courses.id = buy_courses.course_id
+                                       GROUP BY courses.teacher_id;');
 
         $data = [
             'user' => $user,
             'teachingCourses' => $teachingCourses,
             'todayPay' => $todayPay,
             'weekPay' => $weekPay,
-            'totalPay' => $totalPay
+            'totalPay' => $totalPay,
+            'todaySale' => $todaySale,
+            'weekSale' => $weekSale,
+            'totalSale' => $totalSale
         ];
         return view('user.profile', $data);
     }

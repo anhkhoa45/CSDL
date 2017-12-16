@@ -10,6 +10,7 @@
     <div class="col-md-9">
       <div class="row">
         @include('user.profile-partials.overview_profile')
+        @include('user.profile-partials.overview_pay_sumary')
         @include('user.profile-partials.overview_sale_sumary')
       </div>
     </div>
