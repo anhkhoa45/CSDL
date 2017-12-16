@@ -1,7 +1,7 @@
 <div class="tabbable-line tabbable-custom-profile">
   <ul class="nav nav-tabs">
     <li class="active">
-      <a href="#tab_1_11" data-toggle="tab"> My courses </a>
+      <a href="#tab_1_11" data-toggle="tab"> Bought courses </a>
     </li>
   </ul>
   <div class="tab-content">

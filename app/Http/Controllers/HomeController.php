@@ -177,4 +177,5 @@ class HomeController extends Controller
         return view('user.teaching_course_detail', $data);
     }
 
+
 }

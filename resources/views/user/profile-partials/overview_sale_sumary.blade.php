@@ -2,7 +2,7 @@
 <div class="col-md-4">
   <div class="portlet sale-summary">
     <div class="portlet-title">
-      <div class="caption font-red sbold"> Pay Summary</div>
+      <div class="caption font-red sbold"><a href="#"> Pay Summary</div>
     </div>
     <div class="portlet-body">
       <ul class="list-unstyled">
