@@ -34,7 +34,7 @@ class HomeController extends Controller
             AND (extract(day from now())=extract(day from date_bought))
             AND (extract(month from now())=extract(month from date_bought))
             AND (extract(year from now())=extract(year from date_bought))
-            GROUP BY users.id');
+            AND users.id = {{$user->id}}');
         $weekPay = DB::select('SELECT SUM(courses.cost) as pay 
             FROM  courses, buy_courses, users
             WHERE courses.id = buy_courses.course_id

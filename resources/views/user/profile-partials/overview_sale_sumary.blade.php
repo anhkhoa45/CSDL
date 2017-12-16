@@ -11,7 +11,9 @@
               <i class="fa fa-img-up"></i>
           </span>
         @foreach($todayPay as $todaypay)
+          @if($user->id = $todaypay->id)
           <span class="sale-num"> ${{$todaypay->pay}}</span>
+            @endif
         @endforeach
         </li>
         <li>
