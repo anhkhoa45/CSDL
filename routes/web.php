@@ -41,8 +41,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function (){
     {
         Route::get('login', 'AdminController@showLogin')->name('admin.show_login');
         Route::post('login','AdminController@login')->name('admin.get_login');
-      //  Route::get('login2','AdminController@login2')->name('admin.show_login2');
-        //Route::post('login2','AdminController@login2')->name('admmin.get_login2');
     });
     Route::group(['middleware'=>'admin_auth'],function(){
         Route::get('home','AdminController@home')->name('admin.home');
