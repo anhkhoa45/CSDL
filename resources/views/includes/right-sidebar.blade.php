@@ -20,17 +20,17 @@
         <div class="irs-sblc-pack">
             <div class="irs-lc-thumb">
                 <a href="{{ route('course-info', ['id' => $course->id ]) }}">
-                    <img class="img-responsive" style="max-height: 50px; max-width: 50px;" src="{{ Storage::url($course->avatar) }}" alt="s7.png">
+                    <img class="img-responsive" style="max-height: 80px; max-width: 80px;" src="{{ Storage::url($course->avatar) }}" alt="s7.png">
                     <div class="irs-sblc-overlay"></div>
                 </a>
             </div>
             <div class="irs-sblc-details">
-                <h5>{{$course->name}}</h5>
-                <p class="irs-sblc-price text-thm2">{{$course->cost}}</p>
+                <a href="{{ route('course-info', ['id' => $course->id ]) }}">
+                    <h5>{{$course->name}}</h5>
+                </a>
+                <p class="irs-sblc-price text-thm2">$ {{$course->cost}}</p>
             </div>
         </div>
         @endforeach
     </div>
-
-
 </div>

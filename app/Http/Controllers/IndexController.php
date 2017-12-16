@@ -28,7 +28,7 @@ class IndexController extends Controller
                 'teacher.name as teacher_name',
                 'teacher.avatar as teacher_avatar',
                 DB::raw('count(buyers.id) as buyers'),
-                DB::raw('avg(buy_courses.rating) as avg_rating'),
+                DB::raw('avg(CASE WHEN buy_courses.rating != 0 THEN buy_courses.rating ELSE NULL END) as avg_rating'),
             ])->get();
 
         $recently_courses = $courses->sortByDesc('created_at')->take(4);

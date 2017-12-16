@@ -52,7 +52,7 @@
                         </a>
                       </li>
                       <li>
-                        <a href="">
+                        <a href="{{ route('profile') }}#tabTeachingCourse">
                           Teaching courses <i class="fa fa-line-chart" aria-hidden="true"></i>
                         </a>
                       </li>

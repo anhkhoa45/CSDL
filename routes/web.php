@@ -24,7 +24,7 @@ Route::middleware(['auth'])->group(function(){
         Route::put('change-password', 'HomeController@changePassword')->name('user.change_password');
         Route::get('enroll-course/{course}', 'HomeController@enrollCourse')->name('enroll-course');
         Route::get('enrolled-courses', 'HomeController@enrolledCourses')->name('user.enrolled_courses');
-        Route::get('teaching-courses', 'HomeController@teachingCourses')->name('user.teaching_courses');
+        Route::get('teaching-courses', 'HomeController@teachingCourses')->name('user.teaching_courses.blade.php');
 
         Route::get('create-course', 'CreateCourseController@getCreateCoursePage')->name('user.get_create_course');
         Route::post('create-course', 'CreateCourseController@createCourse')->name('user.create_course');
@@ -44,3 +44,9 @@ Route::get('course-info/{id}', 'IndexController@showCourseInfo')->name('course-i
 Route::get('teacherinfo/{id}', 'IndexController@showTeacherInfo')->name('teacher-info');
 Route::get('category/{id}','IndexController@showCategoryCourse')->name('category');
 Route::get('all-course','IndexController@showAllCourse')->name('all-course');
+
+Route::get('test', function(){
+    $rs = \App\Course::find(15)->getRatingRank();
+    dd($rs);
+    return view('user.course_created_message');
+});

@@ -3,20 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Course;
-use App\CourseCategory;
 use App\Http\Requests\ChangeUserPassword;
 use App\Http\Requests\UpdateUser;
 use App\Http\Requests\UpdateUserAvatar;
 use App\Http\Requests\UpdateUserBalance;
-use App\RequiredProject;
-use App\Video;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Intervention\Image\Facades\Image;
-use Mockery\Exception;
-use phpDocumentor\Reflection\Project;
 
 class HomeController extends Controller
 {
@@ -26,7 +20,7 @@ class HomeController extends Controller
 
         $user = auth()->user();
         $paginate = config('view.paginate');
-        $teachingCourses = $user->teachingCourses()->with('buyers')->paginate($paginate);
+        $teachingCourses = $user->teachingCourses()->with('buyers')->orderBy('created_at', 'desc')->paginate($paginate);
 
         $data = [
             'user' => $user,
@@ -118,7 +112,9 @@ class HomeController extends Controller
     {
         $user = auth()->user();
 
-        $enrolledCourses = $user->enrolledCourses()->with('teacher', 'buyers')->paginate(config('view.paginate'));
+        $enrolledCourses = $user->enrolledCourses()->with('teacher')
+            ->orderBy('date_bought', 'desc')
+            ->paginate(config('view.paginate'));
 
         $data = [
             'courses' => $enrolledCourses
@@ -127,25 +123,12 @@ class HomeController extends Controller
         return view('user.learning-zone.enrolled_courses', $data);
     }
 
-    public function teachingCourses()
-    {
-//        $user = auth()->user();
-//
-//        $teachingCourses = $user->teachingCourses()->with('buyers')->paginate(12);
-//
-//        $data = [
-//            'courses' => $teachingCourses
-//        ];
-//
-//        return view('user.learning-zone.enrolled_courses', $data);
-    }
-
     public function teachingCourseDetail($course_id)
     {
         $user = auth()->user();
         $course = $user->teachingCourses()->findOrFail($course_id);
         $monthlyBuyers = $course->getMonthlyBuyers();
-//        dd($monthlyBuyers);
+
         $data = [
             'course' => $course,
             'monthlyBuyers' => $monthlyBuyers
