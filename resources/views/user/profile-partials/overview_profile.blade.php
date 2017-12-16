@@ -1,4 +1,4 @@
-<div class="col-md-8 profile-info">
+<div class="col-md-6 profile-info">
   @php
     if($user->gender === \App\User::GENDER_MALE){
       $genderIcon = 'fa-mars';
@@ -13,11 +13,17 @@
   <h4> {{ $user->description }} </h4>
   <p class="list-inline"><i class="fa fa-map-marker"></i> {{ $user->address }} </p>
   <ul class="list-inline">
-    <li>
-      <i class="fa fa-calendar"></i> {{ $user->DOB }}
+    <li data-toggle="tooltip" title="Date of birth">
+      <i class="fa fa-birthday-cake"></i> {{ $user->DOB }}
     </li>
-    <li>
+    <li data-toggle="tooltip" title="Balance">
       <i class="fa fa-money"></i> {{ $user->balance }}
+    </li>
+    <li data-toggle="tooltip" title="Learning score">
+      <i class="fa fa-graduation-cap"></i> {{ $user->learning_score }}
+    </li>
+    <li data-toggle="tooltip" title="Teaching score">
+      <i class="fa fa-trophy"></i> {{ $user->teaching_score }}
     </li>
   </ul>
 </div>

@@ -100,6 +100,6 @@ class CreateCourseController extends Controller
                 ->withErrors(['create_failed', 'Project create failed']);
         }
 
-        return redirect()->route('profile');
+        return view('user.course_created_message');
     }
 }

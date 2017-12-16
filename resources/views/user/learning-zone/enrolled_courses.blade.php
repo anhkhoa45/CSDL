@@ -41,9 +41,7 @@
               <li><a href="#"><span class="flaticon-signs-3"></span></a></li>
               <li>
                 <a href="#">
-                  Showing {{ ($courses->currentPage()-1)*12 }}
-                  -{{ $courses->currentPage()*12 < $courses->total() ? $courses->currentPage()*12:$courses->total() }}
-                  of {{ $courses->total() }} results
+                  Showing {{ ($courses->currentPage()-1)*config('view.paginate') }}-{{ $courses->currentPage()*config('view.paginate') < $courses->total() ? $courses->currentPage()*config('view.paginate'):$courses->total() }} of {{ $courses->total() }} results
                 </a>
               </li>
             </ul>
