@@ -15,6 +15,10 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    const GENDER_MALE = 1;
+    const GENDER_FEMALE = 2;
+    const GENDER_OTHER = 3;
+
     protected $fillable = [
         'name', 'email', 'password', 'DOB', 'gender', 'address',
         'balance', 'level', 'learning_score', 'teaching_score', 'avatar',

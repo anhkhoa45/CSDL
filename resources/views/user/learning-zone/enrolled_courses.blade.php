@@ -5,6 +5,13 @@
     .irs-bb-right {
       margin-bottom: 0;
     }
+
+    .c-description {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      height: 3rem;
+    }
   </style>
 @endsection
 
@@ -18,7 +25,7 @@
             <li><a href="#"> > </a></li>
             <li><a href="#">Courses</a></li>
             <li><a href="#"> > </a></li>
-            <li><a class="active" href="#">Grid</a></li>
+            <li><a class="active" href="#">Enrolled</a></li>
           </ul>
         </div>
       </div>
@@ -31,10 +38,10 @@
         <div class="col-sm-12 col-md-8 col-lg-9 clearfix">
           <div class="irs-courses-shorting-heading clearfix">
             <ul class="list-inline pull-left">
-              <li><a href="#"><span class="flaticon-squares text-thm2"></span></a></li>
+              <li><a href="#"><span class="flaticon-signs-3"></span></a></li>
               <li>
                 <a href="#">
-                  Showing {{ ($courses->currentPage()-1)*12 }}-{{ $courses->currentPage()*12 < $courses->total() ? $courses->currentPage()*12:$courses->total() }} of {{ $courses->total() }} results
+                  Showing {{ ($courses->currentPage()-1)*config('view.paginate') }}-{{ $courses->currentPage()*config('view.paginate') < $courses->total() ? $courses->currentPage()*config('view.paginate'):$courses->total() }} of {{ $courses->total() }} results
                 </a>
               </li>
             </ul>
@@ -43,135 +50,44 @@
               <span class="input-group-btn">
                 <button class="btn btn-default" type="button"><span class="flaticon-musica-searcher"></span></button>
               </span>
-            </div>
+            </div><!-- /input-group -->
           </div>
-          <div class="row irs-all-course-bb clearfix">
-            @foreach($courses as $course)
-            <div class="col-sm-6 col-md-6 col-lg-4 clearfix">
-              <div class="irs-lc-grid style2 text-center">
-                <div class="irs-lc-grid-thumb">
-                  <a href="{{ route('user.learn_course', ['id' => $course->id ]) }}">
-                    <img class="img-responsive img-fluid" src="{{ Storage::url($course->avatar) }}" alt="5.jpg">
-                  </a>
-                </div>
-                <div class="irs-lc-details">
-                  <a href="{{ route('teacher-info', ['id' => $course->teacher->id]) }}">
-                    <div class="irs-lc-teacher-info">
-                      <div class="irs-lct-thumb">
-                        <img style="border-radius: 50%; max-width: 50px; max-height: 50px"
-                             src="{{ Storage::url($course->teacher->avatar) }}" alt="s3.png">
-                      </div>
-                      <div class="irs-lct-info" style="margin-left: 20px;">
-                        with <span class="text-thm2">{{ $course->teacher->name }}</span>
-                      </div>
-                    </div>
-                  </a>
-                  <h4><a href="{{ route('user.learn_course', ['id' => $course->id ]) }}">{{ $course->name }}</a></h4>
-                </div>
-                <a href="{{ route('user.learn_course', ['id' => $course->id ]) }}">
-                  <div class="irs-lc-footer">
-                    <div class="irs-lc-normal-part">
-                      <ul class="list-inline">
-                        <li><a href="#"><i class="fa fa-users"></i> {{ $course->buyers->count() }}</a></li>
-                        <li><a href="#"><i class="fa fa-commenting"></i> 4</a></li>
-                      </ul>
-                    </div>
-                    <div class="irs-lc-hover-part">See Course</div>
+          @foreach($courses as $course)
+            <div class="row clearfix">
+              <div class="irs-cl-list">
+                <div class="col-xs-12 col-lg-4">
+                  <div class="irs-cl-list-thumb">
+                    <a href="{{ route('user.learn_course', ['course' => $course->id]) }}">
+                      <img class="img-responsive img-fluid" src="{{ Storage::url($course->avatar) }}" alt="cl1.png">
+                    </a>
                   </div>
-                </a>
+                </div>
+                <div class="col-xs-12 col-lg-8">
+                  <div class="irs-cl-details">
+                    <h3>
+                      <a href="{{ route('user.learn_course', ['course' => $course->id]) }}">
+                        {{ $course->name }}
+                      </a>
+                    </h3>
+                    <p class="c-description">{{ $course->description }} </p>
+                    <ul class="list-inline irs-cl-teacher-info">
+                      <li class="irs-cl-info">with <span class="text-thm2"> {{ $course->teacher->name }} </span></li>
+                      <li class="irs-cl-thumb">
+                        <img class="avatar-img"
+                             src="{{ Storage::url($course->teacher->avatar) }}" alt="s3.png">
+                      </li>
+                      <li class="pull-right"> <small><cite> Enrolled in: {{ $course->pivot->date_bought }}</cite></small></li>
+                    </ul>
+                    <a href="{{ route('user.learn_course', ['course' => $course->id]) }}"
+                       class="btn btn-default irs-btn-thm3"> Check Course</a>
+                  </div>
+                </div>
               </div>
             </div>
-            @endforeach
-          </div>
-
+          @endforeach
           {{ $courses->links() }}
         </div>
-        <div class="col-sm-12 col-md-4 col-lg-3">
-          <div class="irs-sb-courses">
-            <h3 class="irs-sblc-title text-center">Courses</h3>
-            <ul class="list-unstyled irs-sbc-list">
-              <li class="active"><a href="#"><span class="flaticon-arrows-3"></span> All Courses</a></li>
-              <li><a href="#"><span class="flaticon-arrows-3"></span> Celtic Studies</a></li>
-              <li><a href="#"><span class="flaticon-arrows-3"></span> Chemical Engineering</a></li>
-              <li><a href="#"><span class="flaticon-arrows-3"></span> Communication & Media Studies</a></li>
-              <li><a href="#"><span class="flaticon-arrows-3"></span> Chemistry</a></li>
-              <li><a href="#"><span class="flaticon-arrows-3"></span> Civil Engineering</a></li>
-              <li><a href="#"><span class="flaticon-arrows-3"></span> Classics & Ancient History</a></li>
-            </ul>
-          </div>
-          <div class="irs-sb-lcourses">
-            <h3 class="irs-sbc-title text-center">Latest Courses</h3>
-            <div class="irs-sblc-pack">
-              <div class="irs-lc-thumb">
-                <img class="img-responsive" src="images/courses/s7.png" alt="s7.png">
-                <div class="irs-sblc-overlay"></div>
-              </div>
-              <div class="irs-sblc-details">
-                <h5>Chemical Engineering & Best Technology</h5>
-                <p class="irs-sblc-price text-thm2">$49.99</p>
-              </div>
-            </div>
-            <div class="irs-sblc-pack">
-              <div class="irs-lc-thumb">
-                <img class="img-responsive" src="images/courses/s8.png" alt="s8.png">
-                <div class="irs-sblc-overlay"></div>
-              </div>
-              <div class="irs-sblc-details">
-                <h5>Electrical & Electronic Engineering</h5>
-                <p class="irs-sblc-price text-thm2">$49.99</p>
-              </div>
-            </div>
-            <div class="irs-sblc-pack">
-              <div class="irs-lc-thumb">
-                <img class="img-responsive" src="images/courses/s9.png" alt="s9.png">
-                <div class="irs-sblc-overlay"></div>
-              </div>
-              <div class="irs-sblc-details">
-                <h5>Geography Environmental Sciences</h5>
-                <p class="irs-sblc-price text-thm2">$49.99</p>
-              </div>
-            </div>
-          </div>
-          <div class="irs-sb-bcome-teacher">
-            <div class="irs-sb-bct-details text-center">
-              <h3>Become an Instructor Today!</h3>
-              <a href="#" class="btn btn-lg irs-btn-thm2"> Read More</a>
-            </div>
-          </div>
-          <div class="irs-sb-lcourses">
-            <h3 class="irs-sbc-title text-center">Latest News</h3>
-            <div class="irs-sblc-pack">
-              <div class="irs-lc-thumb">
-                <img class="img-responsive" src="images/blog/xs4.png" alt="xs4.png">
-                <div class="irs-sblc-overlay"></div>
-              </div>
-              <div class="irs-sblc-details">
-                <h5>Social benefits: universal or targeted?</h5>
-                <p class="irs-sblc-price text-thm2"><span class="text-thm2 flaticon-clock"></span> 20/02/2017</p>
-              </div>
-            </div>
-            <div class="irs-sblc-pack">
-              <div class="irs-lc-thumb">
-                <img class="img-responsive" src="images/blog/xs5.png" alt="xs4.png">
-                <div class="irs-sblc-overlay"></div>
-              </div>
-              <div class="irs-sblc-details">
-                <h5>Educational integration: religion and society</h5>
-                <p class="irs-sblc-price text-thm2"><span class="text-thm2 flaticon-clock"></span> 19/02/2017</p>
-              </div>
-            </div>
-            <div class="irs-sblc-pack">
-              <div class="irs-lc-thumb">
-                <img class="img-responsive" src="images/blog/xs6.png" alt="xs4.png">
-                <div class="irs-sblc-overlay"></div>
-              </div>
-              <div class="irs-sblc-details">
-                <h5>The importance of good (politic) communicate</h5>
-                <p class="irs-sblc-price text-thm2"><span class="text-thm2 flaticon-clock"></span> 18/02/2017</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        @include('includes.right-sidebar')
       </div>
     </div>
   </section>

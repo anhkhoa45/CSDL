@@ -4,30 +4,30 @@
     <div class="container">
       <nav class="navbar navbar-default bootsnav irs-menu-style-one yellow">
         <div class="container irs-pad-zero">
-          <!-- Start Header Navigation -->
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"><i
                   class="fa fa-bars"></i></button>
             <a class="navbar-brand" href="{{ route('index') }}"><img
-                  src="{{ asset('images/header-logo.png') }}" class="logo" alt="header-logo.png"></a>
+                  src="{{ asset('img/logo.png') }}" style="max-width: 161px; max-height: 50px"  class="logo img-responsive" alt="header-logo.png"></a>
           </div>
-          <!-- End Header Navigation -->
-
-          <!-- Collect the nav links, forms, and other content for toggling -->
+          @php
+            $categories = \App\CourseCategory::all();
+          @endphp
           <div class="collapse navbar-collapse" id="navbar-menu">
             <ul class="nav navbar-nav navbar-left">
               <li class="dropdown"><a href="#" class="dropdown-toggle"
                                       data-toggle="dropdown">Categories</a>
                 <ul class="dropdown-menu">
-                  <li><a href="page-courses-grid.html">Courses Grid</a></li>
-                  <li><a href="page-courses-list.html">Courses List</a></li>
-                  <li><a href="page-courses-details.html">Courses Details</a></li>
+                   @foreach($categories as $category)
+
+                  <li><a href="{{route('category', ['id' => $category->id])}}">{{$category->name}}</a></li>
+
+                  @endforeach
                 </ul>
               </li>
               <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Features</a>
                 <ul class="dropdown-menu">
-                  <li><a href="page-become-teacher.html">Become A Teacher</a></li>
-                  <li><a href="page-teacher-details.html">Teacher Details</a></li>
+                  <li><a href="{{ route('user.get_create_course') }}">Become A Teacher</a></li>
                 </ul>
               </li>
             </ul>
@@ -52,14 +52,13 @@
                         </a>
                       </li>
                       <li>
-                        <a href="">
+                        <a href="{{ route('profile') }}#tabTeachingCourse">
                           Teaching courses <i class="fa fa-line-chart" aria-hidden="true"></i>
                         </a>
                       </li>
                       <li>
                         <a href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                           Logout <i class="fa fa-sign-out" aria-hidden="true"></i>
                         </a>
 

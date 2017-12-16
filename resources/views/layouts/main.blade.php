@@ -40,7 +40,7 @@
 </head>
 <body>
 <div class="wrapper">
-  @include('includes.header-nav');
+  @include('includes.header-nav')
 
   @yield('content')
 
@@ -65,6 +65,14 @@
 <script type="text/javascript" src="{{ asset('js/flipclock.min.js') }}"></script>
 <!-- Custom script for all pages -->
 <script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
+
+<style>
+  .avatar-img {
+    max-height: 50px;
+    max-width: 50px;
+    border-radius: 50%;
+  }
+</style>
 
 <!-- Initialize Swiper -->
 @yield('script')

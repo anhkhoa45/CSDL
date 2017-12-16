@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
 
 class AdminController extends Controller
 {
+    use AuthenticatesUsers;
     public function showLogin()
     {
         return view('admin.auth.login');
@@ -43,6 +46,9 @@ class AdminController extends Controller
     {
         return view('admin.home');
     }
+
+
+
     public function profile()
     {
         return view('admin.profile');

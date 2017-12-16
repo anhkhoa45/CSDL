@@ -21,7 +21,7 @@ class UserTableSeeder extends Seeder
                 'password'      => Hash::make('123456'),
                 'name'          => $faker->name(),
                 'DOB'           => $faker->date('Y-m-d', 'now'),
-                'gender'        => $faker->title(),
+                'gender'        => rand(1,3),
                 'address'       => $faker->address(),
                 'balance'       => rand(0, 10000),
                 'created_at'     => date('Y-m-d H:i:s'),
