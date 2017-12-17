@@ -37,10 +37,9 @@
                     @if(Auth::guard('admin')->check())
                         <ul class="nav navbar-nav navbar-left">
                             <li><a href="{{ route('admin.home') }}">Home</a></li>
-                            <li><a href="{{ route('admin.student.index') }}">Student Manager</a></li>
-                            <li><a href="{{ route('admin.teacher.index') }}">Teacher Manager</a></li>
-                            <li><a href="{{ route('admin.subject.index') }}">Subject Manager</a></li>
-                            <li><a href="{{ route('admin.class.index') }}">Class Manager</a></li>
+                            <li><a href="{{ route('admin.users') }}">User Manager</a></li>
+                            <li><a href="{{ route('admin.home') }}">Catalogies Manager</a></li>
+                            <li><a href="{{ route('admin.home') }}">Courses Manager</a></li>
                         </ul>
 
                     @endif

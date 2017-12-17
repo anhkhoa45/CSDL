@@ -14,10 +14,6 @@
 Route::get('/', 'IndexController@index')->name('index');
 
 Auth::routes();
-Route::get('/home',function()
-{
-   return "Hello";
-});
 
 Route::middleware(['auth'])->group(function(){
     Route::prefix('user')->group(function(){
@@ -51,13 +47,23 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function (){
         Route::post('login','AdminController@login')->name('admin.get_login');
     });
     Route::group(['middleware'=>'admin_auth'],function(){
+        Route::post('logout','AdminController@logout')->name('admin.logout');
         Route::get('home','AdminController@home')->name('admin.home');
+
         Route::get('profile','AdminController@profile')->name('admin.profile');
         Route::put('update-info','AdminController@updateInfo')->name('admin.update_info');
         Route::put('update-ava','AdminController@updateAvatar')->name('admin.update_ava');
         Route::put('change-password','AdminController@changePassword')->name('admin.change_password');
         Route::get('cateloges','AdminController@cateloges')->name('admin.cataloges');
+
         Route::get('users','AdminController@users')->name('admin.users');
+        Route::put('users-update','AdminController@usersUpdate')->name('admin.users.update');
+        Route::get('users-create','AdminControlles@usersCreate')->name('admin.users.create');
+        Route::put('users-edit','AdminController@usersEdit')->name('admin.users.edit');
+        Route::put('users-destroy','AdminController@usersDestroy')->name('admin.users.destroy');
+        Route::get('users-show','AdminController@usersShow')->name('admin.users.show');
+        Route::get('users-search','AdminController@usersSearch')->name('admin.users.search');
+
         Route::get('create-admin','AdminController@createAdmin')->name('admin.create_admin');
         Route::get('courses','AdminController@courses')->name('admin.courses');
     });
