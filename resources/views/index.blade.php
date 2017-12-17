@@ -1,28 +1,12 @@
 @extends('layouts.main')
 
-@section('style')
-  <style>
-    .pagination-links {
-      text-align: center;
-      margin-top: 100px;
-    }
-
-    .header-nav {
-      position: absolute;
-      margin-bottom: 0;
-    }
-  </style>
-@endsection
-
 @section('content')
   @include('includes.slider')
-  <!-- Services Section -->
   <section class="irs-courses-one">
     <div class="container">
       <div class="row">
         <div class="col-md-12">
           <div>
-            <!-- Nav tabs -->
             <ul class="nav nav-tabs irs-course-tab clear-fix" role="tablist">
               <li class="irs-course-title pull-left"><h3>Edu Hub Courses</h3></li>
               <li role="presentation">
@@ -35,7 +19,6 @@
                 <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Recently Added</a>
               </li>
             </ul>
-            <!-- Tab panes -->
             <div class="tab-content">
               <div role="tabpanel" class="tab-pane active" id="home">
                 @foreach($r_courses as $course)

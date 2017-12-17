@@ -21,13 +21,23 @@
           <span>{{ $course->id }}</span>
         </li>
       </ul>
-      {{--<div class="page-toolbar">--}}
-        {{--<div id="dashboard-report-range" class="pull-right tooltips btn btn-sm" data-container="body" data-placement="bottom" data-original-title="Change dashboard date range">--}}
-          {{--<i class="icon-calendar"></i>&nbsp;--}}
-          {{--<span class="thin uppercase hidden-xs"></span>&nbsp;--}}
-          {{--<i class="fa fa-angle-down"></i>--}}
-        {{--</div>--}}
-      {{--</div>--}}
+      <div class="page-toolbar">
+        <div class="btn-group pull-right">
+          <button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown"> Edit course
+            <i class="fa fa-angle-down"></i>
+          </button>
+          <ul class="dropdown-menu pull-right" role="menu">
+            <li>
+              <a href="{{ route('user.get_update_course_info', ['course' => $course->id]) }}">
+                <i class="icon-pencil"></i> Edit info</a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="icon-book-open"></i> Edit contents</a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
     <h3 class="page-title"><strong>Course:</strong> {{ $course->name }}
       <small>dashboard & statistics</small>

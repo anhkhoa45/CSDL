@@ -1,14 +1,5 @@
 @extends('layouts.main')
 
-@section('style')
-  <style>
-    .pagination-links {
-      text-align: center;
-      margin-top: 100px;
-    }
-  </style>
-@endsection
-
 @section('content')
 
   <!-- Breadcrumbs Styles -->

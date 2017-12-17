@@ -18,12 +18,12 @@ use Intervention\Image\Facades\Image;
 use Mockery\Exception;
 use phpDocumentor\Reflection\Project;
 
-class CreateCourseController extends Controller
+class TeachingController extends Controller
 {
     public function getCreateCoursePage()
     {
         $courseCategories = CourseCategory::all();
-        return view('user.create_course', ['courseCategories' => $courseCategories]);
+        return view('user.teaching.create_course', ['courseCategories' => $courseCategories]);
     }
 
     public function createCourse(Request $request)
@@ -100,6 +100,31 @@ class CreateCourseController extends Controller
                 ->withErrors(['create_failed', 'Project create failed']);
         }
 
-        return view('user.course_created_message');
+        return view('user.teaching.course_created_message');
+    }
+
+    public function teachingCourseDetail($course_id)
+    {
+        $user = auth()->user();
+        $course = $user->teachingCourses()->findOrFail($course_id);
+        $monthlyBuyers = $course->getMonthlyBuyers();
+
+        $data = [
+            'course' => $course,
+            'monthlyBuyers' => $monthlyBuyers
+        ];
+
+        return view('user.teaching.teaching_course_detail', $data);
+    }
+
+    public function getUpdateCourseInfo($course_id){
+        $course = Course::findOrFail($course_id);
+        $courseCategories = CourseCategory::all();
+
+        $data = [
+            'course' => $course,
+            'courseCategories' => $courseCategories
+        ];
+        return view('user.teaching.update_course_info', $data);
     }
 }
