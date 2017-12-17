@@ -22,7 +22,7 @@
           </span>
           @foreach($weekSale as $weeksale)
             @if($user->id === $weeksale->id)
-              <span class="sale-num"> ${{$weeksale->pay}}</span>
+              <span class="sale-num"> ${{$weeksale->sale}}</span>
             @endif
           @endforeach
         </li>
