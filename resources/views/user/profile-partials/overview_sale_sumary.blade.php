@@ -10,29 +10,17 @@
           <span class="sale-info"> TODAY SOLD
               <i class="fa fa-img-up"></i>
           </span>
-        @foreach($todaySale as $todaysale)
-          @if($user->id === $todaysale->id)
-            <span class="sale-num"> ${{$todaysale->sale}}</span>
-            @endif
-        @endforeach
+            <span class="sale-num"> ${{$user->getTodaySold()}}</span>
         </li>
         <li>
           <span class="sale-info"> WEEKLY SOLD
               <i class="fa fa-img-down"></i>
           </span>
-          @foreach($weekSale as $weeksale)
-            @if($user->id === $weeksale->id)
-              <span class="sale-num"> ${{$weeksale->sale}}</span>
-            @endif
-          @endforeach
+              <span class="sale-num"> ${{$user->getWeekSold()}}</span>
         </li>
         <li>
           <span class="sale-info"> TOTAL SOLD </span>
-          @foreach($totalSale as $totalsale)
-            @if($user->id === $totalsale->id)
-              <span class="sale-num"> ${{$totalsale->sale}}</span>
-            @endif
-          @endforeach
+              <span class="sale-num"> ${{$user->getTotalSold()}}</span>
         </li>
       </ul>
     </div>
