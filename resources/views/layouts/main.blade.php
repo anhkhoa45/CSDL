@@ -25,7 +25,11 @@
   <style>
     .header-nav {
       position: static;
-      /*margin-bottom: 50px;*/
+    }
+
+    .pagination-links {
+      text-align: center;
+      margin-top: 100px;
     }
   </style>
 

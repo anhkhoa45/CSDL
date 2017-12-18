@@ -20,43 +20,37 @@ class HomeController extends Controller
 
         $user = auth()->user();
         $paginate = config('view.paginate');
-        $teachingCourses = $user->teachingCourses()->with('buyers')->orderBy('created_at', 'desc')->paginate($paginate);
+        $teachingCourses = $user->teachingCourses()->with('buyers')->orderBy('created_at', 'desc')->get();
 
-<<<<<<< HEAD
-        $todayPay = DB::select('SELECT SUM(courses.cost) as pay 
-=======
-        $todayPay = DB::select('SELECT users.id as id,SUM(courses.cost) as pay 
->>>>>>> e732d846422fd6cde3e60ec06b44e7c2addb8725
+        $todayPay = DB::select("SELECT users.id as id,SUM(courses.cost) as pay 
             FROM  courses, buy_courses, users
-            WHERE courses.id = buy_courses.course_id
+            WHERE users.id = $user->id
+            AND courses.id = buy_courses.course_id
             AND users.id = buy_courses.buyer_id
             AND (extract(day from now())=extract(day from date_bought))
             AND (extract(month from now())=extract(month from date_bought))
             AND (extract(year from now())=extract(year from date_bought))
-            GROUP BY users.id');
-<<<<<<< HEAD
-        $weekPay = DB::select('SELECT SUM(courses.cost) as pay 
-=======
-        $weekPay = DB::select('SELECT users.id as id, SUM(courses.cost) as pay 
->>>>>>> e732d846422fd6cde3e60ec06b44e7c2addb8725
+            GROUP BY users.id");
+
+//        dd($todayPay);
+
+        $weekPay = DB::select("SELECT users.id as id, SUM(courses.cost) as pay 
             FROM  courses, buy_courses, users
-            WHERE courses.id = buy_courses.course_id
+            WHERE users.id = $user->id
+            AND courses.id = buy_courses.course_id
             AND users.id = buy_courses.buyer_id
             AND (extract(day from now())- extract(day from date_bought)<=7)
             AND (extract(month from now())=extract(month from date_bought))
             AND (extract(year from now())=extract(year from date_bought))
-            GROUP BY users.id');
-<<<<<<< HEAD
-        $totalPay = DB::select('SELECT SUM(courses.cost) as pay 
-=======
+            GROUP BY users.id");
+
+//        dd($weekPay);
+
         $totalPay = DB::select('SELECT users.id as id, SUM(courses.cost) as pay 
->>>>>>> e732d846422fd6cde3e60ec06b44e7c2addb8725
             FROM  courses, buy_courses, users
             WHERE courses.id = buy_courses.course_id
             AND users.id = buy_courses.buyer_id
             GROUP BY users.id');
-<<<<<<< HEAD
-=======
         $todaySale = DB::select('SELECT courses.teacher_id as id,SUM(courses.cost) as sale
                                        FROM courses,users u1,users u2,buy_courses
                                        WHERE u1.id = courses.teacher_id
@@ -81,22 +75,18 @@ class HomeController extends Controller
                                        AND u2.id = buy_courses.buyer_id
                                        AND courses.id = buy_courses.course_id
                                        GROUP BY courses.teacher_id;');
->>>>>>> e732d846422fd6cde3e60ec06b44e7c2addb8725
 
         $data = [
             'user' => $user,
             'teachingCourses' => $teachingCourses,
             'todayPay' => $todayPay,
             'weekPay' => $weekPay,
-<<<<<<< HEAD
-            'totalPay' => $totalPay
-=======
             'totalPay' => $totalPay,
             'todaySale' => $todaySale,
             'weekSale' => $weekSale,
             'totalSale' => $totalSale
->>>>>>> e732d846422fd6cde3e60ec06b44e7c2addb8725
         ];
+
         return view('user.profile', $data);
     }
 
@@ -128,8 +118,9 @@ class HomeController extends Controller
             ->with('success', 'Your profile updated successfully ')
             ->with('page', 'update_ava');
     }
-    
-    public function updateBalance(UpdateUserBalance $request){
+
+    public function updateBalance(UpdateUserBalance $request)
+    {
         auth()->user()->update($request->all());
 
         return redirect()->route('profile')
@@ -156,25 +147,34 @@ class HomeController extends Controller
         $user = auth()->user();
         $course = Course::findOrFail($course_id);
 
-        if(DB::table('buy_courses')->where('buyer_id', $user->id)->where('course_id', $course_id)->count()){
+        if (DB::table('buy_courses')->where('buyer_id', $user->id)->where('course_id', $course_id)->count()) {
             return redirect()->back()->withErrors(['Permission denied']);
         }
 
-        if($user->balance < $course->cost){
+        if ($user->balance < $course->cost) {
             return redirect()->route('profile')
                 ->with('page', 'update_balance')
                 ->withErrors(['balance' => 'Your balance id not enough, add some money to continue']);
         }
+        DB::beginTransaction();
+        try {
+            auth()->user()->enrolledCourses()->attach($course_id, ['date_bought' => Carbon::now()]);
 
-        auth()->user()->enrolledCourses()->attach($course_id, ['date_bought' => Carbon::now()]);
+            auth()->user()->update([
+                'balance' => auth()->user()->balance - $course->cost,
+            ]);
 
-        auth()->user()->update([
-            'balance' => auth()->user()->balance - $course->cost,
-        ]);
+            $course->teacher()->update([
+                'balance' => $course->teacher->balance + $course->cost,
+            ]);
 
-        $course->teacher()->update([
-           'balance' => $course->teacher->balance + $course->cost,
-        ]);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('profile')
+                ->with('page', 'update_balance')
+                ->withErrors(['error' => 'Server internal error']);
+        }
 
         return redirect()->route('user.learn_course', ['id' => $course_id]);
     }
@@ -193,32 +193,4 @@ class HomeController extends Controller
 
         return view('user.learning-zone.enrolled_courses', $data);
     }
-
-    public function teachingCourseDetail($course_id)
-    {
-        $user = auth()->user();
-        $course = $user->teachingCourses()->findOrFail($course_id);
-        $monthlyBuyers = $course->getMonthlyBuyers();
-<<<<<<< HEAD
-
-        $data = [
-            'course' => $course,
-            'monthlyBuyers' => $monthlyBuyers
-        ];
-
-        return view('user.teaching_course_detail', $data);
-    }
-
-=======
-
-        $data = [
-            'course' => $course,
-            'monthlyBuyers' => $monthlyBuyers
-        ];
-
-        return view('user.teaching_course_detail', $data);
-    }
-
-
->>>>>>> e732d846422fd6cde3e60ec06b44e7c2addb8725
 }

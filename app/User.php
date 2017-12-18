@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @property \Carbon\Carbon $created_at
@@ -40,5 +41,19 @@ class User extends Authenticatable
                 'buyer_id',
                 'course_id'
         )->withPivot('date_bought', 'rating');
+    }
+
+    public function getTodayPaid(){
+        $todayPaid = DB::select("SELECT users.id as id,SUM(courses.cost) as pay 
+            FROM  courses, buy_courses, users
+            WHERE users.id = $this->id
+            AND courses.id = buy_courses.course_id
+            AND users.id = buy_courses.buyer_id
+            AND (extract(day from now())=extract(day from date_bought))
+            AND (extract(month from now())=extract(month from date_bought))
+            AND (extract(year from now())=extract(year from date_bought))
+            GROUP BY users.id");
+
+        return isset($todayPaid[0]) ? $todayPaid[0]->pay : 0;
     }
 }

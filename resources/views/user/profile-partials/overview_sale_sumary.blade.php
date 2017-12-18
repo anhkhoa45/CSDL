@@ -3,10 +3,14 @@
   <div class="portlet sale-summary">
     <div class="portlet-title">
 <<<<<<< HEAD
+<<<<<<< HEAD
       <div class="caption font-red sbold"> Pay Summary</div>
 =======
       <div class="caption font-red sbold"><a href="#"> Sale Summary</div>
 >>>>>>> e732d846422fd6cde3e60ec06b44e7c2addb8725
+=======
+      <div class="caption font-red-haze sbold"> Sale Summary </div>
+>>>>>>> 2f51ccdd072821b88d1b3f44600a424f5b7bbd4c
     </div>
     <div class="portlet-body">
       <ul class="list-unstyled">
@@ -44,7 +48,7 @@
           </span>
           @foreach($weekSale as $weeksale)
             @if($user->id === $weeksale->id)
-              <span class="sale-num"> ${{$weeksale->pay}}</span>
+              <span class="sale-num"> ${{$weeksale->sale}}</span>
             @endif
           @endforeach
         </li>
