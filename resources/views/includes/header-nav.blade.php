@@ -15,6 +15,9 @@
           @endphp
           <div class="collapse navbar-collapse" id="navbar-menu">
             <ul class="nav navbar-nav navbar-left">
+              </li>
+              <li class="dropdown"><a href="{{ route('all-course') }}" >All Courses</a>
+              </li>
               <li class="dropdown"><a href="#" class="dropdown-toggle"
                                       data-toggle="dropdown">Categories</a>
                 <ul class="dropdown-menu">
@@ -29,7 +32,7 @@
                 <ul class="dropdown-menu">
                   <li><a href="{{ route('user.get_create_course') }}">Become A Teacher</a></li>
                 </ul>
-              </li>
+
             </ul>
             <ul class="nav navbar-nav navbar-right">
               @if(Route::has('login'))
