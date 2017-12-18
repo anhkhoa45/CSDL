@@ -26,17 +26,17 @@ class HomeController extends Controller
             FROM  courses, buy_courses, users
             WHERE courses.id = buy_courses.course_id
             AND users.id = buy_courses.buyer_id
-            AND (extract(day from now())=extract(day from date_bought))
-            AND (extract(month from now())=extract(month from date_bought))
-            AND (extract(year from now())=extract(year from date_bought))
+            AND (extract(day from now()) = extract(day from date_bought))
+            AND (extract(month from now()) = extract(month from date_bought))
+            AND (extract(year from now()) = extract(year from date_bought))
             GROUP BY users.id');
         $weekPay = DB::select('SELECT users.id as id, SUM(courses.cost) as pay 
             FROM  courses, buy_courses, users
             WHERE courses.id = buy_courses.course_id
             AND users.id = buy_courses.buyer_id
             AND (extract(day from now())- extract(day from date_bought)<=7)
-            AND (extract(month from now())=extract(month from date_bought))
-            AND (extract(year from now())=extract(year from date_bought))
+            AND (extract(month from now()) = extract(month from date_bought))
+            AND (extract(year from now()) = extract(year from date_bought))
             GROUP BY users.id');
         $totalPay = DB::select('SELECT users.id as id, SUM(courses.cost) as pay 
             FROM  courses, buy_courses, users
@@ -48,7 +48,7 @@ class HomeController extends Controller
                                        WHERE u1.id = courses.teacher_id
                                        AND u2.id = buy_courses.buyer_id
                                        AND courses.id = buy_courses.course_id
-                                       AND (extract(day from now())=extract(day from date_bought))
+                                       AND (extract(day from now()) =extract(day from date_bought))
                                        AND (extract(month from now())=extract(month from date_bought))
                                        AND (extract(year from now())=extract(year from date_bought))
                                        GROUP BY courses.teacher_id;');
