@@ -48,3 +48,4 @@ Route::get('course-info/{id}', 'IndexController@showCourseInfo')->name('course-i
 Route::get('teacherinfo/{id}', 'IndexController@showTeacherInfo')->name('teacher-info');
 Route::get('category/{id}','IndexController@showCategoryCourse')->name('category');
 Route::get('all-course','IndexController@showAllCourse')->name('all-course');
+

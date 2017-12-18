@@ -50,7 +50,10 @@
               <td>{{ $teachingCourse->buyers->count() }}</td>
               <td>{{ $teachingCourse->buyers->count() * $teachingCourse->cost }}</td>
               <td>
-                <a href="{{ route('user.teaching_course_detail', ['id' => $teachingCourse->id]) }}" class="btn green">Detail</a>
+                <a href="{{ route('user.teaching_course_detail', ['id' => $teachingCourse->id]) }}"
+                   class="btn blue-steel">
+                  Detail
+                </a>
               </td>
             </tr>
           @endforeach

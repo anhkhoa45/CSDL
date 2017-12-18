@@ -23,17 +23,17 @@
       </ul>
       <div class="page-toolbar">
         <div class="btn-group pull-right">
-          <button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown"> Edit course
+          <button type="button" class="btn yellow-gold btn-sm btn-outline dropdown-toggle" data-toggle="dropdown"> Edit course
             <i class="fa fa-angle-down"></i>
           </button>
           <ul class="dropdown-menu pull-right" role="menu">
             <li>
               <a href="{{ route('user.get_update_course_info', ['course' => $course->id]) }}">
-                <i class="icon-pencil"></i> Edit info</a>
+                <i class="icon-pencil"></i> Update info</a>
             </li>
             <li>
               <a href="#">
-                <i class="icon-book-open"></i> Edit contents</a>
+                <i class="icon-book-open"></i> Update contents</a>
             </li>
           </ul>
         </div>
