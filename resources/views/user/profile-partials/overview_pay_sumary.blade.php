@@ -10,11 +10,7 @@
           <span class="sale-info"> TODAY PAID
               <i class="fa fa-img-up"></i>
           </span>
-        @foreach($todayPay as $todaypay)
-          @if(($user->id === $todaypay->id))
-                <span class="sale-num"> ${{ $todaypay->pay }}</span>
-            @endif
-        @endforeach
+          <span class="sale-num">$ {{ $user->getTodayPaid() }}</span>
         </li>
         <li>
           <span class="sale-info"> WEEKLY PAID

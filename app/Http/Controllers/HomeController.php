@@ -22,22 +22,30 @@ class HomeController extends Controller
         $paginate = config('view.paginate');
         $teachingCourses = $user->teachingCourses()->with('buyers')->orderBy('created_at', 'desc')->get();
 
-        $todayPay = DB::select('SELECT users.id as id,SUM(courses.cost) as pay 
+        $todayPay = DB::select("SELECT users.id as id,SUM(courses.cost) as pay 
             FROM  courses, buy_courses, users
-            WHERE courses.id = buy_courses.course_id
+            WHERE users.id = $user->id
+            AND courses.id = buy_courses.course_id
             AND users.id = buy_courses.buyer_id
             AND (extract(day from now())=extract(day from date_bought))
             AND (extract(month from now())=extract(month from date_bought))
             AND (extract(year from now())=extract(year from date_bought))
-            GROUP BY users.id');
-        $weekPay = DB::select('SELECT users.id as id, SUM(courses.cost) as pay 
+            GROUP BY users.id");
+
+//        dd($todayPay);
+
+        $weekPay = DB::select("SELECT users.id as id, SUM(courses.cost) as pay 
             FROM  courses, buy_courses, users
-            WHERE courses.id = buy_courses.course_id
+            WHERE users.id = $user->id
+            AND courses.id = buy_courses.course_id
             AND users.id = buy_courses.buyer_id
             AND (extract(day from now())- extract(day from date_bought)<=7)
             AND (extract(month from now())=extract(month from date_bought))
             AND (extract(year from now())=extract(year from date_bought))
-            GROUP BY users.id');
+            GROUP BY users.id");
+
+//        dd($weekPay);
+
         $totalPay = DB::select('SELECT users.id as id, SUM(courses.cost) as pay 
             FROM  courses, buy_courses, users
             WHERE courses.id = buy_courses.course_id
