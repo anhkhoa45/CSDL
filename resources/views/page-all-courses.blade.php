@@ -1,18 +1,5 @@
 @extends('layouts.main')
 
-@section('style')
-  <style>
-    .pagination-links {
-      text-align: center;
-      margin-top: 100px;
-    }
-
-    .header-nav {
-      position: absolute;
-      margin-bottom: 0;
-    }
-  </style>
-@endsection
 @section('content')
   <section class="irs-ip-breadcrumbs">
     <div class="container">

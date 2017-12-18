@@ -14,10 +14,10 @@
   <p class="list-inline"><i class="fa fa-map-marker"></i> {{ $user->address }} </p>
   <ul class="list-inline">
     <li data-toggle="tooltip" title="Date of birth">
-      <i class="fa fa-birthday-cake"></i> {{ $user->DOB }}
+      <i class="fa fa-birthday-cake"></i> {{ $user->DOB ? $user->DOB : 'No data' }}
     </li>
     <li data-toggle="tooltip" title="Balance">
-      <i class="fa fa-money"></i> {{ $user->balance }}
+      <i class="fa fa-money"></i> {{ $user->balance ? $user->balance : 0 }}
     </li>
     <li data-toggle="tooltip" title="Learning score">
       <i class="fa fa-graduation-cap"></i> {{ $user->learning_score }}

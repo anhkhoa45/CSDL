@@ -16,137 +16,144 @@
       margin-right: 15px;
       border-right: solid 1px #ddd;
     }
+
+    textarea[name^="description"] {
+      margin-top: 20px !important;
+    }
   </style>
 @endsection
 
 @section('content')
-  @if ($errors->has('create_failed'))
-    <span class="help-block">
+  <div class="container">
+    @if ($errors->has('create_failed'))
+      <span class="help-block">
             <strong>{{ $errors->first('create_failed') }}</strong>
         </span>
-  @endif
-  <div class="portlet light form-fit bordered">
-    <div class="portlet-title">
-      <div class="caption center-block">
-        <i class="icon-settings font-green"></i>
-        <span class="caption-subject font-green sbold uppercase">Create Course</span>
+    @endif
+    <div class="portlet light form-fit bordered">
+      <div class="portlet-title">
+        <div class="caption center-block">
+          <i class="icon-settings font-green"></i>
+          <span class="caption-subject font-green sbold uppercase">Create Course</span>
+        </div>
       </div>
-    </div>
-    <div class="portlet-body form">
-      <form class="form-horizontal form-bordered" enctype="multipart/form-data"
-            action="{{ route('user.create_course') }}" method="POST">
-        {{ csrf_field() }}
-        <div class="form-body">
-          <div class="form-group">
-            <label class="control-label col-md-2">Course Name</label>
-            <div class="col-md-9">
-              <input class="no-border form-control" type="text" placeholder="JS essentials, PHP, ..." value="{{ old('name') }}"
-                     name="name" required/>
-              @if ($errors->has('name'))
-                <span class="help-block">
+      <div class="portlet-body form">
+        <form class="form-horizontal form-bordered" enctype="multipart/form-data"
+              action="{{ route('user.create_course') }}" method="POST">
+          {{ csrf_field() }}
+          <div class="form-body">
+            <div class="form-group">
+              <label class="control-label col-md-2">Course Name</label>
+              <div class="col-md-9">
+                <input class="no-border form-control" type="text" placeholder="JS essentials, PHP, ..."
+                       value="{{ old('name') }}"
+                       name="name" required/>
+                @if ($errors->has('name'))
+                  <span class="help-block">
                     <strong>{{ $errors->first('name') }}</strong>
                 </span>
-              @endif
+                @endif
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-md-2">About this course</label>
-            <div class="col-md-9">
+            <div class="form-group">
+              <label class="control-label col-md-2">About this course</label>
+              <div class="col-md-9">
               <textarea class="no-border form-control" rows="4" placeholder="The best course ever"
                         name="course_description" required>{{ old('course_description') }}</textarea>
-              @if ($errors->has('course_description'))
-                <span class="help-block">
+                @if ($errors->has('course_description'))
+                  <span class="help-block">
                     <strong>{{ $errors->first('course_description') }}</strong>
                 </span>
-              @endif
+                @endif
+              </div>
             </div>
-          </div>
-          <div class="form-group ">
-            <label class="control-label col-md-2">Course image</label>
-            <div class="col-md-3">
-              <div class="fileinput fileinput-new" data-provides="fileinput">
-                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="max-height: 300px"></div>
-                <div>
+            <div class="form-group ">
+              <label class="control-label col-md-2">Course image</label>
+              <div class="col-md-3">
+                <div class="fileinput fileinput-new" data-provides="fileinput">
+                  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="max-height: 300px"></div>
+                  <div>
                   <span class="btn red btn-outline btn-file">
                       <span class="fileinput-new"> Avatar </span>
                       <span class="fileinput-exists"> Change Avatar </span>
                       <input type="file" name="avatar" required> </span>
-                  <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
+                    <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-7">
-              <div class="fileinput fileinput-new" data-provides="fileinput">
-                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="max-height: 300px"></div>
-                <div>
+              <div class="col-md-7">
+                <div class="fileinput fileinput-new" data-provides="fileinput">
+                  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="max-height: 300px"></div>
+                  <div>
                 <span class="btn red btn-outline btn-file">
                     <span class="fileinput-new"> Cover </span>
                     <span class="fileinput-exists"> Change Cover </span>
                     <input type="file" name="cover" required> </span>
-                  <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
+                    <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
+                  </div>
                 </div>
               </div>
-            </div>
-            @if ($errors->has('avatar') || $errors->has('cover'))
-              <span class="help-block">
+              @if ($errors->has('avatar') || $errors->has('cover'))
+                <span class="help-block">
                 <strong>{{ $errors->first('avatar') }}</strong>
                 <strong>{{ $errors->first('cover') }}</strong>
               </span>
-            @endif
-          </div>
+              @endif
+            </div>
 
-          <div class="form-group">
-            <label class="control-label col-md-2">Category</label>
-            <div class="col-md-3">
-              <select class="form-control" name="category_id" required>
-                <option value="" selected>Your course is about ...</option>
-                @foreach($courseCategories as $courseCategory)
-                  <option value="{{ $courseCategory->id }}">{{ $courseCategory->name }}</option>
-                @endforeach
-              </select>
-              @if ($errors->has('category_id'))
-                <span class="help-block">
+            <div class="form-group">
+              <label class="control-label col-md-2">Category</label>
+              <div class="col-md-3">
+                <select class="form-control" name="category_id" required>
+                  <option value="" selected>Your course is about ...</option>
+                  @foreach($courseCategories as $courseCategory)
+                    <option value="{{ $courseCategory->id }}">{{ $courseCategory->name }}</option>
+                  @endforeach
+                </select>
+                @if ($errors->has('category_id'))
+                  <span class="help-block">
                     <strong>{{ $errors->first('category_id') }}</strong>
                 </span>
-              @endif
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="control-label col-md-2">Cost</label>
-            <div class="col-md-3">
-              <div class="input-group">
-                <input class="form-control" type="text" placeholder="0" value="{{ old('cost') }}"
-                       name="cost" required/>
-                <span class="input-group-addon">$</span>
+                @endif
               </div>
-              @if ($errors->has('cost'))
-                <span class="help-block">
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-md-2">Cost</label>
+              <div class="col-md-3">
+                <div class="input-group">
+                  <input class="form-control" type="text" placeholder="0" value="{{ old('cost') }}"
+                         name="cost" required/>
+                  <span class="input-group-addon">$</span>
+                </div>
+                @if ($errors->has('cost'))
+                  <span class="help-block">
                     <strong>{{ $errors->first('cost') }}</strong>
                 </span>
-              @endif
+                @endif
+              </div>
             </div>
-          </div>
 
-          <div class="form-group mt-element-list last">
-            <label class="control-label col-md-2">Course Contents</label>
-            <div class="col-md-9 mt-list-container list-simple">
-              <ul id="sortable"></ul>
-              <button id="btn-add" type="button" class="btn green btn-block margin-top-15">
-                <i class="fa fa-plus"></i>
-              </button>
+            <div class="form-group mt-element-list last">
+              <label class="control-label col-md-2">Course Contents</label>
+              <div class="col-md-9 mt-list-container list-simple">
+                <ul id="sortable"></ul>
+                <button id="btn-add" type="button" class="btn green btn-block margin-top-15">
+                  <i class="fa fa-plus"></i>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="form-actions">
-          <div class="row">
-            <div class="col-md-offset-2 col-md-9">
-              <button type="submit" class="btn green"><i class="fa fa-check"></i> Submit</button>
-              <a href="{{ route('index') }}" class="btn btn-outline grey-salsa">Cancel</a>
+          <div class="form-actions">
+            <div class="row">
+              <div class="col-md-offset-2 col-md-9">
+                <button type="submit" class="btn green"><i class="fa fa-check"></i> Submit</button>
+                <a href="{{ route('index') }}" class="btn btn-outline grey-salsa">Cancel</a>
+              </div>
             </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 @endsection
@@ -183,10 +190,10 @@
                   </select>
                   <input data-id="${ countContent }" type="text" class="new-course-content form-control" disabled
                          name="title[]"/>
-                  <textarea data-id="${ countContent }" rows="1" cols="40" class="form-control" disabled
-                       name="description[]"></textarea>
                   <input data-id="${ countContent }" type="text" class="new-course-content form-control" placeholder="URL" disabled
                        name="url[]"/>
+                  <textarea data-id="${ countContent }" rows="4" cols="70" class="form-control" disabled
+                       name="description[]"></textarea>
                   <button type="button" class="btn sbold uppercase btn-outline red-haze pull-right btn-remove">-</button>
                 </li>
               `);

@@ -1,4 +1,4 @@
-<div id="#tabTeachingCourse" class="tabbable-line tabbable-custom-profile">
+<div class="tabbable-line tabbable-custom-profile">
   <ul class="nav nav-tabs">
     <li class="active">
       <a href="#tab_1_11" data-toggle="tab"> My courses </a>
@@ -18,11 +18,11 @@
         </div>
       </div>
       <div class="portlet-body">
-        <table class="table table-striped table-bordered table-advance table-hover">
+        <table id="#tabTeachingCourse" class="table table-striped table-bordered table-hover order-column orderable">
           <thead>
           <tr>
-            <th> # </th>
             <th> <i class="fa fa-leanpub"></i> Course</th>
+            <th> <i class="fa fa-calendar"></i> Created at</th>
             <th> <i class="fa fa-star"></i> Status</th>
             <th> <i class="fa fa-bookmark"></i> Price</th>
             <th> <i class="fa fa-users"></i> Buyers</th>
@@ -31,13 +31,10 @@
           </tr>
           </thead>
           <tbody>
-          @php
-            $count = 1;
-          @endphp
           @foreach($teachingCourses as $teachingCourse)
             <tr>
-              <td>{{ $count++ }}</td>
               <td>{{ $teachingCourse->name }}</td>
+              <td>{{ $teachingCourse->created_at->format('d/m/Y') }}</td>
               <td>
                 @if($teachingCourse->status === \App\Course::STATUS_ACTIVE)
                   <span class="label label-sm label-success"> Active </span>
@@ -53,15 +50,15 @@
               <td>{{ $teachingCourse->buyers->count() }}</td>
               <td>{{ $teachingCourse->buyers->count() * $teachingCourse->cost }}</td>
               <td>
-                <a href="{{ route('user.teaching_course_detail', ['id' => $teachingCourse->id]) }}" class="btn green">Detail</a>
+                <a href="{{ route('user.teaching_course_detail', ['id' => $teachingCourse->id]) }}"
+                   class="btn blue-steel">
+                  Detail
+                </a>
               </td>
             </tr>
           @endforeach
           </tbody>
         </table>
-        <div class="text-center">
-          {{ $teachingCourses->links('vendor.pagination.bootstrap-4') }}
-        </div>
       </div>
     </div>
   </div>

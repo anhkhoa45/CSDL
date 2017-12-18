@@ -2,7 +2,7 @@
 
   <div class="portlet sale-summary">
     <div class="portlet-title">
-      <div class="caption font-red sbold"><a href="#"> Pay Summary</div>
+      <div class="caption font-blue-dark sbold"> Pay Summary </div>
     </div>
     <div class="portlet-body">
       <ul class="list-unstyled">
@@ -10,11 +10,7 @@
           <span class="sale-info"> TODAY PAID
               <i class="fa fa-img-up"></i>
           </span>
-        @foreach($todayPay as $todaypay)
-          @if(($user->id === $todaypay->id))
-                <span class="sale-num"> ${{$todaypay->pay}}</span>
-            @endif
-        @endforeach
+          <span class="sale-num">$ {{ $user->getTodayPaid() }}</span>
         </li>
         <li>
           <span class="sale-info"> WEEKLY PAID
