@@ -1,5 +1,4 @@
 <div class="col-md-3">
-
   <div class="portlet sale-summary">
     <div class="portlet-title">
       <div class="caption font-red-haze sbold"> Sale Summary </div>
