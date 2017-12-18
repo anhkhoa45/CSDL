@@ -5,6 +5,18 @@
   <link rel="stylesheet" href="{{ asset('css/pages/profile.min.css') }}">
   <link rel="stylesheet" href="{{ asset('css/bootstrap-fileinput.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('css/datatables.min.css') }}"/>
+
+  <style>
+    .sale-summary {
+      padding: 0 15px;
+    }
+
+    @media screen and (min-width: 1500px) {
+      .sale-summary li .sale-info {
+        font-size: 12px;
+      }
+    }
+  </style>
 @endsection
 
 @section('content')

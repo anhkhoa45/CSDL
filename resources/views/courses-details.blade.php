@@ -108,12 +108,12 @@
                           <div class="irs-cdtls-feture-bot">
                             <ul class="list-group">
                               <li>
-                                <a class="list-group-item"><span class="flaticon-business text-thm2"></span> Lecture
+                                <a class="list-group-item"><span class="flaticon-business text-thm2"></span> Video
                                   <span class="pull-right"> {{ $course->videos->count() }} </span></a>
                               </li>
                               <li>
-                                <a class="list-group-item"><span class="flaticon-pen text-thm2"></span> Project <span
-                                      class="pull-right"> {{ $course->projects->count() }} </span></a>
+                                <a class="list-group-item"><span class="flaticon-pen text-thm2"></span> Project
+                                  <span class="pull-right"> {{ $course->projects->count() }} </span></a>
                               </li>
                               <li>
                                 <a class="list-group-item"><span class="flaticon-people-1 text-thm2"></span> Students
@@ -137,30 +137,19 @@
                       <div class="col-md-12">
                         <div class="irs-cdtls-feture-bot2">
                           <ul class="list-group">
-                            @foreach($course->videos()->orderBy('order_in_course')->get() as $video)
+                            @foreach($courseContents as $courseContent)
                               <li>
                                 <a class="list-group-item" href="#">
                                   <ul class="list-inline">
-                                    <li><span class="flaticon-business text-thm2"></span> Video
-                                      #{{$video->order_in_course}} </li>
                                     <li>
-                                      <div class="its-tdu">{{$video->name}} </div>
-                                    </li>
-                                  </ul>
-                                </a>
-                              </li>
-                            @endforeach
-                          </ul>
-
-                          <ul class="list-group">
-                            @foreach($course->projects as $project)
-                              <li>
-                                <a class="list-group-item" href="#">
-                                  <ul class="list-inline">
-                                    <li><span class="flaticon-business text-thm2"></span> Project
-                                      #{{$project->order_in_course}} </li>
+                                      @if(get_class($courseContent) === \App\Video::class )
+                                        <span class="flaticon-business text-thm2"></span> Video
+                                      @else
+                                        <span class="flaticon-pen text-thm2"></span> Project
+                                      @endif
+                                      #{{ $courseContent->order_in_course}} </li>
                                     <li>
-                                      <div class="its-tdu">{{$project->project_name}} </div>
+                                      <div class="its-tdu">{{$courseContent->name}} </div>
                                     </li>
                                   </ul>
                                 </a>

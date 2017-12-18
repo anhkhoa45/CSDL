@@ -50,7 +50,7 @@ class IndexController extends Controller
     }
 
     public function showCourseInfo($id){
-        $course =  Course::where('courses.id', $id)
+        $course =  Course::with(['videos', 'projects'])->where('courses.id', $id)
             ->leftJoin('users as teacher', 'teacher_id', '=', 'teacher.id')
             ->leftJoin('buy_courses', 'courses.id', '=', 'course_id')
             ->leftJoin('users as buyers', 'buyer_id', '=', 'buyers.id')
@@ -64,13 +64,18 @@ class IndexController extends Controller
                 DB::raw('avg(buy_courses.rating) as avg_rating'),
             ])->first();
 
-        return view('courses-details', ['course' => $course]);
+        $courseContents = $course->videos->merge($course->projects)->sortBy('order_in_course');
+
+        return view('courses-details', ['course' => $course, 'courseContents' => $courseContents]);
     }
+
     public function showCategoryCourse($category_id)
     {
         $category = CourseCategory::findOrFail($category_id);
-        $courses = $category->courses()
-            ->with(['teacher', 'buyers'])->paginate(config('view.paginate'));
+        $courses = $category->courses()->whereNotIn('id', auth()->user()->enrolledCourses->pluck('id')->toArray())
+            ->whereNotIn('id', auth()->user()->teachingCourses->pluck('id')->toArray())
+            ->with(['teacher', 'buyers'])
+            ->paginate(config('view.paginate'));
 
         $data = [
             'category' => $category,
@@ -79,9 +84,13 @@ class IndexController extends Controller
 
         return view('page-courses-category', $data);
     }
+
     public function  showAllCourse()
     {
-        $courses = Course::paginate(config('view.paginate'));
+        $courses = Course::whereNotIn('id', auth()->user()->enrolledCourses->pluck('id')->toArray())
+            ->whereNotIn('id', auth()->user()->teachingCourses->pluck('id')->toArray())
+            ->with(['teacher', 'buyers'])
+            ->paginate(config('view.paginate'));
 
         return view('page-all-courses',['courses'=>$courses]);
     }
