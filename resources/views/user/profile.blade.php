@@ -1,9 +1,10 @@
 @extends('layouts.dashboard')
 
 @section('style')
+  <link rel="shortcut icon" href="favicon.ico"/>
   <link rel="stylesheet" href="{{ asset('css/pages/profile.min.css') }}">
   <link rel="stylesheet" href="{{ asset('css/bootstrap-fileinput.css') }}">
-  <link rel="shortcut icon" href="favicon.ico"/>
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/datatables.min.css') }}"/>
 @endsection
 
 @section('content')
@@ -58,4 +59,26 @@
 
 @section('script')
   <script src="{{ asset('js/bootstrap-fileinput.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('js/datatables.min.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('js/datatables.bootstrap.js') }}" type="text/javascript"></script>
+  <script>
+      $(document).ready( function () {
+          let cols = $('#tabTeachingCourse').find('th').length;
+
+          $('table.orderable').DataTable({
+              "lengthMenu": [
+                  [6, 10, 20, -1],
+                  [6, 10, 20, "All"] // change per page values here
+              ],
+              "pageLength": parseInt('{{ config('view.paginate') }}'),
+              "columnDefs": [{  // set default column settings
+                  'orderable': false,
+                  'targets': [cols - 1]
+              }, {
+                  "searchable": false,
+                  "targets": [cols - 1]
+              }]
+          });
+      });
+  </script>
 @endsection

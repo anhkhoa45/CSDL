@@ -23,11 +23,21 @@
   </div>
   <div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
     <label class="control-label">Gender</label>
-    <input type="text" name="gender" value="{{ $user->gender }}" class="form-control"/>
+    <select class="form-control" name="gender" >
+      <option value="{{ \App\User::GENDER_MALE }}" @if($user->gender === \App\User::GENDER_MALE) selected @endif>
+        Male
+      </option>
+      <option value="{{ \App\User::GENDER_FEMALE }}" @if($user->gender === \App\User::GENDER_FEMALE) selected @endif>
+        Female
+      </option>
+      <option value="{{ \App\User::GENDER_OTHER }}" @if($user->gender === \App\User::GENDER_OTHER) selected @endif>
+        Other
+      </option>
+    </select>
     @if ($errors->has('gender'))
       <span class="help-block">
-                            <strong>{{ $errors->first('gender') }}</strong>
-                        </span>
+          <strong>{{ $errors->first('gender') }}</strong>
+      </span>
     @endif
   </div>
   <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">

@@ -2,7 +2,7 @@
 
   <div class="portlet sale-summary">
     <div class="portlet-title">
-      <div class="caption font-red sbold"><a href="#"> Sale Summary</div>
+      <div class="caption font-red-haze sbold"> Sale Summary </div>
     </div>
     <div class="portlet-body">
       <ul class="list-unstyled">
