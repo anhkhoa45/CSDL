@@ -61,11 +61,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function (){
         Route::get('cateloges','AdminController@cateloges')->name('admin.cataloges');
 
         Route::get('users','AdminController@users')->name('admin.users');
-        Route::put('users-update','AdminController@usersUpdate')->name('admin.users.update');
-        Route::get('users-create','AdminControlles@usersCreate')->name('admin.users.create');
-        Route::put('users-edit','AdminController@usersEdit')->name('admin.users.edit');
+        Route::put('users-update/{user}','AdminController@usersUpdate')->name('admin.users.update');
+        Route::get('users-create','AdminController@usersCreate')->name('admin.users.create');
+        Route::post('users-store','AdminController@usersStore')->name('admin.users.store');
+        Route::get('users-edit/{user}','AdminController@usersEdit')->name('admin.users.edit');
         Route::put('users-destroy','AdminController@usersDestroy')->name('admin.users.destroy');
-        Route::get('users-show','AdminController@usersShow')->name('admin.users.show');
+        Route::get('users-show/{user}','AdminController@usersShow')->name('admin.users.show');
         Route::get('users-search','AdminController@usersSearch')->name('admin.users.search');
 
         Route::get('create-admin','AdminController@createAdmin')->name('admin.create_admin');

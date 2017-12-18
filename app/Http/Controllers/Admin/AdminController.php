@@ -69,18 +69,41 @@ class AdminController extends Controller
     {
         $user=User::findOrFail($id);
         $user->update([
-           'id'=>request()->user_id,
-            'name'=> request()->name,
-            'email'=> request()->email,
-            'DOB'=> request()->birthday,
-            'address'=> request()->address,
+           'id'=>$request['user_id'],
+            'name'=> $request['name'],
+            'email'=>$request['email'] ,
+            'DOB'=>$request['birthday'],
+            'address'=> $request['address'],
 
         ]);
+        $user=User::findOrFail($id);
+        return view('admin.users.show',['user'=>$user])->with('Success','Users profile updated successfully   ');
     }
     public function usersShow($id)
     {
         $user=User::findOrFail($id);
     return view('admin.users.show',['user'=>$user]);
+    }
+    public function usersCreate()
+    {
+        return view('admin.users.create');
+    }
+    public function usersStore(Request $request)
+    {
+        $user= New User();
+        $user->fill([
+            'name'=>$request['name'],
+            'email'=>$request['email'],
+            'DOB'=>$request['birthday'],
+            'gender'=>$request['gender'],
+            'address'=>$request['address'],
+            'balance'=>rand(0,1000),
+            'password'=>\Hash::make('123456'),
+        ]);
+        $user->save();
+        return redirect()->route('admin.users')
+            ->with('success','Student profile created successfully ');
+
     }
 
     //

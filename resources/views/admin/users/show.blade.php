@@ -26,7 +26,7 @@
                 </div>
             @endif
             <div class="info-panel col-md-12 bg-info">
-                <h1>{{ $user->id }}</h1>
+                <h1> {{ "User-id: " .$user->id }}</h1>
                 <div class="col-md-3">
                     <img class="img-responsive img-rounded" src="{{ Storage::url($user->avatar) }}" alt="Avatar">
                 </div>
@@ -34,7 +34,7 @@
                     <p>Name: {{ $user->name }}</p>
                     <p>Email: {{ $user->email }}</p>
                     <p>Date of birth: {{ $user->DOB }}</p>
-                    <a class="btn btn-primary" href="{{ route('admin.student.edit', ['user' => $user->id]) }}">Edit profile</a>
+                    <a class="btn btn-primary" href="{{ route('admin.users.edit', ['user' => $user->id]) }}">Edit profile</a>
                 </div>
             </div>
         </div>

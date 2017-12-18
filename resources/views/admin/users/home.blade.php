@@ -45,10 +45,7 @@
             <tr>
                 <th>#</th>
                 <th>Name</th>
-                <th>Gender</th>
-                <th>Date of Birth</th>
                 <th>Email</th>
-                <th>Address</th>
                 <th>Balance</th>
                 <th>Created at</th>
                 <th>Updated at</th>
@@ -65,10 +62,7 @@
                 <tr>
                     <td>{{ $count++ }}</td>
                     <td>{{ $user->name }}</td>
-                    <td>{{ $user->gender}}</td>
-                    <td>{{ $user->DOB}}</td>
                     <td>{{ $user->email}}</td>
-                    <td>{{ $user->address}}</td>
                     <td>{{ $user->balance}}</td>
                     <td>{{ $user->created_at}}</td>
                     <td>{{ $user->updated_at}}</td>
