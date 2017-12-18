@@ -22,7 +22,11 @@ class HomeController extends Controller
         $paginate = config('view.paginate');
         $teachingCourses = $user->teachingCourses()->with('buyers')->orderBy('created_at', 'desc')->paginate($paginate);
 
+<<<<<<< HEAD
         $todayPay = DB::select('SELECT SUM(courses.cost) as pay 
+=======
+        $todayPay = DB::select('SELECT users.id as id,SUM(courses.cost) as pay 
+>>>>>>> e732d846422fd6cde3e60ec06b44e7c2addb8725
             FROM  courses, buy_courses, users
             WHERE courses.id = buy_courses.course_id
             AND users.id = buy_courses.buyer_id
@@ -30,7 +34,11 @@ class HomeController extends Controller
             AND (extract(month from now())=extract(month from date_bought))
             AND (extract(year from now())=extract(year from date_bought))
             GROUP BY users.id');
+<<<<<<< HEAD
         $weekPay = DB::select('SELECT SUM(courses.cost) as pay 
+=======
+        $weekPay = DB::select('SELECT users.id as id, SUM(courses.cost) as pay 
+>>>>>>> e732d846422fd6cde3e60ec06b44e7c2addb8725
             FROM  courses, buy_courses, users
             WHERE courses.id = buy_courses.course_id
             AND users.id = buy_courses.buyer_id
@@ -38,18 +46,56 @@ class HomeController extends Controller
             AND (extract(month from now())=extract(month from date_bought))
             AND (extract(year from now())=extract(year from date_bought))
             GROUP BY users.id');
+<<<<<<< HEAD
         $totalPay = DB::select('SELECT SUM(courses.cost) as pay 
+=======
+        $totalPay = DB::select('SELECT users.id as id, SUM(courses.cost) as pay 
+>>>>>>> e732d846422fd6cde3e60ec06b44e7c2addb8725
             FROM  courses, buy_courses, users
             WHERE courses.id = buy_courses.course_id
             AND users.id = buy_courses.buyer_id
             GROUP BY users.id');
+<<<<<<< HEAD
+=======
+        $todaySale = DB::select('SELECT courses.teacher_id as id,SUM(courses.cost) as sale
+                                       FROM courses,users u1,users u2,buy_courses
+                                       WHERE u1.id = courses.teacher_id
+                                       AND u2.id = buy_courses.buyer_id
+                                       AND courses.id = buy_courses.course_id
+                                       AND (extract(day from now())=extract(day from date_bought))
+                                       AND (extract(month from now())=extract(month from date_bought))
+                                       AND (extract(year from now())=extract(year from date_bought))
+                                       GROUP BY courses.teacher_id;');
+        $weekSale = DB::select('SELECT courses.teacher_id as id,SUM(courses.cost) as sale
+                                       FROM courses,users u1,users u2,buy_courses
+                                       WHERE u1.id = courses.teacher_id
+                                       AND u2.id = buy_courses.buyer_id
+                                       AND courses.id = buy_courses.course_id
+                                       AND (extract(day from now())-extract(day from date_bought)<=7)
+                                       AND (extract(month from now())=extract(month from date_bought))
+                                       AND (extract(year from now())=extract(year from date_bought))
+                                       GROUP BY courses.teacher_id;');
+        $totalSale = DB::select('SELECT courses.teacher_id as id,SUM(courses.cost) as sale
+                                       FROM courses,users u1,users u2,buy_courses
+                                       WHERE u1.id = courses.teacher_id
+                                       AND u2.id = buy_courses.buyer_id
+                                       AND courses.id = buy_courses.course_id
+                                       GROUP BY courses.teacher_id;');
+>>>>>>> e732d846422fd6cde3e60ec06b44e7c2addb8725
 
         $data = [
             'user' => $user,
             'teachingCourses' => $teachingCourses,
             'todayPay' => $todayPay,
             'weekPay' => $weekPay,
+<<<<<<< HEAD
             'totalPay' => $totalPay
+=======
+            'totalPay' => $totalPay,
+            'todaySale' => $todaySale,
+            'weekSale' => $weekSale,
+            'totalSale' => $totalSale
+>>>>>>> e732d846422fd6cde3e60ec06b44e7c2addb8725
         ];
         return view('user.profile', $data);
     }
@@ -153,6 +199,7 @@ class HomeController extends Controller
         $user = auth()->user();
         $course = $user->teachingCourses()->findOrFail($course_id);
         $monthlyBuyers = $course->getMonthlyBuyers();
+<<<<<<< HEAD
 
         $data = [
             'course' => $course,
@@ -162,4 +209,16 @@ class HomeController extends Controller
         return view('user.teaching_course_detail', $data);
     }
 
+=======
+
+        $data = [
+            'course' => $course,
+            'monthlyBuyers' => $monthlyBuyers
+        ];
+
+        return view('user.teaching_course_detail', $data);
+    }
+
+
+>>>>>>> e732d846422fd6cde3e60ec06b44e7c2addb8725
 }

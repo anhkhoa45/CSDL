@@ -2,7 +2,11 @@
 
   <div class="portlet sale-summary">
     <div class="portlet-title">
+<<<<<<< HEAD
       <div class="caption font-red sbold"> Pay Summary</div>
+=======
+      <div class="caption font-red sbold"><a href="#"> Sale Summary</div>
+>>>>>>> e732d846422fd6cde3e60ec06b44e7c2addb8725
     </div>
     <div class="portlet-body">
       <ul class="list-unstyled">
@@ -10,6 +14,7 @@
           <span class="sale-info"> TODAY PAID
               <i class="fa fa-img-up"></i>
           </span>
+<<<<<<< HEAD
         @foreach($todayPay as $todaypay)
           <span class="sale-num"> ${{$todaypay->pay}}</span>
         @endforeach
@@ -26,6 +31,30 @@
           <span class="sale-info"> TOTAL PAID  </span>
           @foreach($totalPay as $totalpay)
           <span class="sale-num"> ${{$totalpay->pay}} </span>
+=======
+        @foreach($todaySale as $todaysale)
+          @if($user->id === $todaysale->id)
+            <span class="sale-num"> ${{$todaysale->sale}}</span>
+            @endif
+        @endforeach
+        </li>
+        <li>
+          <span class="sale-info"> WEEKLY SOLD
+              <i class="fa fa-img-down"></i>
+          </span>
+          @foreach($weekSale as $weeksale)
+            @if($user->id === $weeksale->id)
+              <span class="sale-num"> ${{$weeksale->pay}}</span>
+            @endif
+          @endforeach
+        </li>
+        <li>
+          <span class="sale-info"> TOTAL SOLD </span>
+          @foreach($totalSale as $totalsale)
+            @if($user->id === $totalsale->id)
+              <span class="sale-num"> ${{$totalsale->sale}}</span>
+            @endif
+>>>>>>> e732d846422fd6cde3e60ec06b44e7c2addb8725
           @endforeach
         </li>
       </ul>
