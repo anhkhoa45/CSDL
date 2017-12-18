@@ -60,9 +60,10 @@ class AdminController extends Controller
         $users=User::orderBy('name')->paginate(10);
         return view('admin.users.home',['users'=>$users]);
     }
-    public function usersEdit()
+    public function usersEdit($id)
     {
-        $user=User::findOrFail($id);return view('admin.users.edit',['user'=>$user]);
+        $user=User::findOrFail($id);
+        return view('admin.users.edit',['user'=>$user]);
     }
     public function usersUpdate(Request $request, $id)
     {
