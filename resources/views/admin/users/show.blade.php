@@ -32,8 +32,11 @@
                 </div>
                 <div class="col-md-6 col-md-offset-2">
                     <p>Name: {{ $user->name }}</p>
+                    <p>Address: {{ $user->address }}</p>
                     <p>Email: {{ $user->email }}</p>
                     <p>Date of birth: {{ $user->DOB }}</p>
+                    <p>Created: {{ $user->created_at }}</p>
+                    <p>Updated: {{ $user->updated_at }}</p>
                     <a class="btn btn-primary" href="{{ route('admin.users.edit', ['user' => $user->id]) }}">Edit profile</a>
                 </div>
             </div>

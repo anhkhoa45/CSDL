@@ -35,7 +35,7 @@
             <div class="actions-head col-md-6">
                 <a class="new-btn btn btn-primary" href="{{ route('admin.users.create') }}">+ New</a>
                 <form class="search-form form form-inline" method="GET" action="{{ route('admin.users.search') }}">
-                    <input class="form-control" type="text" placeholder="Student name" name="name">
+                    <input class="form-control" type="text" placeholder="User name" name="name">
                     <button class="btn btn-success" type="submit">Search</button>
                 </form>
             </div>

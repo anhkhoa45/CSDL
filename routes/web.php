@@ -65,11 +65,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function (){
         Route::get('users-create','AdminController@usersCreate')->name('admin.users.create');
         Route::post('users-store','AdminController@usersStore')->name('admin.users.store');
         Route::get('users-edit/{user}','AdminController@usersEdit')->name('admin.users.edit');
-        Route::put('users-destroy','AdminController@usersDestroy')->name('admin.users.destroy');
+        Route::get('users-destroy/{user}','AdminController@usersDestroy')->name('admin.users.destroy');
         Route::get('users-show/{user}','AdminController@usersShow')->name('admin.users.show');
         Route::get('users-search','AdminController@usersSearch')->name('admin.users.search');
 
         Route::get('create-admin','AdminController@createAdmin')->name('admin.create_admin');
+        Route::post('store-admin','AdminController@storeAdmin')->name('admin.stroe_admin');
         Route::get('courses','AdminController@courses')->name('admin.courses');
     });
 });

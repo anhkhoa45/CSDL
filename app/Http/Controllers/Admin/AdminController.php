@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Admin;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
@@ -106,6 +107,39 @@ class AdminController extends Controller
 
     }
 
+    public function storeAdmin(Request $request)
+    {
+        $admin=New Admin();
+        $admin->fill([
+           'name' =>$request['name'],
+            'email'=>$request['email'],
+            'DOB'=>$request['birthday'],
+            'gender'=>$request['gender'],
+            'password'=>\Hash::make('123456'),
+        ]);
+        $admin->save();
+
+    }
+
+    public function usersSearch()
+    {
+        $user = User::where('name', 'like', '%'.request()->name.'%')->orderBy('name')->paginate(10);
+
+        return view('admin.users.home', ['users' => $user]);
+    }
+
+    public function usersDestroy($id)
+    {
+        $user=User::findOrFail($id);
+        $user->delete();
+
+        return view('admin.users.home');
+    }
+
+    public function createAdmin()
+    {
+        return view('admin.create');
+    }
     //
     public function profile()
     {

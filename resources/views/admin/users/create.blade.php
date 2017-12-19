@@ -24,7 +24,7 @@
                 <div class="form-group">
                     <label for="genderTxt" class="col-sm-2 control-label">Gender</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="ganderTxt" placeholder="Gender" name="gender" value="{{ old('gender') }}">
+                        <input type="text" class="form-control" id="genderTxt" placeholder="Gender" name="gender" value="{{ old('gender') }}">
                     </div>
                 </div>
 
