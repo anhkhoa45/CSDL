@@ -54,10 +54,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function (){
         Route::post('logout','AdminController@logout')->name('admin.logout');
         Route::get('home','AdminController@home')->name('admin.home');
 
-        Route::get('profile','AdminController@profile')->name('admin.profile');
-        Route::put('update-info','AdminController@updateInfo')->name('admin.update_info');
-        Route::put('update-ava','AdminController@updateAvatar')->name('admin.update_ava');
-        Route::put('change-password','AdminController@changePassword')->name('admin.change_password');
+        Route::get('profile/{admin}','AdminController@profile')->name('admin.profile');
+        Route::put('update-info/{admin}','AdminController@update')->name('admin.update');
+        Route::get('edit/{admin}','AdminController@edit')->name('admin.edit');
         Route::get('cateloges','AdminController@cateloges')->name('admin.cataloges');
 
         Route::get('users','AdminController@users')->name('admin.users');
@@ -70,7 +69,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function (){
         Route::get('users-search','AdminController@usersSearch')->name('admin.users.search');
 
         Route::get('create-admin','AdminController@createAdmin')->name('admin.create_admin');
-        Route::post('store-admin','AdminController@storeAdmin')->name('admin.stroe_admin');
+        Route::post('store-admin','AdminController@storeAdmin')->name('admin.store_admin');
         Route::get('courses','AdminController@courses')->name('admin.courses');
     });
 });

@@ -70,7 +70,6 @@ class AdminController extends Controller
     {
         $user=User::findOrFail($id);
         $user->update([
-           'id'=>$request['user_id'],
             'name'=> $request['name'],
             'email'=>$request['email'] ,
             'DOB'=>$request['birthday'],
@@ -115,10 +114,11 @@ class AdminController extends Controller
             'email'=>$request['email'],
             'DOB'=>$request['birthday'],
             'gender'=>$request['gender'],
+            'address'=>$request['address'],
             'password'=>\Hash::make('123456'),
         ]);
         $admin->save();
-
+    return redirect()->route('admin.home');
     }
 
     public function usersSearch()
@@ -140,10 +140,28 @@ class AdminController extends Controller
     {
         return view('admin.create');
     }
-    //
-    public function profile()
+    //Admin
+    public function profile($id)
     {
-        return view('admin.profile');
+        $admin=Admin::findOrFail($id);
+        return view('admin.profile',['admin'=>$admin]);
+    }
+    public function update(Request $request,$id)
+    {
+        $admin=Admin::findOrFail($id);
+        $admin->update([
+            'name'=> $request['name'],
+            'email'=>$request['email'] ,
+            'DOB'=>$request['birthday'],
+            'address'=> $request['address'],
+
+        ]);
+        return view('admin.profile',['admin'=>$admin])->with('Success','Admin profile updated successfully ');
+    }
+    public function edit($id)
+    {
+        $admin=Admin::findOrFail($id);
+        return view('admin.edit',['admin'=>$admin]);
     }
     public function guard()
     {
