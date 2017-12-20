@@ -72,7 +72,7 @@
                         <form
                                 class="form-inline"
                                 method="POST"
-                                action="{{ route('admin.users.destroy', ['user' => $user->id]) }}"
+                                action="{{ route('admin.users.destroy', ['user  ' => $user->id]) }}"
                         >
 
                             <button type="submit" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i></button>

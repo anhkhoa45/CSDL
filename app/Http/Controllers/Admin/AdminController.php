@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Admin;
+use App\CourseCategory;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
@@ -19,26 +20,12 @@ class AdminController extends Controller
     public function login(Request $request)
     {
         $admin=$request['email'];
-      //  echo $admin;
         $password=$request['password'];
-      /*  $this->validate($request, [
-            'email' => 'required|string',
-            'password' => 'required|max:30'
-        ]);
 
-        if ($this->hasTooManyLoginAttempts($request)) {
-            $this->fireLockoutEvent($request);
-
-            return $this->sendLockoutResponse($request);
-        }*/
-
-        // Attempt to log the user in
         if (auth()->guard('admin')->attempt(['email' => $admin, 'password' => $password], $request->remember))
         {
-            // if successful, then redirect to their intended location
             return redirect()->route('admin.home');
         }
-        // if unsuccessful, then redirect back to the login with the form data
 
         $this->incrementLoginAttempts($request);
 
@@ -55,7 +42,7 @@ class AdminController extends Controller
         $request->session()->invalidate();
         return redirect()->route('admin.show_login');
     }
-    //users
+    //Users
     public function users()
     {
         $users=User::orderBy('name')->paginate(10);
@@ -132,15 +119,17 @@ class AdminController extends Controller
     {
         $user=User::findOrFail($id);
         $user->delete();
+        $users=User::orderBy('name')->paginate(10);
 
-        return view('admin.users.home');
+        return view('admin.users.home',['users'=>$users]);
     }
 
+
+    //Admin
     public function createAdmin()
     {
         return view('admin.create');
     }
-    //Admin
     public function profile($id)
     {
         $admin=Admin::findOrFail($id);
@@ -163,6 +152,20 @@ class AdminController extends Controller
         $admin=Admin::findOrFail($id);
         return view('admin.edit',['admin'=>$admin]);
     }
+
+    //Catagories
+    public function categories()
+    {
+          $categories=CourseCategory::orderBy('name')->paginate(10);
+
+        return view('admin.categories.home',['categories'=>$categories]);
+    }
+    public function catagoriesShow($id)
+    {
+
+    }
+
+    //
     public function guard()
     {
         return Auth::guard('admin');

@@ -53,24 +53,27 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function (){
     Route::group(['middleware'=>'admin_auth'],function(){
         Route::post('logout','AdminController@logout')->name('admin.logout');
         Route::get('home','AdminController@home')->name('admin.home');
-
         Route::get('profile/{admin}','AdminController@profile')->name('admin.profile');
         Route::put('update-info/{admin}','AdminController@update')->name('admin.update');
         Route::get('edit/{admin}','AdminController@edit')->name('admin.edit');
-        Route::get('cateloges','AdminController@cateloges')->name('admin.cataloges');
 
+        Route::get('create-admin','AdminController@createAdmin')->name('admin.create_admin');
+        Route::post('store-admin','AdminController@storeAdmin')->name('admin.store_admin');
+        //User
         Route::get('users','AdminController@users')->name('admin.users');
         Route::put('users-update/{user}','AdminController@usersUpdate')->name('admin.users.update');
         Route::get('users-create','AdminController@usersCreate')->name('admin.users.create');
         Route::post('users-store','AdminController@usersStore')->name('admin.users.store');
         Route::get('users-edit/{user}','AdminController@usersEdit')->name('admin.users.edit');
-        Route::get('users-destroy/{user}','AdminController@usersDestroy')->name('admin.users.destroy');
+        Route::delete('users-destroy/{user}','AdminController@usersDestroy')->name('admin.users.destroy');
         Route::get('users-show/{user}','AdminController@usersShow')->name('admin.users.show');
         Route::get('users-search','AdminController@usersSearch')->name('admin.users.search');
-
-        Route::get('create-admin','AdminController@createAdmin')->name('admin.create_admin');
-        Route::post('store-admin','AdminController@storeAdmin')->name('admin.store_admin');
+        //Catagories
+        Route::get('categories','AdminController@categories')->name('admin.categories');
+        Route::get('categories-show/{catagories}','AdminController@categoriesShow')->name('admin.categories.show');
+        //Course
         Route::get('courses','AdminController@courses')->name('admin.courses');
+
     });
 });
 

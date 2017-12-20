@@ -38,7 +38,7 @@
                         <ul class="nav navbar-nav navbar-left">
                             <li><a href="{{ route('admin.home') }}">Home</a></li>
                             <li><a href="{{ route('admin.users') }}">User Manager</a></li>
-                            <li><a href="{{ route('admin.home') }}">Catalogies Manager</a></li>
+                            <li><a href="{{ route('admin.categories') }}">Categories Manager</a></li>
                             <li><a href="{{ route('admin.home') }}">Courses Manager</a></li>
                         </ul>
 
