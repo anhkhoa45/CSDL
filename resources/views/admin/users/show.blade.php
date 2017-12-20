@@ -32,6 +32,11 @@
                 </div>
                 <div class="col-md-6 col-md-offset-2">
                     <p>Name: {{ $user->name }}</p>
+                    <p>Gender: @if($user->gender==\App\User::GENDER_MALE) {{"Male"}}
+                                   @elseif($user->gender==\App\User::GENDER_FEMALE){{"Female"}}
+                                   @else {{"Orther"}}
+                                   @endif
+                    </p>
                     <p>Address: {{ $user->address }}</p>
                     <p>Email: {{ $user->email }}</p>
                     <p>Date of birth: {{ $user->DOB }}</p>

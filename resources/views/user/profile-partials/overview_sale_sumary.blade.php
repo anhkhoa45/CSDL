@@ -1,8 +1,7 @@
 <div class="col-md-3">
-
   <div class="portlet sale-summary">
     <div class="portlet-title">
-      <div class="caption font-red sbold"> Pay Summary</div>
+      <div class="caption font-red-haze sbold"> Sale Summary </div>
     </div>
     <div class="portlet-body">
       <ul class="list-unstyled">
@@ -10,23 +9,17 @@
           <span class="sale-info"> TODAY PAID
               <i class="fa fa-img-up"></i>
           </span>
-        @foreach($todayPay as $todaypay)
-          <span class="sale-num"> ${{$todaypay->pay}}</span>
-        @endforeach
+            <span class="sale-num"> ${{$user->getTodaySold()}}</span>
         </li>
         <li>
-          <span class="sale-info"> WEEKLY PAID
+          <span class="sale-info"> WEEKLY SOLD
               <i class="fa fa-img-down"></i>
           </span>
-          @foreach($weekPay as $weekpay)
-          <span class="sale-num"> ${{$weekpay->pay}} </span>
-          @endforeach
+              <span class="sale-num"> ${{$user->getWeekSold()}}</span>
         </li>
         <li>
-          <span class="sale-info"> TOTAL PAID  </span>
-          @foreach($totalPay as $totalpay)
-          <span class="sale-num"> ${{$totalpay->pay}} </span>
-          @endforeach
+          <span class="sale-info"> TOTAL SOLD </span>
+              <span class="sale-num"> ${{$user->getTotalSold()}}</span>
         </li>
       </ul>
     </div>

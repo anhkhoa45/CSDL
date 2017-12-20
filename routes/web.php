@@ -71,9 +71,15 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function (){
         //Catagories
         Route::get('categories','AdminController@categories')->name('admin.categories');
         Route::get('categories-show/{catagories}','AdminController@categoriesShow')->name('admin.categories.show');
+        Route::get('categories-create','AdminController@categoriesCreate')->name('admin.categories.create');
+        Route::post('categories-store','AdminController@categoriesStore')->name('admin.categories.store');
+        Route::get('categories-edit/{categories}','AdminController@categoriesEdit')->name('admin.categories.edit');
+        Route::put('categories-update/{categories}','AdminController@categoriesUpdate')->name('admin.categories.update');
+        Route::delete('categories-destroy/{categories}','AdminController@categoriesDestroy')->name('admin.categories.destroy');
+        Route::get('categories-search','AdminController@categoriesSearch')->name('admin.categories.search');
         //Course
-        Route::get('courses','AdminController@courses')->name('admin.courses');
-
+        Route::get('courses','CourseManageController@courses')->name('admin.courses');
+        Route::get('course-show/{course}','CourseManageController@courseShow')->name('admin.courses.show');
     });
 });
 

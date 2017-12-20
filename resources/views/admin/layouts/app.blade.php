@@ -39,7 +39,7 @@
                             <li><a href="{{ route('admin.home') }}">Home</a></li>
                             <li><a href="{{ route('admin.users') }}">User Manager</a></li>
                             <li><a href="{{ route('admin.categories') }}">Categories Manager</a></li>
-                            <li><a href="{{ route('admin.home') }}">Courses Manager</a></li>
+                            <li><a href="{{ route('admin.courses') }}">Courses Manager</a></li>
                         </ul>
 
                     @endif

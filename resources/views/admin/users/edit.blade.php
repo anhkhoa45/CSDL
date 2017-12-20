@@ -21,12 +21,22 @@
             <form class="form-horizontal" method="POST" enctype="multipart/form-data"
                   action="{{ route('admin.users.update', ['user' => $user->id]) }}"
             >
-
                 <div class="form-group">
                     <label for="nameTxt" class="col-sm-2 control-label">Name</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="nameTxt" placeholder="Name" name="name" value="{{ $user->name }}">
                     </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="genderTxt" class="col-sm-2 control-label">Gender</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" name="gender" >
+                            <option value="{{ \App\User::GENDER_MALE }}">Male</option>
+                            <option value="{{ \App\User::GENDER_FEMALE }}">Female</option>
+                            <option value="{{ \App\User::GENDER_OTHER }}">Other</option>
+                        </select>
+                         </div>
                 </div>
 
                 <div class="form-group">

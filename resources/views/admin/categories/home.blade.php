@@ -33,7 +33,8 @@
                 <h2>Manage Categories</h2>
             </div>
             <div class="actions-head col-md-6">
-                <form class="search-form form form-inline" method="GET" action="{{ route('admin.users.search') }}">
+                <a class="new-btn btn btn-primary" href="{{ route('admin.categories.create') }}">+ New</a>
+                <form class="search-form form form-inline" method="GET" action="{{ route('admin.categories.search') }}">
                     <input class="form-control" type="text" placeholder="Categories name" name="name">
                     <button class="btn btn-success" type="submit">Search</button>
                 </form>
@@ -44,6 +45,7 @@
             <tr>
                 <th>#</th>
                 <th>Name</th>
+                <th>Count</th>
                 <th></th>
             </tr>
             </thead>
@@ -57,7 +59,23 @@
                 <tr>
                     <td>{{ $count++ }}</td>
                     <td>{{ $categories->name }}</td>
+                    <td>{{$categories->countcourse}}</td>
                     <td></td>
+                    <td>
+                        <a class="btn btn-success" href="{{ route('admin.categories.show', ['categories' => $categories->id]) }}">Detail</a>
+                        <a class="btn btn-primary" href="{{ route('admin.categories.edit', ['categories' => $categories->id]) }}">Edit</a>
+                        <form
+                                class="form-inline"
+                                method="POST"
+                                action="{{ route('admin.categories.destroy', ['categories' => $categories->id]) }}"
+                        >
+
+                            <button type="submit" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i></button>
+
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        </form>
+                    </td>
                 </tr>
             @endforeach
 

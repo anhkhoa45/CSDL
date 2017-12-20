@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -61,6 +62,7 @@ class AdminController extends Controller
             'email'=>$request['email'] ,
             'DOB'=>$request['birthday'],
             'address'=> $request['address'],
+            'gender'=>$request['gender'],
 
         ]);
         $user=User::findOrFail($id);
@@ -119,9 +121,7 @@ class AdminController extends Controller
     {
         $user=User::findOrFail($id);
         $user->delete();
-        $users=User::orderBy('name')->paginate(10);
-
-        return view('admin.users.home',['users'=>$users]);
+        return redirect()->route('admin.users');
     }
 
 
@@ -156,13 +156,58 @@ class AdminController extends Controller
     //Catagories
     public function categories()
     {
-          $categories=CourseCategory::orderBy('name')->paginate(10);
-
+        $categories=DB::select("SELECT course_categories.*,count(course_categories.id) as CountCourse  
+                                  FROM course_categories,courses
+                                  WHERE course_categories.id = courses.course_category_id
+                                  GROUP BY course_categories.id ");
         return view('admin.categories.home',['categories'=>$categories]);
     }
-    public function catagoriesShow($id)
+    public function categoriesShow($id)
     {
+        $categories=DB::select("SELECT course_categories.*,count(course_categories.id) as CountCourse  
+                                  FROM course_categories,courses
+                                  WHERE course_categories.id = courses.course_category_id
+                                    AND course_categories.id=$id
+                                  GROUP BY course_categories.id ");
+        //dd($categories);
+        return view('admin.categories.show',['categories'=>$categories]);
+    }
+    public function categoriesCreate()
+    {
+        return view('admin.categories.create');
+    }
+    public function categoriesStore(Request $request)
+    {
+        $categories= New CourseCategory();
+        $categories->fill([
+            'name'=>$request['name'],
+        ]);
+        $categories->save();
+        return redirect()->route('admin.categories');
+    }
+    public function categoriesEdit($id)
+    {
+        $categories=CourseCategory::findOrFail($id);
+        return view('admin.categories.edit',['categories'=>$categories]);
+    }
+    public function categoriesUpdate(Request $request,$id)
+    {
+        $categories=CourseCategory::findOrFail($id);
+        $categories->update([
+           'name'=>$request['name'],
+        ]);
+        return redirect()->route('admin.categories');
+    }
+    public function categoriesDestroy($id)
+    {
+        CourseCategory::findOrFail($id)->delete();
+        return redirect()->route('admin.categories');
+    }
+    public function categoriesSearch()
+    {
+        $categories = CourseCategory::where('name', 'like', '%'.request()->name.'%')->orderBy('name')->paginate(10);
 
+        return view('admin.categories.home', ['categories' => $categories]);
     }
 
     //

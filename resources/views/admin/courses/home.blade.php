@@ -30,10 +30,9 @@
                 </div>
             @endif
             <div class="col-md-6">
-                <h2>Manage Users</h2>
+                <h2>Manage Courses</h2>
             </div>
             <div class="actions-head col-md-6">
-                <a class="new-btn btn btn-primary" href="{{ route('admin.users.create') }}">+ New</a>
                 <form class="search-form form form-inline" method="GET" action="{{ route('admin.users.search') }}">
                     <input class="form-control" type="text" placeholder="User name" name="name">
                     <button class="btn btn-success" type="submit">Search</button>
@@ -45,10 +44,10 @@
             <tr>
                 <th>#</th>
                 <th>Name</th>
-                <th>Email</th>
-                <th>Balance</th>
-                <th>Created at</th>
-                <th>Updated at</th>
+                <th>Category</th>
+                <th>Teacher</th>
+                <th>Status</th>
+                <th>Cost</th>
                 <th></th>
             </tr>
             </thead>
@@ -58,28 +57,22 @@
                 $count = 1;
             @endphp
 
-            @foreach($users as $user)
+            @foreach($courses as $course)
                 <tr>
                     <td>{{ $count++ }}</td>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email}}</td>
-                    <td>{{ $user->balance}}</td>
-                    <td>{{ $user->created_at}}</td>
-                    <td>{{ $user->updated_at}}</td>
+                    <td>{{ $course->name }}</td>
+                    <td>{{ $course->category}}</td>
+                    <td>{{ $course->teacher}}</td>
                     <td>
-                        <a class="btn btn-success" href="{{ route('admin.users.show', ['user' => $user->id]) }}">Detail</a>
-                        <a class="btn btn-primary" href="{{ route('admin.users.edit', ['user' => $user->id]) }}">Edit</a>
-                        <form
-                                class="form-inline"
-                                method="POST"
-                                action="{{ route('admin.users.destroy', ['user  ' => $user->id]) }}"
-                        >
-
-                            <button type="submit" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i></button>
-
-                            <input type="hidden" name="_method" value="DELETE">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        </form>
+                        @if($course->status==\App\Course::STATUS_PENDING) {{"PENDING"}}
+                            @elseif($course->status==\App\Course::STATUS_ACTIVE){{ "ACTIVE" }}
+                            @elseif($course->status==\App\Course::STATUS_DEACTIVED){{"DEACTIVED"}}
+                            @else {{"REJECTED"}}
+                            @endif
+                    </td>
+                    <td>{{ $course->cost}}</td>
+                    <td>
+                        <a class="btn btn-success" href="{{ route('admin.courses.show', ['course' => $course->id]) }}">Detail</a>
                     </td>
                 </tr>
             @endforeach

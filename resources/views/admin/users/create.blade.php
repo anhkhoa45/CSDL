@@ -22,17 +22,21 @@
             >
 
                 <div class="form-group">
-                    <label for="genderTxt" class="col-sm-2 control-label">Gender</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="genderTxt" placeholder="Gender" name="gender" value="{{ old('gender') }}">
-                    </div>
-                </div>
-
-                <div class="form-group">
                     <label for="nameTxt" class="col-sm-2 control-label">Name</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="nameTxt" placeholder="Name" name="name" value="{{ old('name') }}">
                     </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="genderTxt" class="col-sm-2 control-label">Gender</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" name="gender" >
+                            <option value="{{ \App\User::GENDER_MALE }}">Male</option>
+                            <option value="{{ \App\User::GENDER_FEMALE }}">Female</option>
+                            <option value="{{ \App\User::GENDER_OTHER }}">Other</option>
+                        </select>
+                         </div>
                 </div>
 
                 <div class="form-group">
