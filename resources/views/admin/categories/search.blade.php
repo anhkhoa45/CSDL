@@ -30,11 +30,12 @@
                 </div>
             @endif
             <div class="col-md-6">
-                <h2>Manage Courses</h2>
+                <h2>Manage Categories</h2>
             </div>
             <div class="actions-head col-md-6">
-                <form class="search-form form form-inline" method="GET" action="{{ route('admin.courses.search') }}">
-                    <input class="form-control" type="text" placeholder="Course name" name="name">
+                <a class="new-btn btn btn-primary" href="{{ route('admin.categories.create') }}">+ New</a>
+                <form class="search-form form form-inline" method="GET" action="{{ route('admin.categories.search') }}">
+                    <input class="form-control" type="text" placeholder="Categories name" name="name">
                     <button class="btn btn-success" type="submit">Search</button>
                 </form>
             </div>
@@ -44,10 +45,6 @@
             <tr>
                 <th>#</th>
                 <th>Name</th>
-                <th>Category</th>
-                <th>Teacher</th>
-                <th>Status</th>
-                <th>Cost</th>
                 <th></th>
             </tr>
             </thead>
@@ -57,23 +54,25 @@
                 $count = 1;
             @endphp
 
-            @foreach($courses as $course)
+            @foreach($categories as $categories)
                 <tr>
                     <td>{{ $count++ }}</td>
-                    <td>{{ $course->name }}</td>
-                    <td>{{ $course->category}}</td>
-                    <td>{{ $course->teacher}}</td>
+                    <td>{{ $categories->name }}</td>
+                    <td></td>
                     <td>
-                        @if($course->status==\App\Course::STATUS_PENDING) {{"PENDING"}}
-                            @elseif($course->status==\App\Course::STATUS_ACTIVE){{ "ACTIVE" }}
-                            @elseif($course->status==\App\Course::STATUS_DEACTIVED){{"DEACTIVED"}}
-                            @else {{"REJECTED"}}
-                            @endif
-                    </td>
-                    <td>{{ $course->cost}}</td>
-                    <td>
-                        <a class="btn btn-success" href="{{ route('admin.courses.show', ['course' => $course->id]) }}">Detail</a>
-                        <a class="btn btn-primary" href="{{ route('admin.courses.edit', ['course' => $course->id]) }}">Edit</a>
+                        <a class="btn btn-success" href="{{ route('admin.categories.show', ['categories' => $categories->id]) }}">Detail</a>
+                        <a class="btn btn-primary" href="{{ route('admin.categories.edit', ['categories' => $categories->id]) }}">Edit</a>
+                        <form
+                                class="form-inline"
+                                method="POST"
+                                action="{{ route('admin.categories.destroy', ['categories' => $categories->id]) }}"
+                        >
+
+                            <button type="submit" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i></button>
+
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        </form>
                     </td>
                 </tr>
             @endforeach

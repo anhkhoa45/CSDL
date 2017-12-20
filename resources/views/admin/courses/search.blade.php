@@ -44,8 +44,6 @@
             <tr>
                 <th>#</th>
                 <th>Name</th>
-                <th>Category</th>
-                <th>Teacher</th>
                 <th>Status</th>
                 <th>Cost</th>
                 <th></th>
@@ -61,14 +59,12 @@
                 <tr>
                     <td>{{ $count++ }}</td>
                     <td>{{ $course->name }}</td>
-                    <td>{{ $course->category}}</td>
-                    <td>{{ $course->teacher}}</td>
                     <td>
                         @if($course->status==\App\Course::STATUS_PENDING) {{"PENDING"}}
-                            @elseif($course->status==\App\Course::STATUS_ACTIVE){{ "ACTIVE" }}
-                            @elseif($course->status==\App\Course::STATUS_DEACTIVED){{"DEACTIVED"}}
-                            @else {{"REJECTED"}}
-                            @endif
+                        @elseif($course->status==\App\Course::STATUS_ACTIVE){{ "ACTIVE" }}
+                        @elseif($course->status==\App\Course::STATUS_DEACTIVED){{"DEACTIVED"}}
+                        @else {{"REJECTED"}}
+                        @endif
                     </td>
                     <td>{{ $course->cost}}</td>
                     <td>

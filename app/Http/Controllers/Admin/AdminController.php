@@ -196,7 +196,7 @@ class AdminController extends Controller
         $categories->update([
            'name'=>$request['name'],
         ]);
-        return redirect()->route('admin.categories');
+        return redirect()->route('admin.categories.show',['catelogies']);
     }
     public function categoriesDestroy($id)
     {
