@@ -10,11 +10,9 @@ use Illuminate\Support\Facades\DB;
 class IndexController extends Controller
 {
     public function index(){
+        $enrolledCourses = [];
         if(auth()->check()) {
             $enrolledCourses = auth()->user()->enrolledCourses->pluck('id');
-        }
-        else {
-            $enrolledCourses = [];
         }
         $courses = DB::table('courses')
             ->where('courses.status', '=', Course::STATUS_ACTIVE)
@@ -71,9 +69,17 @@ class IndexController extends Controller
 
     public function showCategoryCourse($category_id)
     {
+        $enrolledCourses = [];
+        $teachingCourses = [];
+
+        if(auth()->check()){
+            $enrolledCourses = auth()->user()->enrolledCourses->pluck('id')->toArray();
+            $teachingCourses = auth()->user()->teachingCourses->pluck('id')->toArray();
+        }
+
         $category = CourseCategory::findOrFail($category_id);
-        $courses = $category->courses()->whereNotIn('id', auth()->user()->enrolledCourses->pluck('id')->toArray())
-            ->whereNotIn('id', auth()->user()->teachingCourses->pluck('id')->toArray())
+        $courses = $category->courses()->whereNotIn('id', $enrolledCourses)
+            ->whereNotIn('id', $teachingCourses)
             ->with(['teacher', 'buyers'])
             ->paginate(config('view.paginate'));
 
@@ -87,8 +93,16 @@ class IndexController extends Controller
 
     public function  showAllCourse()
     {
-        $courses = Course::whereNotIn('id', auth()->user()->enrolledCourses->pluck('id')->toArray())
-            ->whereNotIn('id', auth()->user()->teachingCourses->pluck('id')->toArray())
+        $enrolledCourses = [];
+        $teachingCourses = [];
+
+        if(auth()->check()){
+            $enrolledCourses = auth()->user()->enrolledCourses->pluck('id')->toArray();
+            $teachingCourses = auth()->user()->teachingCourses->pluck('id')->toArray();
+        }
+
+        $courses = Course::whereNotIn('id', $enrolledCourses)
+            ->whereNotIn('id', $teachingCourses)
             ->with(['teacher', 'buyers'])
             ->paginate(config('view.paginate'));
 
