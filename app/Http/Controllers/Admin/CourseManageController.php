@@ -58,7 +58,7 @@ return view('admin.courses.edit',['courses'=>$courses,'categories'=>$categories]
 
     public function courseSearch()
     {
-        $course = Course::where('name', 'like', '%'.request()->name.'%')->orderBy('name')->paginate(10);
+        $course = Course::where(DB::raw('LOWER("name")'), 'like', '%'.strtolower(request()->name).'%')->orderBy('name')->paginate(10);
 
         return view('admin.courses.search', ['courses' => $course]);
     }

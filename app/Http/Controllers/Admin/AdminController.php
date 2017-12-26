@@ -112,7 +112,7 @@ class AdminController extends Controller
 
     public function usersSearch()
     {
-        $user = User::where('name', 'like', '%'.request()->name.'%')->orderBy('name')->paginate(10);
+        $user = User::where(DB::raw('LOWER("name")'), 'like', '%'.strtolower(request()->name).'%')->orderBy('name')->paginate(10);
 
         return view('admin.users.home', ['users' => $user]);
     }
@@ -159,7 +159,13 @@ class AdminController extends Controller
         $categories=DB::select("SELECT course_categories.*,count(course_categories.id) as CountCourse  
                                   FROM course_categories,courses
                                   WHERE course_categories.id = courses.course_category_id
-                                  GROUP BY course_categories.id ");
+                                  GROUP BY course_categories.id 
+                                  UNION
+                                  SELECT course_categories.*, '0' as CountCourse
+                                  FROM course_categories
+                                  WHERE course_categories.id not in (SELECT courses.course_category_id FROM courses)
+                                  ");
+       /// dd($categories);
         return view('admin.categories.home',['categories'=>$categories]);
     }
     public function categoriesShow($id)
@@ -167,8 +173,13 @@ class AdminController extends Controller
         $categories=DB::select("SELECT course_categories.*,count(course_categories.id) as CountCourse  
                                   FROM course_categories,courses
                                   WHERE course_categories.id = courses.course_category_id
-                                    AND course_categories.id=$id
-                                  GROUP BY course_categories.id ");
+                                        AND course_categories.id=$id
+                                  GROUP BY course_categories.id 
+                                  UNION
+                                  SELECT course_categories.*, '0' as CountCourse
+                                  FROM course_categories
+                                  WHERE course_categories.id= $id AND course_categories.id not in (SELECT courses.course_category_id FROM courses)
+                                  ");
         //dd($categories);
         return view('admin.categories.show',['categories'=>$categories]);
     }
@@ -183,6 +194,8 @@ class AdminController extends Controller
             'name'=>$request['name'],
         ]);
         $categories->save();
+        $categories=CourseCategory::orderBy('name')->paginate(10);
+    //dd($categories);
         return redirect()->route('admin.categories');
     }
     public function categoriesEdit($id)
@@ -196,7 +209,7 @@ class AdminController extends Controller
         $categories->update([
            'name'=>$request['name'],
         ]);
-        return redirect()->route('admin.categories.show',['catelogies']);
+        return redirect()->route('admin.categories.show',['categories'=>$categories]);
     }
     public function categoriesDestroy($id)
     {
@@ -205,7 +218,7 @@ class AdminController extends Controller
     }
     public function categoriesSearch()
     {
-        $categories = CourseCategory::where('name', 'like', '%'.request()->name.'%')->orderBy('name')->paginate(10);
+        $categories = CourseCategory::where(DB::raw('LOWER("name")'), 'like', '%'.strtolower(request()->name).'%')->orderBy('name')->paginate(10);
 
         return view('admin.categories.home', ['categories' => $categories]);
     }
