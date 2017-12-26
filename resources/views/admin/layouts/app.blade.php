@@ -40,7 +40,6 @@
                             <li><a href="{{ route('admin.users') }}">User Manager</a></li>
                             <li><a href="{{ route('admin.home') }}">Catalogies Manager</a></li>
                             <li><a href="{{ route('admin.home') }}">Courses Manager</a></li>
-                            <li><a href="{{ route('admin.showPendingCourse') }}">Pending Courses</a></li>
                         </ul>
 
                     @endif

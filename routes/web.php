@@ -70,9 +70,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function (){
 
         Route::get('create-admin','AdminController@createAdmin')->name('admin.create_admin');
         Route::get('courses','AdminController@courses')->name('admin.courses');
-        Route::get('showPendingCourse', 'AdminController@showPendingCourse')->name('admin.showPendingCourse');
-        Route::get('showPendingCourseInformation', 'AdminController@showPendingCourseInformation')->name('admin.showPendingCourseInformation');
-
     });
 });
 

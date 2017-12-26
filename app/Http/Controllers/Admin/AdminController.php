@@ -1,13 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Controller;
 use App\User;
-use App\Course;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
-use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -92,16 +91,5 @@ class AdminController extends Controller
     public function guard()
     {
         return Auth::guard('admin');
-    }
-    public function showPendingCourse()
-    {
-        $pCourses = Course::getPendingCourse();
-
-        return view('admin.pending',['pCourses'=>$pCourses]);
-    }
-    public function showPendingCourseInformation()
-    {
-        $pCourses = Course::getPendingCourse();
-        return view('admin.pending_course_information',['pCourses'=>$pCourses]);
     }
 }
