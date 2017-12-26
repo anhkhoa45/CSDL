@@ -25,7 +25,6 @@
   <link href="{{ asset('css/layout.min.css') }}" rel="stylesheet" type="text/css"/>
   <link href="{{ asset('css/darkblue.min.css') }}" rel="stylesheet" type="text/css" id="style_color"/>
   <link href="{{ asset('css/custom.min.css') }}" rel="stylesheet" type="text/css"/>
-  <link rel="shortcut icon" href="favicon.ico"/>
   @yield('style')
 
   <style>

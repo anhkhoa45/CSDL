@@ -139,15 +139,18 @@
                           <ul class="list-group">
                             @foreach($courseContents as $courseContent)
                               <li>
-                                <a class="list-group-item" href="#">
+                                <a class="list-group-item">
                                   <ul class="list-inline">
+                                    <li>
+                                      <span>#{{ $courseContent->order_in_course}}</span>
+                                    </li>
                                     <li>
                                       @if(get_class($courseContent) === \App\Video::class )
                                         <span class="flaticon-business text-thm2"></span> Video
                                       @else
                                         <span class="flaticon-pen text-thm2"></span> Project
                                       @endif
-                                      #{{ $courseContent->order_in_course}} </li>
+                                    </li>
                                     <li>
                                       <div class="its-tdu">{{$courseContent->name}} </div>
                                     </li>

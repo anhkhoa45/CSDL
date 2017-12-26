@@ -2,26 +2,21 @@
 
 @section('style')
   <link rel="stylesheet" href="{{ asset('css/bootstrap-fileinput.css') }}">
-  <link rel="shortcut icon" href="favicon.ico"/>
-
   <style>
-    ul {
-      padding: 0;
+    .no-border,
+    .no-border:focus {
+      border: none;
+      outline: none;
     }
-    ul li {
-      list-style-type: none;
+
+    .content-order {
+      padding: 0 15px;
+      margin-right: 15px;
+      border-right: solid 1px #ddd;
     }
-    .content-info .row label {
-      text-align: right;
-    }
-    .content-info .row {
-      margin-bottom: 15px;
-    }
-    .bg-video {
-      color: #1BBC9B;
-    }
-    .bg-project {
-      color: #F7CA18;
+
+    textarea[name^="description"] {
+      margin-top: 20px !important;
     }
   </style>
 @endsection
@@ -41,71 +36,85 @@
         </div>
       </div>
       <div class="portlet-body form">
-        <form class="form-horizontal form-bordered" enctype="multipart/form-data"
-              action="{{ route('user.create_course') }}" method="POST">
+        <form class="form-horizontal form-bordered" novalidate
+              action="{{ route('user.post_update_course_contents', ['course' => $course->id]) }}" method="POST">
           {{ method_field('PUT') }}
           {{ csrf_field() }}
-          <div class="form-body">
-            <ul id="sortable">
-              @foreach($courseContents as $courseContent)
-                <li>
-                  <div class="form-group">
-                    @if(get_class($courseContent) === \App\Video::class)
-                      <label class="col-md-1 control-label bg-video" data-toggle="tooltip" title="Video">
-                        Video <br>
-                        #<span class="content-order">{{ $courseContent->order_in_course }}</span>
-                      </label>
-                      <div class="col-md-8 content-info">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <input class="input-editable form-control" type="text" value="{{ $courseContent->name }}">
-                          </div>
+          <div class="form-group mt-element-list last">
+            <div class="col-md-12 mt-list-container list-simple">
+              <ul id="sortable">
+                @php
+                  $no = 0;
+                @endphp
+                @foreach($courseContents as $key => $courseContent)
+                  @php
+                    $no++;
+                  @endphp
+                  <li class="mt-list-item form-inline">
+                    <div class="row">
+                      @if(get_class($courseContent) === \App\Video::class)
+                        <div class="col-md-8">
+                          <span data-id="{{ $no }}" class="content-order"
+                                style="background-color: #1BBC9B; color: white;">
+                            {{ $no }}
+                          </span>
+                          <input data-id="{{ $no }}" type="hidden" value="{{ $courseContent->id }}" name="id[{{ $no }}]">
+                          <input data-id="{{ $no }}" type="hidden" value="0" name="old_type[{{ $no }}]">
+                          <select data-id="{{ $no }}" class="form-control" name="content_type[{{ $no }}]" required>
+                            <option value="">Content type</option>
+                            <option value="0" selected>Video URL</option>
+                            <option value="2">Project</option>
+                          </select>
+                          <input data-id="{{ $no }}" type="text"
+                                 class="new-course-content form-control"
+                                 name="title[{{ $no }}]" value="{{$courseContent->name }}" required/>
+                          <input data-id="{{ $no }}" type="text"
+                                 class="new-course-content form-control" placeholder="URL"
+                                 name="url[{{ $no }}]" value="{{$courseContent->url }}" required/>
+                          <textarea data-id="{{ $no }}" rows="4" cols="70" class="form-control"
+                                    name="description[{{ $no }}]" required>{{ $courseContent->description }}</textarea>
+                          <button type="button" class="btn sbold uppercase btn-outline red-haze pull-right btn-remove">
+                            -
+                          </button>
                         </div>
-                        <div class="row">
-                          <label class="col-md-2">URL</label>
-                          <div class="col-md-10">
-                            <input class="input-editable form-control" type="text" value="{{ $courseContent->url }}">
-                          </div>
+                        <div class="col-md-4">
+                          <iframe src="" frameborder="0"></iframe>
                         </div>
-                        <div class="row">
-                          <label class="col-md-2">Description</label>
-                          <div class="col-md-10">
-                            <textarea class="input-editable form-control">{{ $courseContent->description }}</textarea>
-                          </div>
+                      @elseif(get_class($courseContent) === \App\RequiredProject::class)
+                        <div class="col-md-8">
+                          <span data-id="{{ $no }}" class="content-order"
+                                style="background-color: #F7CA18; color: white;">
+                            {{ $no }}
+                          </span>
+                          <input data-id="{{ $no }}" type="hidden" value="{{ $courseContent->id }}" name="id[{{ $no }}]">
+                          <input data-id="{{ $no }}" type="hidden" value="2" name="old_type[{{ $no }}]">
+                          <select data-id="{{ $no }}" class="form-control" name="content_type[{{ $no }}]" required>
+                            <option value="">Content type</option>
+                            <option value="0">Video URL</option>
+                            <option value="2" selected>Project</option>
+                          </select>
+                          <input data-id="{{ $no }}" type="text"
+                                 class="new-course-content form-control"
+                                 name="title[{{ $no }}]" value="{{$courseContent->name }}" required/>
+                          <textarea data-id="{{ $no }}" rows="4" cols="70" class="form-control"
+                                    name="description[{{ $no }}]" required>{{ $courseContent->description }}</textarea>
+                          <button type="button" class="btn sbold uppercase btn-outline red-haze pull-right btn-remove">
+                            -
+                          </button>
                         </div>
-                      </div>
-                      <div class="col-md-3">
-                        <iframe src="{{ $courseContent->url }}" frameborder="0"></iframe>
-                      </div>
-                    @elseif(get_class($courseContent) === \App\RequiredProject::class)
-                      <label class="col-md-1 control-label bg-project"  data-toggle="tooltip" title="Project">
-                        Project <br>
-                        #<span class="content-order">{{ $courseContent->order_in_course }}</span>
-                      </label>
-                      <div class="col-md-8 content-info">
-                        <div class="row">
-                          <label class="col-md-2">Name</label>
-                          <div class="col-md-10">
-                            <input class="input-editable form-control" type="text" value="{{ $courseContent->name }}">
-                          </div>
-                        </div>
-                        <div class="row">
-                          <label class="col-md-2">Project requirements</label>
-                          <div class="col-md-10">
-                            <textarea class="input-editable form-control">{{ $courseContent->description }}</textarea>
-                          </div>
-                        </div>
-                      </div>
-                    @endif
-
-                  </div>
-                </li>
-              @endforeach
-            </ul>
+                      @endif
+                    </div>
+                  </li>
+                @endforeach
+              </ul>
+            </div>
+            <button id="btn-add" type="button" class="btn yellow-lemon btn-block margin-top-15">
+              <i class="fa fa-plus"></i> Add content
+            </button>
           </div>
           <div class="form-actions">
             <div class="row">
-              <div class="col-md-offset-2 col-md-9 text-center">
+              <div class="col-md-12 text-center">
                 <button type="submit" class="btn green"><i class="fa fa-check"></i> Submit</button>
                 <a href="{{ route('index') }}" class="btn btn-outline grey-salsa">Cancel</a>
               </div>
@@ -121,10 +130,7 @@
   <script src="{{ asset('js/bootstrap-fileinput.js') }}" type="text/javascript"></script>
 
   <script>
-
       $(function () {
-          let countContent = 1;
-
           $("#sortable").sortable({update: updatePosition});
 
           $("#sortable").find('select').change(function () {
@@ -137,33 +143,62 @@
 
           $('#btn-add').click(appendCourseContent);
 
+          let urlInps = $('input[name^="url"]');
+
+          urlInps.each(function (i, urlInp) {
+              updateIframeVideo.call(urlInp);
+          });
+
+          urlInps.change(function () {
+              updateIframeVideo.call(this);
+          });
+
           function appendCourseContent() {
+              let countContent = $('.content-order').length + 1;
               let newLi = $(`
                 <li class="mt-list-item form-inline">
-                  <span data-id="${ countContent }" class="content-order">${ $('.content-order').length + 1 }</span>
-                  <select data-id="${ countContent }" class="form-control" name="content_type[]">
-                    <option value="">Content type</option>
-                    <option value="0">Video URL</option>
-                    <option value="1">Video</option>
-                    <option value="2">Project</option>
-                  </select>
-                  <input data-id="${ countContent }" type="text" class="new-course-content form-control" disabled
-                         name="title[]"/>
-                  <input data-id="${ countContent }" type="text" class="new-course-content form-control" placeholder="URL" disabled
-                       name="url[]"/>
-                  <textarea data-id="${ countContent }" rows="4" cols="70" class="form-control" disabled
-                       name="description[]"></textarea>
-                  <button type="button" class="btn sbold uppercase btn-outline red-haze pull-right btn-remove">-</button>
+                  <div class="row">
+                    <div class="col-md-8">
+                      <span data-id="${ countContent }" class="content-order">${ countContent }</span>
+                      <select data-id="${ countContent }" class="form-control" name="content_type[${ countContent }]" required>
+                        <option value="">Content type</option>
+                        <option value="0">Video URL</option>
+                        <option value="2">Project</option>
+                      </select>
+                      <input data-id="${ countContent }" type="text" class="new-course-content form-control" disabled
+                             name="title[${ countContent }]" required/>
+                      <input data-id="${ countContent }" type="text" class="new-course-content form-control" disabled
+                           name="url[${ countContent }]" required/>
+                      <textarea data-id="${ countContent }" rows="4" cols="70" class="form-control" disabled
+                           name="description[${ countContent }]" required></textarea>
+                      <button type="button" class="btn sbold uppercase btn-outline red-haze pull-right btn-remove">-</button>
+                    </div>
+                    <div class="col-md-4">
+                      <iframe src="" frameborder="0"></iframe>
+                    </div>
+                  </div>
                 </li>
               `);
               newLi.find('select').change(function () {
                   changeInputType.call(this);
+              });
+              newLi.find('input[name^="url"]').change(function () {
+                  updateIframeVideo.call(this);
               });
               newLi.find('.btn-remove').click(function () {
                   removeCourseContent.call(this)
               });
               $('#sortable').append(newLi);
               countContent++;
+          }
+
+          function updateIframeVideo() {
+              let embedLink = getYoutubeEmbedLink($(this).val());
+              $(this).closest('li').find('iframe').attr('src', embedLink);
+          }
+
+          function getYoutubeEmbedLink(url) {
+              return url.replace("watch?v=", "embed/");
           }
 
           function updatePosition() {
@@ -173,16 +208,27 @@
           }
 
           function removeCourseContent() {
-              $(this).parent().remove();
+              let li = $(this).closest('li');
+              let contentID = li.find('input[name^="id"]').length > 0 ? li.find('input[name^="id"]').val() : null;
+              if (contentID) {
+                  if(li.find('select[name^="content_type"]').val() === '0'){
+                      $('form').append(`
+                        <input type="hidden" name="deleted_video[]" value="${ contentID }">
+                      `);
+                  } else {
+                      $('form').append(`
+                        <input type="hidden" name="deleted_project[]" value="${ contentID }">
+                      `);
+                  }
+
+              }
+
+              li.remove();
               updatePosition();
           }
 
           const bgVideoURL = {
               'background-color': '#1BBC9B',
-              'color': 'white'
-          };
-          const bgVideoFile = {
-              'background-color': '#9A12B3',
               'color': 'white'
           };
           const bgProject = {
@@ -207,12 +253,7 @@
                   case '0':
                       indexEl.css(bgVideoURL);
                       urlEl.attr('type', 'url');
-                      titleEl.prop('placeholder', 'Video Title');
-                      descEl.prop('placeholder', 'Video content description');
-                      break;
-                  case '1':
-                      indexEl.css(bgVideoFile);
-                      urlEl.attr('type', 'file');
+                      urlEl.prop('placeholder', 'Youtube URL');
                       titleEl.prop('placeholder', 'Video Title');
                       descEl.prop('placeholder', 'Video content description');
                       break;
@@ -220,7 +261,7 @@
                       indexEl.css(bgProject);
                       urlEl.hide();
                       titleEl.prop('placeholder', 'Project Title');
-                      descEl.prop('placeholder', 'Project content description');
+                      descEl.prop('placeholder', 'Project requirement description');
                       break;
               }
           }

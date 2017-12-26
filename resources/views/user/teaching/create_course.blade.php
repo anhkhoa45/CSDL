@@ -182,18 +182,17 @@
               let newLi = $(`
                 <li class="mt-list-item form-inline">
                   <span data-id="${ countContent }" class="content-order">${ $('.content-order').length + 1 }</span>
-                  <select data-id="${ countContent }" class="form-control" name="content_type[]">
+                  <select data-id="${ countContent }" class="form-control" name="content_type[]" required>
                     <option value="">Content type</option>
                     <option value="0">Video URL</option>
-                    <option value="1">Video</option>
                     <option value="2">Project</option>
                   </select>
                   <input data-id="${ countContent }" type="text" class="new-course-content form-control" disabled
-                         name="title[]"/>
-                  <input data-id="${ countContent }" type="text" class="new-course-content form-control" placeholder="URL" disabled
-                       name="url[]"/>
+                         name="title[]" required/>
+                  <input data-id="${ countContent }" type="text" class="new-course-content form-control" disabled
+                       name="url[]" required/>
                   <textarea data-id="${ countContent }" rows="4" cols="70" class="form-control" disabled
-                       name="description[]"></textarea>
+                       name="description[]" required></textarea>
                   <button type="button" class="btn sbold uppercase btn-outline red-haze pull-right btn-remove">-</button>
                 </li>
               `);
@@ -222,10 +221,6 @@
               'background-color': '#1BBC9B',
               'color': 'white'
           };
-          const bgVideoFile = {
-              'background-color': '#9A12B3',
-              'color': 'white'
-          };
           const bgProject = {
               'background-color': '#F7CA18',
               'color': 'white'
@@ -248,12 +243,7 @@
                   case '0':
                       indexEl.css(bgVideoURL);
                       urlEl.attr('type', 'url');
-                      titleEl.prop('placeholder', 'Video Title');
-                      descEl.prop('placeholder', 'Video content description');
-                      break;
-                  case '1':
-                      indexEl.css(bgVideoFile);
-                      urlEl.attr('type', 'file');
+                      urlEl.prop('placeholder', 'Youtube URL');
                       titleEl.prop('placeholder', 'Video Title');
                       descEl.prop('placeholder', 'Video content description');
                       break;

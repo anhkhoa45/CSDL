@@ -65,11 +65,15 @@
                             @foreach($courseContents as $courseContent)
                               <li>
                                 @if(get_class($courseContent) === \App\Video::class )
-                                  <a class="list-group-item" href="{{ route('user.watch_video', ['course' => $course->id, 'video' => $courseContent->id]) }}">
+                                  <a class="list-group-item"
+                                     href="{{ route('user.watch_video', ['course' => $course->id, 'video' => $courseContent->id]) }}">
                                     <ul class="list-inline">
                                       <li>
+                                        <span>#{{ $courseContent->order_in_course }}</span>
+                                      </li>
+                                      <li>
                                         <span class="flaticon-business text-thm2"></span> Video
-                                        #{{ $courseContent->order_in_course}} </li>
+                                      </li>
                                       <li>
                                         <div class="its-tdu">{{ $courseContent->name }} </div>
                                       </li>
@@ -79,11 +83,15 @@
                                     </ul>
                                   </a>
                                 @elseif(get_class($courseContent) === \App\RequiredProject::class )
-                                  <a class="list-group-item" href="{{ route('user.get_submit_project', ['course' => $course->id, 'project' => $courseContent->id]) }}">
+                                  <a class="list-group-item"
+                                     href="{{ route('user.get_submit_project', ['course' => $course->id, 'project' => $courseContent->id]) }}">
                                     <ul class="list-inline">
                                       <li>
+                                        <span>#{{ $courseContent->order_in_course }}</span>
+                                      </li>
+                                      <li>
                                         <span class="flaticon-pen text-thm2"></span> Project
-                                        #{{ $courseContent->order_in_course }} </li>
+                                      </li>
                                       <li>
                                         <div class="its-tdu">{{ $courseContent->name }} </div>
                                       </li>
