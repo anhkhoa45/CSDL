@@ -142,13 +142,4 @@ class Course extends Model
             'buyers' => isset($rank[0]) ? round($rank[0]->buyers, 1) : 0
         ];
     }
-    public static function getPendingCourse()
-    {
-
-        $pCourses = DB::select("SELECT *
-                                      FROM courses
-                                      WHERE status=0;");
-
-        return $pCourses;
-    }
 }
