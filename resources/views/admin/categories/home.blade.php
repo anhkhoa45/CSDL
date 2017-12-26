@@ -30,12 +30,12 @@
                 </div>
             @endif
             <div class="col-md-6">
-                <h2>Manage Users</h2>
+                <h2>Manage Categories</h2>
             </div>
             <div class="actions-head col-md-6">
-                <a class="new-btn btn btn-primary" href="{{ route('admin.users.create') }}">+ New</a>
-                <form class="search-form form form-inline" method="GET" action="{{ route('admin.users.search') }}">
-                    <input class="form-control" type="text" placeholder="User name" name="name">
+                <a class="new-btn btn btn-primary" href="{{ route('admin.categories.create') }}">+ New</a>
+                <form class="search-form form form-inline" method="GET" action="{{ route('admin.categories.search') }}">
+                    <input class="form-control" type="text" placeholder="Categories name" name="name">
                     <button class="btn btn-success" type="submit">Search</button>
                 </form>
             </div>
@@ -45,10 +45,7 @@
             <tr>
                 <th>#</th>
                 <th>Name</th>
-                <th>Email</th>
-                <th>Balance</th>
-                <th>Created at</th>
-                <th>Updated at</th>
+                <th>Count</th>
                 <th></th>
             </tr>
             </thead>
@@ -58,21 +55,19 @@
                 $count = 1;
             @endphp
 
-            @foreach($users as $user)
+            @foreach($categories as $categories)
                 <tr>
                     <td>{{ $count++ }}</td>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email}}</td>
-                    <td>{{ $user->balance}}</td>
-                    <td>{{ $user->created_at}}</td>
-                    <td>{{ $user->updated_at}}</td>
+                    <td>{{ $categories->name }}</td>
+                    <td>{{$categories->countcourse}}</td>
+                    <td></td>
                     <td>
-                        <a class="btn btn-success" href="{{ route('admin.users.show', ['user' => $user->id]) }}">Detail</a>
-                        <a class="btn btn-primary" href="{{ route('admin.users.edit', ['user' => $user->id]) }}">Edit</a>
+                        <a class="btn btn-success" href="{{ route('admin.categories.show', ['categories' => $categories->id]) }}">Detail</a>
+                        <a class="btn btn-primary" href="{{ route('admin.categories.edit', ['categories' => $categories->id]) }}">Edit</a>
                         <form
                                 class="form-inline"
                                 method="POST"
-                                action="{{ route('admin.users.destroy', ['user  ' => $user->id]) }}"
+                                action="{{ route('admin.categories.destroy', ['categories' => $categories->id]) }}"
                         >
 
                             <button type="submit" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i></button>

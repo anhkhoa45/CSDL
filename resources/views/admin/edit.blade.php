@@ -7,7 +7,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <h2>Edit User Info</h2>
+            <h2>Edit Admin Info</h2>
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -19,30 +19,20 @@
             @endif
 
             <form class="form-horizontal" method="POST" enctype="multipart/form-data"
-                  action="{{ route('admin.users.update', ['user' => $user->id]) }}"
+                  action="{{ route('admin.update', ['admin' => $admin->id]) }}"
             >
+
                 <div class="form-group">
                     <label for="nameTxt" class="col-sm-2 control-label">Name</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="nameTxt" placeholder="Name" name="name" value="{{ $user->name }}">
+                        <input type="text" class="form-control" id="nameTxt" placeholder="Name" name="name" value="{{ $admin->name }}">
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="genderTxt" class="col-sm-2 control-label">Gender</label>
-                    <div class="col-sm-10">
-                        <select class="form-control" name="gender" >
-                            <option value="{{ \App\User::GENDER_MALE }}">Male</option>
-                            <option value="{{ \App\User::GENDER_FEMALE }}">Female</option>
-                            <option value="{{ \App\User::GENDER_OTHER }}">Other</option>
-                        </select>
-                         </div>
                 </div>
 
                 <div class="form-group">
                     <label for="emailTxt" class="col-sm-2 control-label">Email</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="emailTxt" placeholder="Email" name="email" value="{{ $user->email }}">
+                        <input type="text" class="form-control" id="emailTxt" placeholder="Email" name="email" value="{{ $admin->email }}">
                     </div>
                 </div>
 
@@ -50,7 +40,7 @@
                     <label for="dobTxt" class="col-sm-2 control-label">Date of birth</label>
                     <div class="col-sm-10">
                         <div class="input-group">
-                            <input type="text" class="form-control datepicker" id="dobTxt" name="birthday" value="{{ $user->DOB }}">
+                            <input type="text" class="form-control datepicker" id="dobTxt" name="birthday" value="{{ $admin->DOB }}">
                             <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-th"></span>
                             </div>
@@ -60,7 +50,7 @@
                 <div class="form-group">
                     <label for="addressTxt" class="col-sm-2 control-label">Address</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="addressTxt" placeholder="Address" name="address" value="{{ $user->address }}">
+                        <input type="text" class="form-control" id="addressTxt" placeholder="Address" name="address" value="{{ $admin->address }}">
                     </div>
                 </div>
 

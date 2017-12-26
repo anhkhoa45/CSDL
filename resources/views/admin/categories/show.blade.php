@@ -25,17 +25,19 @@
                     <p>{{ Session::get('success') }}</p>
                 </div>
             @endif
-            <div class="info-panel col-md-12 bg-info">
-                <h1> {{ "Admin: " .$admin->name }}</h1>
+                @foreach($categories as $categories)
+
+                <div class="info-panel col-md-12 bg-info">
+                <h1> Category Name: {{$categories->name}}</h1>
                 <div class="col-md-6 col-md-offset-2">
-                    <p>Email: {{ $admin->email }}</p>
-                    <p>Address: {{ $admin->address }}</p>
-                    <p>Date of birth: {{ $admin->DOB }}</p>
-                    <p>Created: {{ $admin->created_at }}</p>
-                    <p>Updated: {{ $admin->updated_at }}</p>
-                    <a class="btn btn-primary" href="{{ route('admin.edit', ['admin' => $admin->id]) }}">Edit profile</a>
+                    <p>ID: {{ $categories->id }}</p>
+                    <p>CountCourse: {{ $categories->countcourse }}</p>
+                    <p>Created: {{ $categories->created_at }}</p>
+                    <p>Updated: {{ $categories->updated_at }}</p>
+                    <a class="btn btn-primary" href="{{ route('admin.categories.edit', ['categories' => $categories->id]) }}">Edit Category</a>
                 </div>
             </div>
+                    @endforeach
         </div>
 
 

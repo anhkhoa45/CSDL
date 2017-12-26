@@ -18,7 +18,6 @@ class AdminTableSeeder extends Seeder
             'name'=> 'Huu Dung',
             'DOB'=>'1997-11-24',
             'address'=>'Minh Khai',
-            'gender'=>'male',
             'created_at'     => date('Y-m-d H:i:s'),
             'updated_at'    => date('Y-m-d H:i:s'),
         ]);
