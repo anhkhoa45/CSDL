@@ -37,9 +37,9 @@
                     @if(Auth::guard('admin')->check())
                         <ul class="nav navbar-nav navbar-left">
                             <li><a href="{{ route('admin.home') }}">Home</a></li>
-                            <li><a href="{{ route('admin.users') }}">User Manager</a></li>
-                            <li><a href="{{ route('admin.home') }}">Catalogies Manager</a></li>
-                            <li><a href="{{ route('admin.home') }}">Courses Manager</a></li>
+                            <li><a href="{{ route('admin.users') }}">Manage Users</a></li>
+                            <li><a href="{{ route('admin.categories') }}">Manage Categories</a></li>
+                            <li><a href="{{ route('admin.courses') }}">Manage Courses</a></li>
                         </ul>
 
                     @endif
@@ -64,6 +64,14 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
+                                    <li>
+                                        <a  href="{{ route('admin.profile',['admin'=>Auth::guard('admin')->user()->id]) }}">Profile</a>
+
+                                    </li>
+                                    <li>
+                                        <a  href="{{ route('admin.create_admin') }}">Create Admin</a>
+
+                                    </li>
                                     <li>
                                         <a href="{{ route('admin.logout') }}"
                                             onclick="event.preventDefault();
