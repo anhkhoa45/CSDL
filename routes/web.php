@@ -83,6 +83,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function (){
         Route::get('course-edit/{course}','CourseManageController@courseEdit')->name('admin.courses.edit');
         Route::put('course-update/{course}','CourseManageController@courseUpdate')->name('admin.courses.update');
         Route::get('course-search','CourseManageController@courseSearch')->name('admin.courses.search');
+        //Request
+        Route::get('course-request/{course}','CourseManageController@courseRequest')->name('admin.course.request');
     });
 });
 

@@ -62,4 +62,10 @@ return view('admin.courses.edit',['courses'=>$courses,'categories'=>$categories]
 
         return view('admin.courses.search', ['courses' => $course]);
     }
+
+    //Request
+    public function courseRequest($id)
+    {
+    }
+
 }
