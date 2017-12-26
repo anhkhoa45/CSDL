@@ -32,7 +32,7 @@
                 <i class="icon-pencil"></i> Update info</a>
             </li>
             <li>
-              <a href="#">
+              <a href="{{ route('user.get_update_course_contents', ['course' => $course->id]) }}">
                 <i class="icon-book-open"></i> Update contents</a>
             </li>
           </ul>
@@ -41,6 +41,7 @@
     </div>
     <h3 class="page-title"><strong>Course:</strong> {{ $course->name }}
       <small>dashboard & statistics</small>
+      <span class="pull-right font-yellow-gold">${{ $course->cost }}</span>
     </h3>
     @php
       $ratingRank = $course->getRatingRank();

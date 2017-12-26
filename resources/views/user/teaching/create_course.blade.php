@@ -136,10 +136,10 @@
 
             <div class="form-group mt-element-list last">
               <label class="control-label col-md-2">Course Contents</label>
-              <div class="col-md-9 mt-list-container list-simple">
+              <div class="col-md-10 mt-list-container list-simple">
                 <ul id="sortable"></ul>
                 <button id="btn-add" type="button" class="btn green btn-block margin-top-15">
-                  <i class="fa fa-plus"></i>
+                  <i class="fa fa-plus"></i> Add content
                 </button>
               </div>
             </div>
@@ -261,7 +261,7 @@
                       indexEl.css(bgProject);
                       urlEl.hide();
                       titleEl.prop('placeholder', 'Project Title');
-                      descEl.prop('placeholder', 'Project content description');
+                      descEl.prop('placeholder', 'Project requirement description');
                       break;
               }
           }

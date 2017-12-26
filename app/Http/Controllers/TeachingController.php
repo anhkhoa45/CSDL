@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Course;
 use App\CourseCategory;
 use App\Http\Requests\ChangeUserPassword;
+use App\Http\Requests\UpdateCouseInfo;
 use App\Http\Requests\UpdateUser;
 use App\Http\Requests\UpdateUserAvatar;
 use App\Http\Requests\UpdateUserBalance;
@@ -14,6 +15,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Mockery\Exception;
 use phpDocumentor\Reflection\Project;
@@ -84,7 +86,6 @@ class TeachingController extends Controller
                         RequiredProject::create([
                             'name' => $titles[$i],
                             'description' => $descriptions[$i],
-                            'url' => $urls[$i],
                             'order_in_course' => $i + 1,
                             'course_id' => $course->id,
                         ]);
@@ -126,5 +127,62 @@ class TeachingController extends Controller
             'courseCategories' => $courseCategories
         ];
         return view('user.teaching.update_course_info', $data);
+    }
+
+    public function postUpdateCourseInfo($course_id, UpdateCouseInfo $request){
+        $course = Course::findOrFail($course_id);
+
+        $avatarURL = $course->avatar;
+        $coverURL = $course->cover;
+
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+            $filename = time() . '.' . $avatar->getClientOriginalExtension();
+            Image::make($avatar)->resize(300, 300)
+                ->save(public_path('storage/courses/avatars/') . $filename);
+            Storage::delete($avatarURL);
+            $avatarURL = 'public/courses/avatars/' . $filename;
+        }
+
+        if ($request->hasFile('cover')) {
+            $cover = $request->file('cover');
+            $filename = time() . '.' . $cover->getClientOriginalExtension();
+            Image::make($cover)->resize(870, 350)
+                ->save(public_path('storage/courses/covers/') . $filename);
+            Storage::delete($coverURL);
+            $coverURL = 'public/courses/covers/' . $filename;
+        }
+
+        DB::beginTransaction();
+        try{
+            $course->update([
+                'name' => $request->name,
+                'course_category_id' => (int) $request->category_id,
+                'cost' => $request->cost,
+                'description' => $request->description,
+                'avatar' => $avatarURL,
+                'cover' => $coverURL,
+                'status' => Course::STATUS_PENDING,
+                'teacher_id' => auth()->user()->id,
+            ]);
+            DB::commit();
+        } catch (Exception $e){
+            DB::rollBack();
+            return redirect()->route('user.get_update_course_info', ['course' => $course_id])
+                ->withErrors(['create_failed', 'Update failed']);
+        }
+
+        return redirect()->route('user.teaching_course_detail', ['course' => $course_id]);
+    }
+
+    public function getUpdateCourseContents($course_id){
+        $course = Course::with(['videos', 'projects'])->findOrFail($course_id);
+        $courseContents = $course->videos->merge($course->projects)->sortBy('order_in_course');
+
+        $data = [
+            'course' => $course,
+            'courseContents' => $courseContents,
+        ];
+        return view('user.teaching.update_course_content', $data);
     }
 }

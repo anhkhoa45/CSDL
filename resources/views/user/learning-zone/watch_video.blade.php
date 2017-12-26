@@ -26,10 +26,17 @@
     <div class="row video-container">
       <div class="col-md-2">
         @if($prev)
-          <a href="{{ route('user.watch_video', ['course' => $course->id, 'video' => $prev->id]) }}"
-             class="btn btn-lg" data-toggle="tooltip" title="Prev: {{ $prev->name }}">
-            <i class="fa fa-chevron-left" aria-hidden="true"></i>
-          </a>
+          @if(get_class($prev) === \App\Video::class)
+            <a href="{{ route('user.watch_video', ['course' => $course->id, 'video' => $prev->id]) }}"
+               class="btn btn-lg" data-toggle="tooltip" title="Prev: {{ $prev->name }} (Video)">
+              <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            </a>
+          @elseif(get_class($prev) === \App\RequiredProject::class)
+            <a href="{{ route('user.get_submit_project', ['course' => $course->id, 'project' => $next->id]) }}"
+               class="btn btn-lg" data-toggle="tooltip" title="Prev: {{ $next->name }} (Project)">
+              <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            </a>
+          @endif
         @endif
       </div>
       <div class="col-md-8">
@@ -37,10 +44,17 @@
       </div>
       <div class="col-md-2">
         @if($next)
-          <a href="{{ route('user.watch_video', ['course' => $course->id, 'video' => $next->id]) }}"
-             class="btn btn-lg" data-toggle="tooltip" title="Next: {{ $next->name }}">
-            <i class="fa fa-chevron-right" aria-hidden="true"></i>
-          </a>
+          @if(get_class($next) === \App\Video::class)
+            <a href="{{ route('user.watch_video', ['course' => $course->id, 'video' => $next->id]) }}"
+               class="btn btn-lg" data-toggle="tooltip" title="Next: {{ $next->name }} (Video)">
+              <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            </a>
+          @elseif(get_class($next) === \App\RequiredProject::class)
+            <a href="{{ route('user.get_submit_project', ['course' => $course->id, 'project' => $next->id]) }}"
+               class="btn btn-lg" data-toggle="tooltip" title="Next: {{ $next->name }} (Project)">
+              <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            </a>
+          @endif
         @endif
       </div>
     </div>
@@ -71,8 +85,10 @@
                           method: 'GET',
                           url: '{{ route('user.earn_video_score', ['course' => $course->id, 'video' => $video->id]) }}'
                       })
-                          .done(() => {
-                              alert('Congratulations! You earned {{ $video->score }} score from this video!');
+                          .done((res) => {
+                              if(res.status === 200){
+                                  alert('Congratulations! You earned {{ $video->score }} score from this video!');
+                              }
                           });
                   }, msDuration);
               });

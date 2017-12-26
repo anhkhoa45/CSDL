@@ -31,6 +31,10 @@ Route::middleware(['auth'])->group(function(){
             ->name('user.get_update_course_info');
         Route::put('update-course-info/{course}', 'TeachingController@postUpdateCourseInfo')
             ->name('user.post_update_course_info');
+        Route::get('update-course-contents/{course}', 'TeachingController@getUpdateCourseContents')
+            ->name('user.get_update_course_contents');
+        Route::put('update-course-contents/{course}', 'TeachingController@postUpdateCourseContents')
+            ->name('user.post_update_course_contents');
         Route::get('teaching-course/{course}', 'TeachingController@teachingCourseDetail')
             ->name('user.teaching_course_detail');
 
@@ -40,6 +44,10 @@ Route::middleware(['auth'])->group(function(){
             Route::get('{course}/watch-video/{video}', 'LearningController@watchVideo')->name('user.watch_video');
             Route::get('{course}/earn-video-score/{video}', 'LearningController@earnVideoScore')
                 ->name('user.earn_video_score');
+            Route::get('{course}/project/{project}', 'LearningController@getSubmitProject')
+                ->name('user.get_submit_project');
+            Route::get('{course}/earn-project-score/{project}', 'LearningController@earnProjectScore')
+                ->name('user.earn_project_score');
         });
     });
 });

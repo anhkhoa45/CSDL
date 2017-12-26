@@ -22,6 +22,7 @@
       <div class="portlet-body form">
         <form class="form-horizontal form-bordered" enctype="multipart/form-data"
               action="{{ route('user.post_update_course_info', ['course' => $course->id]) }}" method="POST">
+          {{ method_field('PUT') }}
           {{ csrf_field() }}
           <div class="form-body">
             <div class="form-group">
@@ -46,7 +47,7 @@
                 @if ($errors->has('description'))
                   <span class="help-block">
                     <strong>{{ $errors->first('description') }}</strong>
-                </span>
+                  </span>
                 @endif
               </div>
             </div>
@@ -61,7 +62,7 @@
                   <span class="btn red btn-outline btn-file">
                       <span class="fileinput-new"> Avatar </span>
                       <span class="fileinput-exists"> Change Avatar </span>
-                      <input type="file" name="avatar" required> </span>
+                      <input type="file" name="avatar"> </span>
                     <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
                   </div>
                 </div>
@@ -75,17 +76,17 @@
                 <span class="btn red btn-outline btn-file">
                     <span class="fileinput-new"> Cover </span>
                     <span class="fileinput-exists"> Change Cover </span>
-                    <input type="file" name="cover" required> </span>
+                    <input type="file" name="cover"> </span>
                     <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
                   </div>
                 </div>
+                @if ($errors->has('avatar') || $errors->has('cover'))
+                  <span class="help-block">
+                    <strong>{{ $errors->first('avatar') }}</strong>
+                    <strong>{{ $errors->first('cover') }}</strong>
+                  </span>
+                @endif
               </div>
-              @if ($errors->has('avatar') || $errors->has('cover'))
-                <span class="help-block">
-                <strong>{{ $errors->first('avatar') }}</strong>
-                <strong>{{ $errors->first('cover') }}</strong>
-              </span>
-              @endif
             </div>
 
             <div class="form-group">
@@ -126,7 +127,7 @@
             <div class="row">
               <div class="col-md-offset-2 col-md-9">
                 <button type="submit" class="btn green"><i class="fa fa-check"></i> Submit</button>
-                <a href="{{ route('index') }}" class="btn btn-outline grey-salsa">Cancel</a>
+                <a href="{{ route('profile') }}" class="btn btn-outline grey-salsa">Cancel</a>
               </div>
             </div>
           </div>
