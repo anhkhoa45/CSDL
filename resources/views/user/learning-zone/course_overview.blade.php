@@ -10,10 +10,10 @@
       <div class="col-sm-12 clearfix">
         <div class="row">
           <div class="col-lg-12">
-            <div class="irs-courses-details-thumb">
-              <img class="img-responsive img-fluid" src="{{ Storage::url($course->cover) }}" alt="cd1.jpg">
-            </div>
             <div class="container">
+              <div class="irs-courses-details-thumb">
+                <img class="img-responsive img-fluid" src="{{ Storage::url($course->cover) }}" alt="cd1.jpg">
+              </div>
               <div class="irs-courses-details-title">
                 <h2>{{ $course->name }}</h2>
                 <ul class="list-inline irs-cl-teacher-info">
@@ -40,7 +40,7 @@
                     </form>
                   </li>
                 </ul>
-                <p  style="margin-top: 50px;">{{ $course->description }}</p>
+                <p style="margin-top: 50px;">{{ $course->description }}</p>
               </div>
             </div>
           </div>
@@ -62,34 +62,39 @@
                       <div class="col-md-12">
                         <div class="irs-cdtls-feture-bot2">
                           <ul class="list-group">
-                            @foreach($course->videos()->orderBy('order_in_course')->get() as $video)
+                            @foreach($courseContents as $courseContent)
                               <li>
-                                <a class="list-group-item"
-                                   href="{{ route('user.watch_video', ['course' => $course->id, 'video' => $video->id]) }}">
-                                  <ul class="list-inline">
-                                    <li><span class="flaticon-business text-thm2"></span> Video
-                                      #{{$video->order_in_course}} </li>
-                                    <li>
-                                      <div class="its-tdu">{{$video->name}} </div>
-                                    </li>
-                                  </ul>
-                                </a>
-                              </li>
-                            @endforeach
-                          </ul>
-
-                          <ul class="list-group">
-                            @foreach($course->projects as $project)
-                              <li>
-                                <a class="list-group-item" href="#">
-                                  <ul class="list-inline">
-                                    <li><span class="flaticon-business text-thm2"></span> Project
-                                      #{{$project->order_in_course}} </li>
-                                    <li>
-                                      <div class="its-tdu">{{$project->project_name}} </div>
-                                    </li>
-                                  </ul>
-                                </a>
+                                @if(get_class($courseContent) === \App\Video::class )
+                                  <a class="list-group-item"
+                                     href="{{ route('user.watch_video', ['course' => $course->id, 'video' => $courseContent->id]) }}">
+                                    <ul class="list-inline">
+                                      <li>
+                                        <span>#{{ $courseContent->order_in_course }}</span>
+                                      </li>
+                                      <li>
+                                        <span class="flaticon-business text-thm2"></span> Video
+                                      </li>
+                                      <li>
+                                        <div class="its-tdu">{{ $courseContent->name }} </div>
+                                      </li>
+                                    </ul>
+                                  </a>
+                                @elseif(get_class($courseContent) === \App\RequiredProject::class )
+                                  <a class="list-group-item"
+                                     href="{{ route('user.get_submit_project', ['course' => $course->id, 'project' => $courseContent->id]) }}">
+                                    <ul class="list-inline">
+                                      <li>
+                                        <span>#{{ $courseContent->order_in_course }}</span>
+                                      </li>
+                                      <li>
+                                        <span class="flaticon-pen text-thm2"></span> Project
+                                      </li>
+                                      <li>
+                                        <div class="its-tdu">{{ $courseContent->name }} </div>
+                                      </li>
+                                    </ul>
+                                  </a>
+                                @endif
                               </li>
                             @endforeach
                           </ul>

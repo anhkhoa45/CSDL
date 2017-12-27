@@ -67,8 +67,12 @@ return view('admin.courses.edit',['courses'=>$courses,'categories'=>$categories]
     public function courseRequest($id)
     {
         $course=Course::findOrFail($id);
-
-        return view('admin.learning-zone.course_overview', ['course' => $course]);
+        $courseContents = $course->videos->merge($course->projects)->sortBy('order_in_course');
+        $data = [
+            'course' => $course,
+            'courseContents' => $courseContents
+        ];
+        return view('admin.learning-zone.course_overview', $data);
     }
 
     public function coursePending()

@@ -9,19 +9,10 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Title -->
   <title>Edu Hub</title>
-
-  <!-- Favicon -->
-  <link href="{{ asset('images/apple-icon.png') }}" rel="icon" type="image/png">
-  <link href="{{ asset('images/favicon.png') }}" rel="shortcut icon" type="image/png">
-
-  <!-- css file -->
   <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-  <!-- Responsive stylesheet -->
   <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
-
   <style>
     .header-nav {
       position: static;
@@ -31,16 +22,16 @@
       text-align: center;
       margin-top: 100px;
     }
+
+    .avatar-img {
+      max-height: 50px;
+      max-width: 50px;
+      border-radius: 50%;
+    }
   </style>
-
-@yield('style')
-
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
+  @yield('style')
   <script src="{{ asset('js/html5shiv.min.js') }}"></script>
   <script src="{{ asset('js/respond.min.js') }}"></script>
-  <![endif]-->
 </head>
 <body>
 <div class="wrapper">
@@ -49,7 +40,7 @@
   @yield('content')
 
   <a class="scrollToTop" href="#"><i class="fa fa-angle-up"></i></a></div>
-<!-- Wrapper End -->
+
 <script type="text/javascript" src="{{ asset('js/jquery.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery-ui.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
@@ -67,18 +58,9 @@
 <script type="text/javascript" src="{{ asset('js/css3-animate-it.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/swiper.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/flipclock.min.js') }}"></script>
-<!-- Custom script for all pages -->
 <script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
 
-<style>
-  .avatar-img {
-    max-height: 50px;
-    max-width: 50px;
-    border-radius: 50%;
-  }
-</style>
-
-<!-- Initialize Swiper -->
 @yield('script')
+
 </body>
 </html>

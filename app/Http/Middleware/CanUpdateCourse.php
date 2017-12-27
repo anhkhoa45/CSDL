@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class CheckEnrolledCourse
+class CanUpdateCourse
 {
     /**
      * Handle an incoming request.
@@ -16,8 +16,8 @@ class CheckEnrolledCourse
     public function handle($request, Closure $next)
     {
         $user = auth()->user();
-        if (!$user->enrolledCourses()->where('id', $request->course)->count()) {
-            return redirect('index');
+        if ($user->enrolledCourses()->where('id', $request->course)->buyers()->count()) {
+            return redirect()->route('profile');
         }
 
         return $next($request);

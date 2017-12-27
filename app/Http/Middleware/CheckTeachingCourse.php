@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class CheckEnrolledCourse
+class CheckTeachingCourse
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,7 @@ class CheckEnrolledCourse
     public function handle($request, Closure $next)
     {
         $user = auth()->user();
-        if (!$user->enrolledCourses()->where('id', $request->course)->count()) {
+        if (!$user->teachingCourses()->where('id', $request->course)->count()) {
             return redirect('index');
         }
 
