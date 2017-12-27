@@ -53,7 +53,7 @@ return view('admin.courses.edit',['courses'=>$courses,'categories'=>$categories]
         'status'=>$request['status'],
         'course_category_id'=>$request['category'],
     ]);
-    return redirect()->route('admin.courses.show',['course'=>$course]);
+    return redirect()->route('admin.courses');
     }
 
     public function courseSearch()
@@ -66,6 +66,39 @@ return view('admin.courses.edit',['courses'=>$courses,'categories'=>$categories]
     //Request
     public function courseRequest($id)
     {
+        $course=Course::findOrFail($id);
+
+        return view('admin.learning-zone.course_overview', ['course' => $course]);
     }
+
+    public function coursePending()
+    {
+        $status=Course::STATUS_PENDING;
+        $courses=DB::select("SELECT courses.*,course_categories.name as category,users.name as teacher 
+                                    FROM courses,course_categories,users
+                                    WHERE courses.course_category_id=course_categories.id
+                                       AND courses.teacher_id=users.id
+                                       AND courses.status= $status ");
+        return view('admin.learning-zone.home',['courses'=>$courses]);
+    }
+    public function courseApprove($id)
+    {
+        $course=Course::findOrFail($id);
+        $course->update([
+            'status'=>\App\Course::STATUS_ACTIVE,
+        ]);
+        return redirect()->route('admin.courses.pending');
+
+    }
+
+    public function courseRefuse($id)
+    {
+        $course=Course::findOrFail($id);
+        $course->update([
+            'status'=>\App\Course::STATUS_REJECTED,
+        ]);
+        return redirect()->route('admin.courses.pending');
+    }
+
 
 }
