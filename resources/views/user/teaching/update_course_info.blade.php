@@ -7,11 +7,31 @@
 
 @section('content')
   <div class="container">
-  @if ($errors->has('create_failed'))
-    <span class="help-block">
+    <div class="page-bar">
+      <ul class="page-breadcrumb">
+        <li>
+          <a href="{{ route('profile') }}">Home</a>
+          <i class="fa fa-circle"></i>
+        </li>
+        <li>
+          <span>Teaching course</span>
+          <i class="fa fa-circle"></i>
+        </li>
+        <li>
+          <span>{{ $course->id }}</span>
+          <i class="fa fa-circle"></i>
+        </li>
+        <li>
+          <span>Update course info</span>
+        </li>
+      </ul>
+    </div>
+    <h3 class="page-title"><strong>Course:</strong> {{ $course->name }} </h3>
+    @if ($errors->has('create_failed'))
+      <span class="help-block">
             <strong>{{ $errors->first('create_failed') }}</strong>
         </span>
-  @endif
+    @endif
     <div class="portlet light form-fit bordered">
       <div class="portlet-title">
         <div class="caption center-block">

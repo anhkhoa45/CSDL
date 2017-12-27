@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\Http\Requests\SubmitProject;
 use App\Http\Requests\UpdateCourseRating;
+use App\ProjectFile;
+use App\StudentProject;
 use App\Video;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Mockery\Exception;
 
 class LearningController extends Controller
 {
@@ -90,7 +95,82 @@ class LearningController extends Controller
         }
     }
 
-    public function  getSubmitProject($course_id, $project_id){
-        return view('user.learning-zone.get_submit_project');
+    public function  getSubmitProject($course_id, $project_id)
+    {
+        $user = auth()->user();
+        $course = Course::findOrFail($course_id);
+        $project = $course->projects()->findOrFail($project_id);
+        $prev = $course->videos()->where('order_in_course', $project->order_in_course - 1)->first();
+        if (!$prev) {
+            $prev = $course->projects()->where('order_in_course', $project->order_in_course - 1)->first();
+        }
+        $next = $course->videos()->where('course_id', $course_id)->where('order_in_course', $project->order_in_course + 1)->first();
+        if (!$next) {
+            $next = $course->projects()->where('order_in_course', $project->order_in_course + 1)->first();
+        }
+        $studentProject = StudentProject::where('performer_id', $user->id)->where('required_project_id', $project->id)->first();
+
+        $data = [
+            'course' => $course,
+            'project' => $project,
+            'prev' => $prev,
+            'next' => $next,
+            'status' => $studentProject ? $studentProject->status : -1
+        ];
+
+        return view('user.learning-zone.get_submit_project', $data);
+    }
+
+    public function postSubmitProject($course_id, $project_id, SubmitProject $request)
+    {
+        $user = auth()->user();
+        $course = Course::findOrFail($course_id);
+        $project = $course->projects()->findOrFail($project_id);
+        $studentProject = StudentProject::where('performer_id', $user->id)->where('required_project_id', $project->id)->first();
+
+        $files = $request->file;
+        $names = $request->name;
+        $comments = $request->comment;
+
+        DB::beginTransaction();
+        try{
+            if($studentProject){
+                if($studentProject->status === StudentProject::STATUS_PASSED) {
+                    throw new Exception('Action denied');
+                }
+                $studentProject->files()->delete();
+                Storage::deleteDirectory('studentProjects/' . $user->id . '/' . $project->id);
+            } else {
+                $studentProject = StudentProject::create([
+                    'performer_id' => $user->id,
+                    'required_project_id' => $project->id,
+                    'status' => StudentProject::STATUS_WAITING_FOR_APPROVE
+                ]);
+            }
+            Storage::makeDirectory('studentProjects/' . $user->id . '/' . $project->id);
+
+            $index = 0;
+            foreach ($files as $file) {
+                $filePath = $file->storeAs(
+                    'studentProjects/' . $user->id . '/' . $project->id,
+                    $names[$index]
+                );
+                $studentProject->files()->create([
+                    'link' => $filePath,
+                    'student_project_id' => $studentProject->id,
+                    'type' => $file->getClientOriginalExtension(),
+                    'name' => $names[$index],
+                    'description' => $comments[$index]
+                ]);
+                $index++;
+            }
+            DB::commit();
+        } catch (Exception $e){
+            DB::rollBack();
+            return redirect()->route('user.create_course')
+                ->withErrors(['create_failed', 'Project create failed']);
+        }
+
+        return view('user.learning-zone.project_submited_message', ['course_id' => $course->id, 'project_id' => $project->id]);
     }
 }

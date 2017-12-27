@@ -25,20 +25,5 @@
                 </div>
             </div>
         </div>
-        <div class="row irs-mrgnt-two">
-            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 irs-padl-zero irs-pl-fftn">
-                <div class="irs-footer-useful-link">
-                    <h4 class="irs-mrgnbot-fourty">Useful Links</h4>
-                    <ul class="irs-list-square">
-                        <li><a href="#">Become a Teacher</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Our Blog</a></li>
-                        <li><a href="#">Our Events</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
     </div>
 </section>

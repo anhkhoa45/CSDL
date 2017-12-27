@@ -21,6 +21,7 @@
     <div class="row margin-bottom-20">
       <div class="col-md-8 col-md-offset-2">
         <h1>{{ $video->name }}</h1>
+        <p>{{ $video->description }}</p>
       </div>
     </div>
     <div class="row video-container">
@@ -32,8 +33,8 @@
               <i class="fa fa-chevron-left" aria-hidden="true"></i>
             </a>
           @elseif(get_class($prev) === \App\RequiredProject::class)
-            <a href="{{ route('user.get_submit_project', ['course' => $course->id, 'project' => $next->id]) }}"
-               class="btn btn-lg" data-toggle="tooltip" title="Prev: {{ $next->name }} (Project)">
+            <a href="{{ route('user.get_submit_project', ['course' => $course->id, 'project' => $prev->id]) }}"
+               class="btn btn-lg" data-toggle="tooltip" title="Prev: {{ $prev->name }} (Project)">
               <i class="fa fa-chevron-left" aria-hidden="true"></i>
             </a>
           @endif

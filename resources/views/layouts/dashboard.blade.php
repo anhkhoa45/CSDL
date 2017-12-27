@@ -11,8 +11,6 @@
   <title>ITE</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
-  <meta content="" name="description"/>
-  <meta content="" name="author"/>
   <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
         type="text/css"/>
   <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet" type="text/css"/>

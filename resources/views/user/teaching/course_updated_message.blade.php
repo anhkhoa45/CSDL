@@ -12,7 +12,7 @@
 <body>
 <div class="message">
   <p>Your course has been updated and will be published after our censorship. Hope you a great day!</p>
-  <p>You will be redirected back to your profile in <span id="count-down">5</span></p>
+  <p>You will be redirected back to your course in <span id="count-down">5</span></p>
   <small><cite>If it take too long. Please <a href="{{ route('user.teaching_course_detail', ['id' => $course_id]) }}">Click here</a></cite></small>
 </div>
 

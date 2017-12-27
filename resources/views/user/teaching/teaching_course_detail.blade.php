@@ -1,8 +1,8 @@
 @extends('layouts.dashboard')
 
 @section('style')
-  <link href="{{ asset('css/pages/daterangepicker.min.css') }}" rel="stylesheet" type="text/css" />
-  <link href="{{ asset('css/pages/morris.css') }}" rel="stylesheet" type="text/css" />
+  <link href="{{ asset('css/pages/daterangepicker.min.css') }}" rel="stylesheet" type="text/css"/>
+  <link href="{{ asset('css/pages/morris.css') }}" rel="stylesheet" type="text/css"/>
 @endsection
 
 @section('content')
@@ -22,21 +22,27 @@
         </li>
       </ul>
       <div class="page-toolbar">
-        <div class="btn-group pull-right">
-          <button type="button" class="btn yellow-gold btn-sm btn-outline dropdown-toggle" data-toggle="dropdown"> Edit course
-            <i class="fa fa-angle-down"></i>
-          </button>
-          <ul class="dropdown-menu pull-right" role="menu">
-            <li>
-              <a href="{{ route('user.get_update_course_info', ['course' => $course->id]) }}">
-                <i class="icon-pencil"></i> Update info</a>
-            </li>
-            <li>
-              <a href="{{ route('user.get_update_course_contents', ['course' => $course->id]) }}">
-                <i class="icon-book-open"></i> Update contents</a>
-            </li>
-          </ul>
-        </div>
+        @if($course->buyers()->count() > 0)
+          <a href="{{ route('user.show_student_projects', ['course' => $course->id]) }}"
+             class="btn blue-steel btn-sm margin-right-10">Student projects</a>
+        @else
+          <div class="btn-group pull-right">
+            <button type="button" class="btn yellow-gold btn-sm btn-outline dropdown-toggle" data-toggle="dropdown">
+              Edit course
+              <i class="fa fa-angle-down"></i>
+            </button>
+            <ul class="dropdown-menu pull-right" role="menu">
+              <li>
+                <a href="{{ route('user.get_update_course_info', ['course' => $course->id]) }}">
+                  <i class="icon-pencil"></i> Update info</a>
+              </li>
+              <li>
+                <a href="{{ route('user.get_update_course_contents', ['course' => $course->id]) }}">
+                  <i class="icon-book-open"></i> Update contents</a>
+              </li>
+            </ul>
+          </div>
+        @endif
       </div>
     </div>
     <h3 class="page-title"><strong>Course:</strong> {{ $course->name }}
@@ -93,7 +99,7 @@
             <div class="number">
               <span data-counter="counterup" data-value="{{ $course->getTotalBuyers() * $course->cost }}"></span> $
             </div>
-            <div class="desc"> Total Profits </div>
+            <div class="desc"> Total Profits</div>
           </div>
         </a>
       </div>
@@ -108,7 +114,7 @@
             <div class="number">
               <span data-counter="counterup" data-value="{{ $course->getBuyersInPeriod(7) }}">0</span>
             </div>
-            <div class="desc"> New Students (this week) </div>
+            <div class="desc"> New Students (this week)</div>
           </div>
         </a>
       </div>
@@ -121,7 +127,7 @@
             <div class="number"> +
               <span data-counter="counterup" data-value="{{ $course->getBuyersInPeriod(7) * $course->cost }}">0</span> $
             </div>
-            <div class="desc"> Week Profits </div>
+            <div class="desc"> Week Profits</div>
           </div>
         </a>
       </div>
@@ -143,7 +149,7 @@
       $(document).ready(function () {
           let options = {
               animationEnabled: true,
-              title:{
+              title: {
                   text: "Monthly Sales"
               },
               axisX: {
@@ -163,8 +169,11 @@
                       type: "spline",
                       dataPoints: [
                           @foreach($monthlyBuyers as $monthlyBuyer)
-                          { x: new Date('{{ $monthlyBuyer->month}}'), y: parseInt({{ $monthlyBuyer->buyers * $course->cost }}) },
-                          @endforeach
+                          {
+                              x: new Date('{{ $monthlyBuyer->month}}'),
+                              y: parseInt({{ $monthlyBuyer->buyers * $course->cost }})
+                          },
+                        @endforeach
                       ]
                   }
               ]

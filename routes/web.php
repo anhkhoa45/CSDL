@@ -27,27 +27,49 @@ Route::middleware(['auth'])->group(function(){
 
         Route::get('create-course', 'TeachingController@getCreateCoursePage')->name('user.get_create_course');
         Route::post('create-course', 'TeachingController@createCourse')->name('user.create_course');
-        Route::get('update-course-info/{course}', 'TeachingController@getUpdateCourseInfo')
-            ->name('user.get_update_course_info');
-        Route::put('update-course-info/{course}', 'TeachingController@postUpdateCourseInfo')
-            ->name('user.post_update_course_info');
-        Route::get('update-course-contents/{course}', 'TeachingController@getUpdateCourseContents')
-            ->name('user.get_update_course_contents');
-        Route::put('update-course-contents/{course}', 'TeachingController@postUpdateCourseContents')
-            ->name('user.post_update_course_contents');
         Route::get('teaching-course/{course}', 'TeachingController@teachingCourseDetail')
             ->name('user.teaching_course_detail');
+
+        Route::middleware(['can_update'])->group(function() {
+            Route::get('update-course-info/{course}', 'TeachingController@getUpdateCourseInfo')
+                ->name('user.get_update_course_info');
+            Route::put('update-course-info/{course}', 'TeachingController@postUpdateCourseInfo')
+                ->name('user.post_update_course_info');
+            Route::get('update-course-contents/{course}', 'TeachingController@getUpdateCourseContents')
+                ->name('user.get_update_course_contents');
+            Route::put('update-course-contents/{course}', 'TeachingController@postUpdateCourseContents')
+                ->name('user.post_update_course_contents');
+        });
 
         Route::middleware(['enrolled'])->group(function() {
             Route::get('learn-course/{course}', 'LearningController@learnCourse')->name('user.learn_course');
             Route::post('rate-course/{course}', 'LearningController@rateCourse')->name('user.rate_course');
-            Route::get('{course}/watch-video/{video}', 'LearningController@watchVideo')->name('user.watch_video');
-            Route::get('{course}/earn-video-score/{video}', 'LearningController@earnVideoScore')
-                ->name('user.earn_video_score');
-            Route::get('{course}/project/{project}', 'LearningController@getSubmitProject')
-                ->name('user.get_submit_project');
-            Route::get('{course}/earn-project-score/{project}', 'LearningController@earnProjectScore')
-                ->name('user.earn_project_score');
+            Route::prefix('enrolled')->group(function() {
+                Route::get('{course}/watch-video/{video}', 'LearningController@watchVideo')->name('user.watch_video');
+                Route::get('{course}/earn-video-score/{video}', 'LearningController@earnVideoScore')
+                    ->name('user.earn_video_score');
+                Route::get('{course}/project/{project}', 'LearningController@getSubmitProject')
+                    ->name('user.get_submit_project');
+                Route::post('{course}/project/{project}', 'LearningController@postSubmitProject')
+                    ->name('user.post_submit_project');
+                Route::get('{course}/earn-project-score/{project}', 'LearningController@earnProjectScore')
+                    ->name('user.earn_project_score');
+            });
+        });
+
+        Route::middleware(['teaching'])->group(function() {
+            Route::prefix('teaching')->group(function() {
+                Route::get('{course}/student-projects', 'TeachingController@showStudentProjects')
+                    ->name('user.show_student_projects');
+                Route::get('{course}/student-project/{student_project}', 'TeachingController@checkStudentProject')
+                    ->name('user.get_check_student_project');
+                Route::get('{course}/student-project/{student_project}/file/{file}', 'TeachingController@downloadProjectFile')
+                    ->name('user.download_project_file');
+                Route::get('{course}/student-project/{student_project}/approve', 'TeachingController@approveStudentProject')
+                    ->name('user.approve_student_project');
+                Route::post('{course}/student-project/{student_project}/approve', 'TeachingController@rejectStudentProject')
+                    ->name('user.reject_student_project');
+            });
         });
     });
 });

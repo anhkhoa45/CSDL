@@ -10,7 +10,9 @@ use App\Http\Requests\UpdateCouseInfo;
 use App\Http\Requests\UpdateUser;
 use App\Http\Requests\UpdateUserAvatar;
 use App\Http\Requests\UpdateUserBalance;
+use App\ProjectFile;
 use App\RequiredProject;
+use App\StudentProject;
 use App\Video;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -143,7 +145,9 @@ class TeachingController extends Controller
             $filename = time() . '.' . $avatar->getClientOriginalExtension();
             Image::make($avatar)->resize(300, 300)
                 ->save(public_path('storage/courses/avatars/') . $filename);
-            Storage::delete($avatarURL);
+            if ($avatarURL !== 'public/courses/avatars/default.jpg') {
+                Storage::delete($avatarURL);
+            }
             $avatarURL = 'public/courses/avatars/' . $filename;
         }
 
@@ -152,7 +156,9 @@ class TeachingController extends Controller
             $filename = time() . '.' . $cover->getClientOriginalExtension();
             Image::make($cover)->resize(870, 350)
                 ->save(public_path('storage/courses/covers/') . $filename);
-            Storage::delete($coverURL);
+            if ($coverURL !== 'public/courses/covers/default.jpg') {
+                Storage::delete($coverURL);
+            }
             $coverURL = 'public/courses/covers/' . $filename;
         }
 
@@ -210,7 +216,7 @@ class TeachingController extends Controller
             foreach ($content_types as $key => $value) {
                 $i++;
                 if (isset($ids[$key])) {
-                    if($content_types[$key] === $old_types[$key]){
+                    if ($content_types[$key] === $old_types[$key]) {
                         switch ($content_types[$key]) {
                             case Course::CTYPE_VIDEO_URL:
                                 $course->videos()->findOrFail($ids[$key])->update([
@@ -283,11 +289,11 @@ class TeachingController extends Controller
                     }
                 }
             }
-            if($deletedVideos){
-                Video::whereIn('id',array_values($deletedVideos))->where('course_id', $course->id)->delete();
+            if ($deletedVideos) {
+                Video::whereIn('id', array_values($deletedVideos))->where('course_id', $course->id)->delete();
             }
-            if($deletedProjects){
-                RequiredProject::whereIn('id',array_values($deletedProjects))->where('course_id', $course->id)->delete();
+            if ($deletedProjects) {
+                RequiredProject::whereIn('id', array_values($deletedProjects))->where('course_id', $course->id)->delete();
             }
 
             $course->update([
@@ -302,5 +308,58 @@ class TeachingController extends Controller
         }
 
         return view('user.teaching.course_updated_message', ['course_id' => $course->id]);
+    }
+
+    public function showStudentProjects($course_id)
+    {
+        $course = Course::findOrFail($course_id);
+        $projects = $course->projects()->with('studentProjects', 'studentProjects.performer')->get();
+
+        $data = [
+            'course' => $course,
+            'projects' => $projects
+        ];
+        return view('user.teaching.show_student_projects', $data);
+    }
+
+    public function checkStudentProject($course_id, $student_project_id)
+    {
+        $course = Course::findOrFail($course_id);
+        $studentProject = StudentProject::findOrFail($student_project_id);
+        $files = $studentProject->files;
+
+        $data = [
+            'course' => $course,
+            'studentProject' => $studentProject,
+            'files' => $files
+        ];
+
+        return view('user.teaching.check_student_project', $data);
+    }
+
+    public function downloadProjectFile($course_id, $student_project_id, $file_id)
+    {
+        $file = ProjectFile::select('link')->findOrFail($file_id);
+
+        return response()->download(storage_path('app/' . $file->link));
+    }
+
+    public function approveStudentProject($course_id, $student_project_id)
+    {
+        $studentProject = StudentProject::findOrFail($student_project_id);
+        $studentProject->update([
+            'status' => StudentProject::STATUS_PASSED
+        ]);
+        return redirect()->route('user.show_student_projects', ['course' => $course_id]);
+    }
+
+    public function rejectStudentProject($course_id, $student_project_id, Request $request)
+    {
+        $studentProject = StudentProject::findOrFail($student_project_id);
+        $studentProject->update([
+            'status' => StudentProject::STATUS_REJECTED,
+            'reject_reason' => $request->reject_reason
+        ]);
+        return redirect()->route('user.show_student_projects', ['course' => $course_id]);
     }
 }
