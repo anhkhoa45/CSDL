@@ -90,23 +90,23 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function (){
         Route::get('create-admin','AdminController@createAdmin')->name('admin.create_admin');
         Route::post('store-admin','AdminController@storeAdmin')->name('admin.store_admin');
         //User
-        Route::get('users','AdminController@users')->name('admin.users');
-        Route::put('users-update/{user}','AdminController@usersUpdate')->name('admin.users.update');
-        Route::get('users-create','AdminController@usersCreate')->name('admin.users.create');
-        Route::post('users-store','AdminController@usersStore')->name('admin.users.store');
-        Route::get('users-edit/{user}','AdminController@usersEdit')->name('admin.users.edit');
-        Route::delete('users-destroy/{user}','AdminController@usersDestroy')->name('admin.users.destroy');
-        Route::get('users-show/{user}','AdminController@usersShow')->name('admin.users.show');
-        Route::get('users-search','AdminController@usersSearch')->name('admin.users.search');
+        Route::get('users','UserManageController@users')->name('admin.users');
+        Route::put('users-update/{user}','UserManageController@usersUpdate')->name('admin.users.update');
+        Route::get('users-create','UserManageController@usersCreate')->name('admin.users.create');
+        Route::post('users-store','UserManageController@usersStore')->name('admin.users.store');
+        Route::get('users-edit/{user}','UserManageController@usersEdit')->name('admin.users.edit');
+        Route::delete('users-destroy/{user}','UserManageController@usersDestroy')->name('admin.users.destroy');
+        Route::get('users-show/{user}','UserManageController@usersShow')->name('admin.users.show');
+        Route::get('users-search','UserManageController@usersSearch')->name('admin.users.search');
         //Catagories
-        Route::get('categories','AdminController@categories')->name('admin.categories');
-        Route::get('categories-show/{catagories}','AdminController@categoriesShow')->name('admin.categories.show');
-        Route::get('categories-create','AdminController@categoriesCreate')->name('admin.categories.create');
-        Route::post('categories-store','AdminController@categoriesStore')->name('admin.categories.store');
-        Route::get('categories-edit/{categories}','AdminController@categoriesEdit')->name('admin.categories.edit');
-        Route::put('categories-update/{categories}','AdminController@categoriesUpdate')->name('admin.categories.update');
-        Route::delete('categories-destroy/{categories}','AdminController@categoriesDestroy')->name('admin.categories.destroy');
-        Route::get('categories-search','AdminController@categoriesSearch')->name('admin.categories.search');
+        Route::get('categories','CategoryManageController@categories')->name('admin.categories');
+        Route::get('categories-show/{catagories}','CategoryManageController@categoriesShow')->name('admin.categories.show');
+        Route::get('categories-create','CategoryManageController@categoriesCreate')->name('admin.categories.create');
+        Route::post('categories-store','CategoryManageController@categoriesStore')->name('admin.categories.store');
+        Route::get('categories-edit/{categories}','CategoryManageController@categoriesEdit')->name('admin.categories.edit');
+        Route::put('categories-update/{categories}','CategoryManageController@categoriesUpdate')->name('admin.categories.update');
+        Route::delete('categories-destroy/{categories}','CategoryManageController@categoriesDestroy')->name('admin.categories.destroy');
+        Route::get('categories-search','CategoryManageController@categoriesSearch')->name('admin.categories.search');
         //Course
         Route::get('courses','CourseManageController@courses')->name('admin.courses');
         Route::get('course-show/{course}','CourseManageController@courseShow')->name('admin.courses.show');
@@ -115,6 +115,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function (){
         Route::get('course-search','CourseManageController@courseSearch')->name('admin.courses.search');
         //Request
         Route::get('course-request/{course}','CourseManageController@courseRequest')->name('admin.course.request');
+        Route::get('course-pending','CourseManageController@coursePending')->name('admin.courses.pending');
+        Route::get('course-approve/{course}','CourseManageController@courseApprove')->name('admin.course.approve');
+        Route::get('course-refuse/{course}','CourseManageController@courseRefuse')->name('admin.course.refuse');
     });
 });
 
