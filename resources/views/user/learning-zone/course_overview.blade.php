@@ -77,9 +77,6 @@
                                       <li>
                                         <div class="its-tdu">{{ $courseContent->name }} </div>
                                       </li>
-                                      <li>
-                                        <div class="its-tdu">{{ $courseContent->name }} </div>
-                                      </li>
                                     </ul>
                                   </a>
                                 @elseif(get_class($courseContent) === \App\RequiredProject::class )
