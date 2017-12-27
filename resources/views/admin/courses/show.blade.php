@@ -44,6 +44,7 @@
                         <p><b>Created:</b> {{ $course->created_at }}</p>
                         <p><b>Updated:</b> {{ $course->updated_at }}</p>
                         <a class="btn btn-primary" href="{{ route('admin.courses.edit', ['course' => $course->id]) }}">Edit Course</a>
+                        <a class="btn btn-primary" href="{{ route('admin.course.request', ['course' => $course->id]) }}">Info Course</a>
                     </div>
                 </div>
             @endforeach

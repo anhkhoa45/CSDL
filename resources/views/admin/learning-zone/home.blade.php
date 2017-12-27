@@ -30,14 +30,9 @@
                 </div>
             @endif
             <div class="col-md-6">
-                <h2>Manage Courses</h2>
+                <h2>Courses Pending</h2>
             </div>
-            <div class="actions-head col-md-6">
-                <form class="search-form form form-inline" method="GET" action="{{ route('admin.courses.search') }}">
-                    <input class="form-control" type="text" placeholder="Course name" name="name">
-                    <button class="btn btn-success" type="submit">Search</button>
-                </form>
-            </div>
+
         </div>
         <table class="table table-striped">
             <thead>
@@ -63,17 +58,10 @@
                     <td>{{ $course->name }}</td>
                     <td>{{ $course->category}}</td>
                     <td>{{ $course->teacher}}</td>
-                    <td>
-                        @if($course->status==\App\Course::STATUS_PENDING) {{"PENDING"}}
-                            @elseif($course->status==\App\Course::STATUS_ACTIVE){{ "ACTIVE" }}
-                            @elseif($course->status==\App\Course::STATUS_DEACTIVED){{"DEACTIVED"}}
-                            @else {{"REJECTED"}}
-                            @endif
-                    </td>
+                    <td>{{"PENDING"}}</td>
                     <td>{{ $course->cost}}</td>
                     <td>
                         <a class="btn btn-success" href="{{ route('admin.course.request', ['course' => $course->id]) }}">Show</a>
-                        <a class="btn btn-primary" href="{{ route('admin.courses.edit', ['course' => $course->id]) }}">Edit</a>
                     </td>
                 </tr>
             @endforeach
