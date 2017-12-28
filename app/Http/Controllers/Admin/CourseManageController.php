@@ -90,16 +90,18 @@ return view('admin.courses.edit',['courses'=>$courses,'categories'=>$categories]
         $course=Course::findOrFail($id);
         $course->update([
             'status'=>\App\Course::STATUS_ACTIVE,
+            'reject_reason' => ''
         ]);
         return redirect()->route('admin.courses.pending');
 
     }
 
-    public function courseRefuse($id)
+    public function courseRefuse($id, Request $request)
     {
         $course=Course::findOrFail($id);
         $course->update([
             'status'=>\App\Course::STATUS_REJECTED,
+            'reject_reason' => $request->reject_reason
         ]);
         return redirect()->route('admin.courses.pending');
     }
