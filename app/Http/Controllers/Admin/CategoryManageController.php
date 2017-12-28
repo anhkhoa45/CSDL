@@ -74,11 +74,5 @@ class CategoryManageController extends Controller
         CourseCategory::findOrFail($id)->delete();
         return redirect()->route('admin.categories');
     }
-    public function categoriesSearch()
-    {
-        $categories = CourseCategory::where(DB::raw('LOWER("name")'), 'like', '%'.strtolower(request()->name).'%')->orderBy('name')->paginate(10);
-
-        return view('admin.categories.home', ['categories' => $categories]);
-    }
 
 }

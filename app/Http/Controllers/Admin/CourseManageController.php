@@ -56,14 +56,6 @@ class CourseManageController extends Controller
         ]);
         return redirect()->route('admin.courses');
     }
-
-    public function courseSearch()
-    {
-        $course = Course::where(DB::raw('LOWER("name")'), 'like', '%' . strtolower(request()->name) . '%')->orderBy('name')->paginate(10);
-
-        return view('admin.courses.search', ['courses' => $course]);
-    }
-
     //Request
     public function courseRequest($id)
     {

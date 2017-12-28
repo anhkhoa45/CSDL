@@ -76,13 +76,6 @@ class UserManageController extends Controller
         return redirect()->route('admin.home');
     }
 
-    public function usersSearch()
-    {
-        $user = User::where(DB::raw('LOWER("name")'), 'like', '%'.strtolower(request()->name).'%')->orderBy('name')->paginate(10);
-
-        return view('admin.users.home', ['users' => $user]);
-    }
-
     public function usersDestroy($id)
     {
         $user=User::findOrFail($id);

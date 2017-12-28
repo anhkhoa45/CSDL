@@ -34,12 +34,6 @@
       <div class="col-md-6">
         <h2>Manage Courses</h2>
       </div>
-      <div class="actions-head col-md-6">
-        <form class="search-form form form-inline" method="GET" action="{{ route('admin.courses.search') }}">
-          <input class="form-control" type="text" placeholder="Course name" name="name">
-          <button class="btn btn-success" type="submit">Search</button>
-        </form>
-      </div>
     </div>
     <table class="table table-striped data-table">
       <thead>
