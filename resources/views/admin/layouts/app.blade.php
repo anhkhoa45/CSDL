@@ -12,6 +12,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/datatables.min.css') }}"/>
 
     @yield('styles')
 
@@ -93,11 +95,31 @@
 
         @yield('content')
     </div>
-
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('js/datatables.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/datatables.bootstrap.js') }}" type="text/javascript"></script>
+    <script>
+        $(document).ready( function () {
+            let cols = $('.data-table').find('th').length;
 
+            $('table.data-table').DataTable({
+                "lengthMenu": [
+                    [6, 10, 20, -1],
+                    [6, 10, 20, "All"] // change per page values here
+                ],
+                "pageLength": parseInt('{{ config('view.paginate') }}'),
+                "columnDefs": [{  // set default column settings
+                    'orderable': false,
+                    'targets': [0, cols - 1]
+                }, {
+                    "searchable": false,
+                    "targets": [0, cols - 1]
+                }]
+            });
+        });
+    </script>
     @yield('scripts')
 </body>
 </html>
