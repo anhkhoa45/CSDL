@@ -59,8 +59,7 @@
                 <tr>
                     <td>{{ $count++ }}</td>
                     <td>{{ $categories->name }}</td>
-                    <td>{{$categories->countcourse}}</td>
-                    <td></td>
+                    <td>{{ $categories->countcourse }}</td>
                     <td>
                         <a class="btn btn-success" href="{{ route('admin.categories.show', ['categories' => $categories->id]) }}">Detail</a>
                         <a class="btn btn-primary" href="{{ route('admin.categories.edit', ['categories' => $categories->id]) }}">Edit</a>
