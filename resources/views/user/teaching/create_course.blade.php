@@ -25,10 +25,15 @@
 
 @section('content')
   <div class="container">
-    @if ($errors->has('create_failed'))
-      <span class="help-block">
-            <strong>{{ $errors->first('create_failed') }}</strong>
-        </span>
+    @if(count($errors) > 0)
+      <div class="alert alert-danger error-msg">
+        <strong>Submit failed!</strong> Please try again
+      </div>
+      <div class="alert alert-danger error-msg">
+        @foreach($errors->all() as $error)
+          <p>{{ $error }}</p>
+        @endforeach
+      </div>
     @endif
     <div class="portlet light form-fit bordered">
       <div class="portlet-title">
@@ -38,7 +43,7 @@
         </div>
       </div>
       <div class="portlet-body form">
-        <form class="form-horizontal form-bordered" enctype="multipart/form-data" novalidate
+        <form class="form-horizontal form-bordered" enctype="multipart/form-data"
               action="{{ route('user.create_course') }}" method="POST">
           {{ csrf_field() }}
           <div class="form-body">
@@ -248,12 +253,14 @@
                   case '0':
                       indexEl.css(bgVideoURL);
                       urlEl.attr('type', 'url');
+                      urlEl.prop('required', true);
                       urlEl.prop('placeholder', 'Youtube URL');
                       titleEl.prop('placeholder', 'Video Title');
                       descEl.prop('placeholder', 'Video content description');
                       break;
                   case '2':
                       indexEl.css(bgProject);
+                      urlEl.prop('required', false);
                       urlEl.hide();
                       titleEl.prop('placeholder', 'Project Title');
                       descEl.prop('placeholder', 'Project requirement description');

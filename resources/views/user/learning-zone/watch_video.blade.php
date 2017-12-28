@@ -18,7 +18,7 @@
 
 @section('content')
   <div class="col-md-12">
-    <a href="{{ route('admin.course.request', ['course' => $course->id]) }}" class="btn btn-lg">
+    <a href="{{ route('user.learn_course', ['course' => $course->id]) }}" class="btn btn-lg">
       < Back to course
     </a>
   </div>

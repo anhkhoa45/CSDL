@@ -7,20 +7,11 @@
     <input type="text" name="name" value="{{ $user->name }}" class="form-control"/>
     @if ($errors->has('name'))
       <span class="help-block">
-                            <strong>{{ $errors->first('name') }}</strong>
-                        </span>
+          <strong>{{ $errors->first('name') }}</strong>
+      </span>
     @endif
   </div>
 
-  <div class="form-group{{ $errors->has('DOB') ? ' has-error' : '' }}">
-    <label class="control-label">Date Of Birth</label>
-    <input type="text" name="DOB" value="{{ $user->DOB }}" class="form-control"/>
-    @if ($errors->has('DOB'))
-      <span class="help-block">
-                            <strong>{{ $errors->first('DOB') }}</strong>
-                        </span>
-    @endif
-  </div>
   <div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
     <label class="control-label">Gender</label>
     <select class="form-control" name="gender" >
@@ -40,13 +31,22 @@
       </span>
     @endif
   </div>
+  <div class="form-group{{ $errors->has('DOB') ? ' has-error' : '' }}">
+    <label class="control-label">Date Of Birth</label>
+    <input type="text" name="DOB" value="{{ $user->DOB }}" class="form-control datepicker"/>
+    @if ($errors->has('DOB'))
+      <span class="help-block">
+          <strong>{{ $errors->first('DOB') }}</strong>
+      </span>
+    @endif
+  </div>
   <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
     <label class="control-label">Address</label>
     <input type="text"  name="address" value="{{ $user->address }}" class="form-control"/>
     @if ($errors->has('address'))
       <span class="help-block">
-                            <strong>{{ $errors->first('address') }}</strong>
-                        </span>
+          <strong>{{ $errors->first('address') }}</strong>
+      </span>
     @endif
   </div>
   <div class="form-group">

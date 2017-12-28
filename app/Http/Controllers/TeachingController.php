@@ -196,6 +196,22 @@ class TeachingController extends Controller
         return view('user.teaching.course_updated_message', ['course_id' => $course->id]);
     }
 
+    public function deleteCourse($course_id){
+        $course = Course::findOrFail($course_id);
+
+        $avatarURL = $course->avatar;
+        $coverURL = $course->cover;
+
+        if ($avatarURL !== 'public/courses/avatars/default.jpg') {
+            Storage::delete($avatarURL);
+        }
+        if ($coverURL !== 'public/courses/covers/default.jpg') {
+            Storage::delete($coverURL);
+        }
+        $course->delete();
+        return redirect()->route('profile');
+    }
+
     public function getUpdateCourseContents($course_id)
     {
         $course = Course::with(['videos', 'projects'])->findOrFail($course_id);

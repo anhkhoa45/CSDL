@@ -51,6 +51,10 @@
                 <a href="{{ route('user.get_update_course_contents', ['course' => $course->id]) }}">
                   <i class="icon-book-open"></i> Update contents</a>
               </li>
+              <li>
+                <a href="{{ route('user.delete_course', ['course' => $course->id]) }}">
+                <i class="icon-close"></i> Delete course </a>
+              </li>
             </ul>
           </div>
         @endif
@@ -74,14 +78,15 @@
         </div>
       </div>
     @elseif ($course->status === \App\Course::STATUS_REJECTED)
-      <div class="portlet light form-fit bordered">
+      <div class="portlet light bordered">
         <div class="portlet-title">
-          <div class="caption center-block">
-            <i class="icon-speech font-green"></i>
+          <div class="caption">
             <span class="caption-subject font-red-haze sbold uppercase">Your course is rejected by our admin!</span>
           </div>
-          <div class="portlet-body">
-            <p>$course->reject_reason</p>
+        </div>
+        <div class="portlet-body">
+          <div class="row">
+            <h4><i class="icon-speech font-green"> </i> {{ $course->reject_reason }}</h4>
           </div>
         </div>
       </div>
@@ -158,7 +163,8 @@
             </div>
             <div class="details">
               <div class="number"> +
-                <span data-counter="counterup" data-value="{{ $course->getBuyersInPeriod(7) * $course->cost }}">0</span> $
+                <span data-counter="counterup" data-value="{{ $course->getBuyersInPeriod(7) * $course->cost }}">0</span>
+                $
               </div>
               <div class="desc"> Week Profits</div>
             </div>

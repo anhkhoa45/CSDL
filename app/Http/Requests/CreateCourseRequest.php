@@ -31,6 +31,7 @@ class CreateCourseRequest extends FormRequest
             'cover' => 'required|image|max:20000',
             'category_id' => 'required|integer',
             'content_type.*' => 'required|integer|between:0,3',
+            'score.*' => 'required|integer|digits_between:0,5',
             'title.*' => 'required|string|max:255',
             'description.*' => 'required|string'
         ];
