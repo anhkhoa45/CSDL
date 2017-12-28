@@ -41,13 +41,16 @@
                                 </a>
                             </li>
                         </ul>
-                        <div class="actions-head col-md-6">
-                            <form class="search-form form form-inline" method="GET" action="{{ route('search.course.category',['category_id'=>$category->id]) }}">
-                                <input class="form-control" type="text" placeholder="Course name" name="name">
-                                <button class="btn btn-success" type="submit">Search</button>
-                            </form>
+                        <form method="GET" action="{{ route('search.course.category',['category_id'=>$category->id]) }}"">
+                        <div class="input-group irs-nav-search-form">
+
+                            <input type="text" class="form-control pull-right" placeholder="Search courses" name="name">
+                            <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><span class="flaticon-musica-searcher"></span></button>
+                            </span>
 
                         </div><!-- /input-group -->
+                        </form>
                     </div>
                     <div class="row irs-all-course-bb clearfix">
                         @foreach($courses as $course)
@@ -90,7 +93,7 @@
                         @endforeach
                     </div>
                     <div class="text-center">
-                        {!! $courses->links() !!}
+                        {!! $courses->appends(Request::only('name'))->links() !!}
                     </div>
                 </div>
                 @include('includes.right-sidebar')

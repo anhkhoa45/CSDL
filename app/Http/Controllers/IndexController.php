@@ -121,8 +121,8 @@ class IndexController extends Controller
             ->where(DB::raw('LOWER("name")'), 'like', '%'.strtolower(request()->name).'%')
             ->whereNotIn('id', $teachingCourses)
             ->with(['teacher', 'buyers'])
-            ->paginate(20);
-        return view('page-search-course',['courses'=>$courses]);
+            ->paginate(config('view.paginate'));
+        return view('page-search-course',['name'=>request()->name,'courses'=>$courses]);
     }
     public function searchCourseCategory($category_id)
     {
@@ -143,6 +143,7 @@ class IndexController extends Controller
             ->paginate(config('view.paginate'));
 
         $data = [
+            'name'=>request()->name,
             'category' => $category,
             'courses' => $courses
         ];
