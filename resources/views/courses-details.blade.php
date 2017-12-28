@@ -57,7 +57,7 @@
                     @if(auth()->user()->id !== $course->teacher_id)
                       @if(auth()->user()->enrolledCourses()->get()->pluck('id')->contains($course->id))
                         <li class="pull-right">
-                          <a href="#" class="btn btn-default irs-button-styledark disabled">
+                          <a href="{{ route('user.learn_course', ['course' => $course->id]) }}" class="btn btn-default irs-button-styledark">
                             Enrolled
                           </a>
                         </li>

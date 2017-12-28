@@ -6,7 +6,7 @@
     <div class="portlet-body">
       <ul class="list-unstyled">
         <li>
-          <span class="sale-info"> TODAY PAID
+          <span class="sale-info"> TODAY SOLD
               <i class="fa fa-img-up"></i>
           </span>
             <span class="sale-num"> ${{$user->getTodaySold()}}</span>

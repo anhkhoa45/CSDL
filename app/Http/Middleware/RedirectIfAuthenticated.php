@@ -20,7 +20,7 @@ class RedirectIfAuthenticated
 
         switch ($guard) {
             case 'users':
-                if (Auth::guard('users')->check()) {
+                if (Auth::guard()->check()) {
                     return redirect('/');
                 }
                 break;
