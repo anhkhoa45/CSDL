@@ -21,7 +21,7 @@
       < Back to course
     </a>
   </div>
-  <div class="container-fluid text-center">
+  <div class="container-fluid">
     <div class="row margin-bottom-20">
       <div class="col-md-8 col-md-offset-2">
         <h1>{{ $project->name }} <small class="pull-right text-thm2">Score: {{ $project->score }}</small></h1>
