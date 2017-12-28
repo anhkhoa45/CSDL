@@ -25,12 +25,13 @@
                 </a>
               </li>
             </ul>
-            <div class="input-group irs-nav-search-form">
-              <input type="text" class="form-control pull-right" placeholder="Search courses">
-              <span class="input-group-btn">
-                <button class="btn btn-default" type="button"><span class="flaticon-musica-searcher"></span></button>
-              </span>
-            </div><!-- /input-group -->
+            <div class="actions-head col-md-6">
+                <form class="search-form form form-inline" method="GET" action="{{ route('search.course') }}">
+                <input class="form-control" type="text" placeholder="Course name" name="name">
+                <button class="btn btn-success" type="submit">Search</button>
+              </form>
+
+            </div>  <!-- /input-group -->
           </div>
           <div class="row irs-all-course-bb clearfix">
             @foreach($courses as $course)

@@ -105,8 +105,48 @@ class IndexController extends Controller
             ->whereNotIn('id', $teachingCourses)
             ->with(['teacher', 'buyers'])
             ->paginate(config('view.paginate'));
-
         return view('page-all-courses',['courses'=>$courses]);
     }
+    public function searchCourse()
+    {
+        $enrolledCourses = [];
+        $teachingCourses = [];
 
+        if(auth()->check()){
+            $enrolledCourses = auth()->user()->enrolledCourses->pluck('id')->toArray();
+            $teachingCourses = auth()->user()->teachingCourses->pluck('id')->toArray();
+        }
+
+        $courses = Course::whereNotIn('id', $enrolledCourses)
+            ->where(DB::raw('LOWER("name")'), 'like', '%'.strtolower(request()->name).'%')
+            ->whereNotIn('id', $teachingCourses)
+            ->with(['teacher', 'buyers'])
+            ->paginate(20);
+        return view('page-search-course',['courses'=>$courses]);
+    }
+    public function searchCourseCategory($category_id)
+    {
+        $enrolledCourses = [];
+        $teachingCourses = [];
+
+        if(auth()->check()){
+            $enrolledCourses = auth()->user()->enrolledCourses->pluck('id')->toArray();
+            $teachingCourses = auth()->user()->teachingCourses->pluck('id')->toArray();
+        }
+
+        $category = CourseCategory::findOrFail($category_id);
+        $courses = $category->courses()
+            ->where(DB::raw('LOWER("name")'), 'like', '%'.strtolower(request()->name).'%')
+            ->whereNotIn('id', $enrolledCourses)
+            ->whereNotIn('id', $teachingCourses)
+            ->with(['teacher', 'buyers'])
+            ->paginate(config('view.paginate'));
+
+        $data = [
+            'category' => $category,
+            'courses' => $courses
+        ];
+
+        return view('page-search-courses-category', $data);
+    }
 }
