@@ -63,8 +63,8 @@
           <td>{{ $user->name }}</td>
           <td>{{ $user->email}}</td>
           <td>{{ $user->balance}}</td>
-          <td>{{ $user->created_at}}</td>
-          <td>{{ $user->updated_at}}</td>
+          <td>{{ (new \Carbon\Carbon($user->created_at))->format('d/m/Y') }}</td>
+          <td>{{ (new \Carbon\Carbon($user->updated_at))->format('d/m/Y') }}</td>
           <td>
             <a class="btn btn-success" href="{{ route('admin.users.show', ['user' => $user->id]) }}">Detail</a>
             <a class="btn btn-primary" href="{{ route('admin.users.edit', ['user' => $user->id]) }}">Edit</a>
@@ -73,7 +73,7 @@
                 method="POST"
                 action="{{ route('admin.users.destroy', ['user  ' => $user->id]) }}"
             >
-              <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-o" aria-hidden="true"></i>
+              <button type="submit" class="btn btn-danger btn-sm"@if($user->countuser !==0)  disabled  @endif><i class="fa fa-trash-o" aria-hidden="true"></i>
               </button>
               <input type="hidden" name="_method" value="DELETE">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">

@@ -74,5 +74,13 @@ class CategoryManageController extends Controller
         CourseCategory::findOrFail($id)->delete();
         return redirect()->route('admin.categories');
     }
-
+    public function categoryCourse($id)
+    {
+        $courses=DB::select("SELECT courses.*,course_categories.name AS category,users.name AS teacher 
+                                    FROM courses,course_categories,users
+                                    WHERE courses.course_category_id=course_categories.id
+                                    AND courses.course_category_id=$id
+                                       AND courses.teacher_id=users.id");
+        return view('admin.categories.course',['courses'=>$courses]);
+    }
 }

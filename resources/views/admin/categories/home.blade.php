@@ -42,6 +42,8 @@
                 <th>#</th>
                 <th>Name</th>
                 <th>Count</th>
+                <th>Created at</th>
+                <th>Updated at</th>
                 <th></th>
             </tr>
             </thead>
@@ -54,9 +56,14 @@
             @foreach($categories as $categories)
                 <tr>
                     <td>{{ $count++ }}</td>
-                    <td>{{ $categories->name }}</td>
+                    @if($categories->countcourse !==0)<td><a href="{{ route('admin.category.course',['category'=>$categories->id]) }}">{{ $categories->name }}</a>
+                    </td>
+                    @else <td>{{ $categories->name }}</td>
+                    @endif
+
                     <td>{{$categories->countcourse}}</td>
-                    <td></td>
+                    <td>{{ (new \Carbon\Carbon($categories->created_at))->format('d/m/Y') }}</td>
+                    <td>{{ (new \Carbon\Carbon($categories->updated_at))->format('d/m/Y') }}</td>
                     <td>
                         <a class="btn btn-success" href="{{ route('admin.categories.show', ['categories' => $categories->id]) }}">Detail</a>
                         <a class="btn btn-primary" href="{{ route('admin.categories.edit', ['categories' => $categories->id]) }}">Edit</a>
@@ -65,10 +72,11 @@
                                 method="POST"
                                 action="{{ route('admin.categories.destroy', ['categories' => $categories->id]) }}"
                         >
-                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+                            <button type="submit" class="btn btn-danger btn-sm"@if($categories->countcourse !== 0) disabled @endif><i class="fa fa-trash-o"></i></button>
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         </form>
+
                     </td>
                 </tr>
             @endforeach

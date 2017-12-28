@@ -41,9 +41,9 @@
         <th>#</th>
         <th>Name</th>
         <th>Category</th>
-        <th>Teacher</th>
         <th>Status</th>
         <th>Cost</th>
+        <th>Created_at</th>
         <th></th>
       </tr>
       </thead>
@@ -58,7 +58,6 @@
           <td>{{ $count++ }}</td>
           <td>{{ $course->name }}</td>
           <td>{{ $course->category}}</td>
-          <td>{{ $course->teacher}}</td>
           <td>
             @if($course->status==\App\Course::STATUS_PENDING) {{"PENDING"}}
             @elseif($course->status==\App\Course::STATUS_ACTIVE){{ "ACTIVE" }}
@@ -67,6 +66,7 @@
             @endif
           </td>
           <td>{{ $course->cost}}</td>
+          <td>{{ $course->created_at}}</td>
           <td>
             <a class="btn btn-success" href="{{ route('admin.course.request', ['course' => $course->id]) }}">Show</a>
             <a class="btn btn-primary" href="{{ route('admin.courses.edit', ['course' => $course->id]) }}">Edit</a>
