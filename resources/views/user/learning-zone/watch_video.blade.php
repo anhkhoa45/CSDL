@@ -17,6 +17,11 @@
 @endsection
 
 @section('content')
+  <div class="col-md-12">
+    <a href="{{ route('admin.course.request', ['course' => $course->id]) }}" class="btn btn-lg">
+      < Back to course
+    </a>
+  </div>
   <div class="container-fluid">
     <div class="row margin-bottom-20">
       <div class="col-md-8 col-md-offset-2">
