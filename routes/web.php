@@ -59,7 +59,7 @@ Route::middleware(['auth'])->group(function(){
                     ->name('user.download_project_file');
                 Route::get('{course}/student-project/{student_project}/approve', 'TeachingController@approveStudentProject')
                     ->name('user.approve_student_project');
-                Route::post('{course}/student-project/{student_project}/approve', 'TeachingController@rejectStudentProject')
+                Route::post('{course}/student-project/{student_project}/reject', 'TeachingController@rejectStudentProject')
                     ->name('user.reject_student_project');
 
                 Route::middleware(['can_update'])->group(function() {

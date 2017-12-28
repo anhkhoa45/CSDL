@@ -77,6 +77,21 @@
                                       <li>
                                         <div class="its-tdu">{{ $courseContent->name }} </div>
                                       </li>
+                                      @php
+                                        $seenInfo = \DB::select("SELECT total_view, last_seen FROM watch_videos WHERE video_id = $courseContent->id AND user_id = $user->id");
+                                      @endphp
+                                      @if($seenInfo)
+                                        <li class="pull-right">
+                                          <div class="its-tdu">
+                                            Total view: {{ $seenInfo[0]->total_view }}
+                                          </div>
+                                        </li>
+                                        <li class="pull-right">
+                                          <div class="its-tdu">
+                                            Last seen: {{ (new \Carbon\Carbon($seenInfo[0]->last_seen))->format('h:i d/m/Y') }}
+                                          </div>
+                                        </li>
+                                      @endif
                                     </ul>
                                   </a>
                                 @elseif(get_class($courseContent) === \App\RequiredProject::class )
@@ -92,6 +107,21 @@
                                       <li>
                                         <div class="its-tdu">{{ $courseContent->name }} </div>
                                       </li>
+                                      @php
+                                        $submitInfo = \DB::select("SELECT created_at, status FROM student_projects WHERE required_project_id = $courseContent->id AND performer_id = $user->id");
+                                      @endphp
+                                      @if($submitInfo)
+                                        <li class="pull-right">
+                                          <div class="its-tdu">
+                                            Status: {{ $submitInfo[0]->status }}
+                                          </div>
+                                        </li>
+                                        <li class="pull-right">
+                                          <div class="its-tdu">
+                                            Last submit: {{ (new \Carbon\Carbon($submitInfo[0]->created_at))->setTimezone('UTC')->format('h:i d/m/Y') }}
+                                          </div>
+                                        </li>
+                                      @endif
                                     </ul>
                                   </a>
                                 @endif

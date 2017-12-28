@@ -14,7 +14,7 @@ class AlterTableWatchVideoAddTrigger extends Migration
     public function up()
     {
         DB::unprepared('
-            CREATE OR REPLACE FUNCTION fn_tg_update_sproject_status() RETURNS trigger AS
+            CREATE OR REPLACE FUNCTION fn_tg_insert_watch_videos() RETURNS trigger AS
                 $$DECLARE
                     video_score int4;
                 BEGIN
