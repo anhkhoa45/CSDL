@@ -22,7 +22,8 @@ class CourseManageController extends Controller
                                     FROM courses,course_categories,users
                                     WHERE courses.course_category_id=course_categories.id
                                        AND courses.teacher_id=users.id");
-        return view('admin.courses.home', ['courses' => $courses]);
+
+        return view('admin.courses.home', ['courses'=>$courses]);
     }
 
     public function courseShow($id)

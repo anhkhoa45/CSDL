@@ -40,9 +40,9 @@
       <tr>
         <th>#</th>
         <th>Name</th>
+        <th>Teacher</th>
         <th>Category</th>
         <th>Status</th>
-        <th>Students</th>
         <th>Cost</th>
         <th>Created at</th>
         <th>Updated at</th>
@@ -59,6 +59,7 @@
         <tr>
           <td>{{ $count++ }}</td>
           <td>{{ $course->name }}</td>
+          <td>{{ $course->teacher }}</td>
           <td>{{ $course->category}}</td>
           <td>
             @if($course->status==\App\Course::STATUS_PENDING) {{"PENDING"}}
@@ -67,7 +68,6 @@
             @else {{"REJECTED"}}
             @endif
           </td>
-          <td>NULL</td>
           <td>{{ $course->cost}}</td>
           <td>{{ (new \Carbon\Carbon($course->created_at))->format('d/m/Y') }}</td>
           <td>{{ (new \Carbon\Carbon($course->updated_at))->format('d/m/Y') }}</td>
