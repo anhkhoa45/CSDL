@@ -21,7 +21,6 @@
 @endsection
 
 @section('content')
-
     <div class="container">
         <div class="row">
             @if (Session::has('success'))
@@ -39,7 +38,7 @@
                 </form>
             </div>
         </div>
-        <table class="table table-striped">
+        <table class="table table-striped data-table">
             <thead>
             <tr>
                 <th>#</th>

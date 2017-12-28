@@ -40,7 +40,7 @@
                 </form>
             </div>
         </div>
-        <table class="table table-striped">
+        <table class="table table-striped data-table">
             <thead>
             <tr>
                 <th>#</th>
@@ -70,7 +70,7 @@
                                 action="{{ route('admin.categories.destroy', ['categories' => $categories->id]) }}"
                         >
 
-                            <button type="submit" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i></button>
+                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
 
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
