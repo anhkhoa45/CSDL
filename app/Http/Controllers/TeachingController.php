@@ -118,7 +118,8 @@ class TeachingController extends Controller
         $monthlyBuyers = $course->getMonthlyBuyers();
         $studentProjects = DB::select("
             SELECT COUNT(id) as student_projects FROM student_projects
-            WHERE required_project_id IN (
+            WHERE status = 0
+              AND required_project_id IN (
               SELECT id FROM required_projects WHERE course_id = $course->id
             );
         ")[0]->student_projects;

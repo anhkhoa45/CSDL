@@ -80,6 +80,11 @@
               <button type="submit" class="btn btn-lg btn-success">Submit</button>
             </form>
           </div>
+        @endif
+        @if($status === -1 || $status === \App\StudentProject::STATUS_REJECTED)
+          <div class="alert alert-danger error-msg">
+            <strong>Your project is rejected by course teacher</strong> {{ $project->reject_reason }}
+          </div>
         @elseif($status === \App\StudentProject::STATUS_WAITING_FOR_APPROVE)
           <div class="alert alert-info">
             Your project is now under examination
@@ -126,12 +131,12 @@
                 <li>
                   <div class="form-horizontal">
                       <div class="file-input">
-                        <input type="file" name="file[]"  class="form-control">
+                        <input type="file" name="file[]"  class="form-control" required>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-sm-2 col-md-offset-2" for="name">File name: </label>
                         <div class="col-sm-6">
-                          <input type="text" name="name[]" class="form-control">
+                          <input type="text" name="name[]" class="form-control" required>
                         </div>
                       </div>
                       <div class="form-group">
