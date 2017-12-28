@@ -12,8 +12,21 @@ class UserManageController extends Controller
 {
     public function users()
     {
-        $users=User::orderBy('name')->paginate(10);
-        return view('admin.users.home',['users'=>$users]);
+        $users=DB::select("SELECT users.*,count(*) as countuser
+                                    FROM users,courses
+                                    WHERE users.id=courses.teacher_id
+                                    GROUP BY users.id
+                                    UNION 
+                                    SELECT  users.*,'0' as countuser
+                                    FROM users,courses
+                                    WHERE users.id not in (SELECT teacher_id FROM courses)
+        ");
+
+        $data=[
+            'users'=>$users,
+        ];
+  //      dd($data);
+        return view('admin.users.home',$data);
     }
     public function usersEdit($id)
     {
@@ -74,13 +87,6 @@ class UserManageController extends Controller
         ]);
         $admin->save();
         return redirect()->route('admin.home');
-    }
-
-    public function usersSearch()
-    {
-        $user = User::where(DB::raw('LOWER("name")'), 'like', '%'.strtolower(request()->name).'%')->orderBy('name')->paginate(10);
-
-        return view('admin.users.home', ['users' => $user]);
     }
 
     public function usersDestroy($id)

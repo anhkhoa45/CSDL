@@ -110,6 +110,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function (){
         Route::put('categories-update/{categories}','CategoryManageController@categoriesUpdate')->name('admin.categories.update');
         Route::delete('categories-destroy/{categories}','CategoryManageController@categoriesDestroy')->name('admin.categories.destroy');
         Route::get('categories-search','CategoryManageController@categoriesSearch')->name('admin.categories.search');
+        Route::get('category-course/{category_id}','CategoryManageController@categoryCourse')->name('admin.category.course');
         //Course
         Route::get('courses','CourseManageController@courses')->name('admin.courses');
         Route::get('course-show/{course}','CourseManageController@courseShow')->name('admin.courses.show');
