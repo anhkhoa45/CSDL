@@ -23,10 +23,10 @@
           <tr>
             <th> <i class="fa fa-leanpub"></i> Course</th>
             <th> <i class="fa fa-calendar"></i> Created at</th>
-            <th> <i class="fa fa-star"></i> Status</th>
             <th> <i class="fa fa-bookmark"></i> Price</th>
             <th> <i class="fa fa-users"></i> Students</th>
             <th> <i class="fa fa-money"></i> Total Revenue</th>
+            <th> <i class="fa fa-star"></i> Status</th>
             <th></th>
           </tr>
           </thead>
@@ -35,6 +35,9 @@
             <tr>
               <td>{{ $teachingCourse->name }}</td>
               <td>{{ $teachingCourse->created_at->format('d/m/Y') }}</td>
+              <td>{{ $teachingCourse->cost }}</td>
+              <td>{{ $teachingCourse->buyers->count() }}</td>
+              <td>{{ $teachingCourse->buyers->count() * $teachingCourse->cost }}</td>
               <td>
                 @if($teachingCourse->status === \App\Course::STATUS_ACTIVE)
                   <span class="label label-sm label-success"> Active </span>
@@ -46,9 +49,6 @@
                   <span class="label label-sm label-danger"> Rejected </span>
                 @endif
               </td>
-              <td>{{ $teachingCourse->cost }}</td>
-              <td>{{ $teachingCourse->buyers->count() }}</td>
-              <td>{{ $teachingCourse->buyers->count() * $teachingCourse->cost }}</td>
               <td>
                 <a href="{{ route('user.teaching_course_detail', ['id' => $teachingCourse->id]) }}"
                    class="btn blue-steel">

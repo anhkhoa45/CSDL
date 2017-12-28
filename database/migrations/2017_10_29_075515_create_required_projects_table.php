@@ -19,7 +19,7 @@ class CreateRequiredProjectsTable extends Migration
             $table->integer('order_in_course');
             $table->string('name',80);
             $table->string('description',500)->nullable();
-            $table->integer('score')->nullable();
+            $table->integer('score');
             $table->timestamps();
 
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');

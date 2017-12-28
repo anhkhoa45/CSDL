@@ -68,6 +68,7 @@ class TeachingController extends Controller
             $content_types = $request->content_type;
             $titles = $request->title;
             $urls = $request->url;
+            $scores = $request->score;
             $descriptions = $request->description;
             $contentCount = count($titles);
 
@@ -78,6 +79,7 @@ class TeachingController extends Controller
                             'name' => $titles[$i],
                             'description' => $descriptions[$i],
                             'url' => $urls[$i],
+                            'score' => $scores[$i],
                             'course_id' => $course->id,
                             'order_in_course' => $i + 1,
                             'type' => $content_types[$i]
@@ -88,6 +90,7 @@ class TeachingController extends Controller
                     case Course::CTYPE_PROJECT:
                         RequiredProject::create([
                             'name' => $titles[$i],
+                            'score' => $scores[$i],
                             'description' => $descriptions[$i],
                             'order_in_course' => $i + 1,
                             'course_id' => $course->id,
@@ -112,10 +115,17 @@ class TeachingController extends Controller
         $user = auth()->user();
         $course = $user->teachingCourses()->findOrFail($course_id);
         $monthlyBuyers = $course->getMonthlyBuyers();
+        $studentProjects = DB::select("
+            SELECT COUNT(id) as student_projects FROM student_projects
+            WHERE required_project_id IN (
+              SELECT id FROM required_projects WHERE course_id = $course->id
+            );
+        ")[0]->student_projects;
 
         $data = [
             'course' => $course,
-            'monthlyBuyers' => $monthlyBuyers
+            'monthlyBuyers' => $monthlyBuyers,
+            'studentProjects' => $studentProjects
         ];
 
         return view('user.teaching.teaching_course_detail', $data);
@@ -205,6 +215,7 @@ class TeachingController extends Controller
         $content_types = $request->content_type;
         $titles = $request->title;
         $urls = $request->url;
+        $scores = $request->score;
         $descriptions = $request->description;
         $i = 0;
 
@@ -223,6 +234,7 @@ class TeachingController extends Controller
                                     'name' => $titles[$key],
                                     'description' => $descriptions[$key],
                                     'url' => $urls[$key],
+                                    'score' => $scores[$key],
                                     'order_in_course' => $i,
                                     'type' => $content_types[$key]
                                 ]);
@@ -230,6 +242,7 @@ class TeachingController extends Controller
                             case Course::CTYPE_PROJECT:
                                 $course->projects()->findOrFail($ids[$key])->update([
                                     'name' => $titles[$key],
+                                    'score' => $scores[$key],
                                     'description' => $descriptions[$key],
                                     'order_in_course' => $i,
                                 ]);
@@ -245,6 +258,7 @@ class TeachingController extends Controller
                                     'name' => $titles[$key],
                                     'description' => $descriptions[$key],
                                     'url' => $urls[$key],
+                                    'score' => $scores[$key],
                                     'order_in_course' => $i,
                                     'course_id' => $course->id,
                                 ]);
@@ -253,6 +267,7 @@ class TeachingController extends Controller
                                 $course->videos()->findOrFail($ids[$key])->delete();
                                 RequiredProject::create([
                                     'name' => $titles[$key],
+                                    'score' => $scores[$key],
                                     'description' => $descriptions[$key],
                                     'order_in_course' => $i,
                                     'course_id' => $course->id,
@@ -269,6 +284,7 @@ class TeachingController extends Controller
                                 'name' => $titles[$key],
                                 'description' => $descriptions[$key],
                                 'url' => $urls[$key],
+                                'score' => $scores[$key],
                                 'course_id' => $course->id,
                                 'order_in_course' => $i,
                                 'type' => $content_types[$key]
@@ -279,6 +295,7 @@ class TeachingController extends Controller
                         case Course::CTYPE_PROJECT:
                             RequiredProject::create([
                                 'name' => $titles[$key],
+                                'score' => $scores[$key],
                                 'description' => $descriptions[$key],
                                 'order_in_course' => $i,
                                 'course_id' => $course->id,

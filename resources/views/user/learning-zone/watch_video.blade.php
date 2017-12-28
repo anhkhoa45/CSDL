@@ -20,7 +20,7 @@
   <div class="container-fluid">
     <div class="row margin-bottom-20">
       <div class="col-md-8 col-md-offset-2">
-        <h1>{{ $video->name }}</h1>
+        <h1>{{ $video->name }} <small class="pull-right text-thm2">Score: {{ $video->score }}</small></h1>
         <p>{{ $video->description }}</p>
       </div>
     </div>
@@ -68,8 +68,8 @@
       $(document).ready(() => {
           let url = '{{ $video->url }}'.replace("watch?v=", "embed/");
           let id = new URL('{{ $video->url }}').searchParams.get('v');
-          let msDuration =
-              $('#y-video').attr('src', url);
+          $('#y-video').attr('src', url);
+
           $.ajax({
               method: 'GET',
               url: `https://www.googleapis.com/youtube/v3/videos`,

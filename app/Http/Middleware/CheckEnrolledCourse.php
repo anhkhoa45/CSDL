@@ -17,7 +17,7 @@ class CheckEnrolledCourse
     {
         $user = auth()->user();
         if (!$user->enrolledCourses()->where('id', $request->course)->count()) {
-            return redirect('index');
+            return redirect()->route('index');
         }
 
         return $next($request);
