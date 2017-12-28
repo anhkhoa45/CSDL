@@ -42,8 +42,10 @@
         <th>Name</th>
         <th>Category</th>
         <th>Status</th>
+        <th>Students</th>
         <th>Cost</th>
-        <th>Created_at</th>
+        <th>Created at</th>
+        <th>Updated at</th>
         <th></th>
       </tr>
       </thead>
@@ -65,8 +67,10 @@
             @else {{"REJECTED"}}
             @endif
           </td>
+          <td>NULL</td>
           <td>{{ $course->cost}}</td>
-          <td>{{ $course->created_at}}</td>
+          <td>{{ (new \Carbon\Carbon($course->created_at))->format('d/m/Y') }}</td>
+          <td>{{ (new \Carbon\Carbon($course->updated_at))->format('d/m/Y') }}</td>
           <td>
             <a class="btn btn-success" href="{{ route('admin.course.request', ['course' => $course->id]) }}">Show</a>
             <a class="btn btn-primary" href="{{ route('admin.courses.edit', ['course' => $course->id]) }}">Edit</a>

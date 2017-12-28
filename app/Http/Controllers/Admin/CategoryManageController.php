@@ -26,21 +26,6 @@ class CategoryManageController extends Controller
         /// dd($categories);
         return view('admin.categories.home',['categories'=>$categories]);
     }
-    public function categoriesShow($id)
-    {
-        $categories=DB::select("SELECT course_categories.*,count(course_categories.id) as CountCourse  
-                                  FROM course_categories,courses
-                                  WHERE course_categories.id = courses.course_category_id
-                                        AND course_categories.id=$id
-                                  GROUP BY course_categories.id 
-                                  UNION
-                                  SELECT course_categories.*, '0' as CountCourse
-                                  FROM course_categories
-                                  WHERE course_categories.id= $id AND course_categories.id not in (SELECT courses.course_category_id FROM courses)
-                                  ");
-        //dd($categories);
-        return view('admin.categories.show',['categories'=>$categories]);
-    }
     public function categoriesCreate()
     {
         return view('admin.categories.create');

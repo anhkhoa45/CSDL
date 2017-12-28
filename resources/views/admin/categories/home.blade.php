@@ -65,7 +65,6 @@
                     <td>{{ (new \Carbon\Carbon($categories->created_at))->format('d/m/Y') }}</td>
                     <td>{{ (new \Carbon\Carbon($categories->updated_at))->format('d/m/Y') }}</td>
                     <td>
-                        <a class="btn btn-success" href="{{ route('admin.categories.show', ['categories' => $categories->id]) }}">Detail</a>
                         <a class="btn btn-primary" href="{{ route('admin.categories.edit', ['categories' => $categories->id]) }}">Edit</a>
                         <form
                                 class="form-inline"
