@@ -120,7 +120,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function (){
         Route::get('course-request/{course}','CourseManageController@courseRequest')->name('admin.course.request');
         Route::get('course-pending','CourseManageController@coursePending')->name('admin.courses.pending');
         Route::get('course-approve/{course}','CourseManageController@courseApprove')->name('admin.course.approve');
-        Route::get('course-refuse/{course}','CourseManageController@courseRefuse')->name('admin.course.refuse');
+        Route::post('course-refuse/{course}','CourseManageController@courseRefuse')->name('admin.course.refuse');
         Route::get('{course}/watch-video/{video}', 'CourseManageController@watchVideo')->name('admin.watch_video');
         Route::get('{course}/project/{project}', 'CourseManageController@getSubmitProject')
             ->name('admin.get_submit_project');

@@ -1,7 +1,4 @@
 @extends('admin.layouts.main')
-@section('style')
-  <link rel="stylesheet" href="{{asset('css/bootstrap-rating.css')}}">
-@endsection
 
 @section('content')
   <section class="irs-ip-details irs-padb-svnty">
@@ -31,8 +28,10 @@
                        href="{{ route('admin.course.approve',['course'=>$course->id] ) }}">Approve</a>
                   </li>
                   <li>
-                    <a class="btn btn-danger"
-                       href="{{ route('admin.course.refuse',['course'=>$course->id] ) }}">Refuse</a>
+                    <button type="button" id="btnReject" class="btn btn-danger">
+                      <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                      Refuse
+                    </button>
                   </li>
                   <li>
                     <a class="btn btn-primary"
@@ -108,5 +107,40 @@
         </div>
       </div>
     </div>
+    <div id="modalConfirmReject" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-red-haze font-white text-center">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title">Reject Student Project</h4>
+          </div>
+          <form action="{{ route('admin.course.refuse', ['course'=>$course->id] ) }}" class="form-horizontal" method="POST">
+            {{ csrf_field() }}
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="inpRejectReason" class="col-md-3">Reject reason: </label>
+                <div class="col-md-9">
+                  <textarea id="inpRejectReason" name="reject_reason" class="form-control"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
+              <button type="submit" class="btn btn-primary">Send</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </section>
+@endsection
+
+@section('script')
+  <script>
+      $(document).ready(function(){
+          $('#btnReject').click(function(){
+              $('#modalConfirmReject').modal('show');
+          });
+      });
+  </script>
 @endsection

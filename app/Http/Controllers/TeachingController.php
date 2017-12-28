@@ -365,7 +365,8 @@ class TeachingController extends Controller
     {
         $studentProject = StudentProject::findOrFail($student_project_id);
         $studentProject->update([
-            'status' => StudentProject::STATUS_PASSED
+            'status' => StudentProject::STATUS_PASSED,
+            'reject_reason' => ''
         ]);
         return redirect()->route('user.show_student_projects', ['course' => $course_id]);
     }
