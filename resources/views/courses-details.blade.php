@@ -46,7 +46,6 @@
                   </li>
                   <li><span class="text-thm2 flaticon-social-2"></span> {{ $course->buyers }}</li>
                   <li><span class="text-thm2 fa fa-star" aria-hidden="true"></span> {{ number_format($course->avg_rating, 0) }}</li>
-                  <li class="irs-sblc-price text-thm2">${{$course->cost}}</li>
                   @if(!auth()->check())
                     <li class="pull-right">
                       <a href="{{ route('enroll-course', ['course' => $course->id]) }}"
@@ -139,15 +138,18 @@
                           <ul class="list-group">
                             @foreach($courseContents as $courseContent)
                               <li>
-                                <a class="list-group-item" href="#">
+                                <a class="list-group-item">
                                   <ul class="list-inline">
+                                    <li>
+                                      <span>#{{ $courseContent->order_in_course}}</span>
+                                    </li>
                                     <li>
                                       @if(get_class($courseContent) === \App\Video::class )
                                         <span class="flaticon-business text-thm2"></span> Video
                                       @else
                                         <span class="flaticon-pen text-thm2"></span> Project
                                       @endif
-                                      #{{ $courseContent->order_in_course}} </li>
+                                    </li>
                                     <li>
                                       <div class="its-tdu">{{$courseContent->name}} </div>
                                     </li>

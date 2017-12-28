@@ -17,7 +17,7 @@ class CreateStudentProjectsTable extends Migration
             $table->increments('id');
             $table->integer('performer_id')->unsigned();
             $table->integer('required_project_id')->unsigned();
-            $table->string('status');
+            $table->tinyInteger('status');
             $table->timestamps();
 
             $table->foreign('performer_id')->references('id')->on('courses')->onDelete('cascade');

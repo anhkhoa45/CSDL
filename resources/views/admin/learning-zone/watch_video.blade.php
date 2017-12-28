@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('admin.layouts.main')
 
 @section('style')
   <style>
@@ -68,58 +68,8 @@
       $(document).ready(() => {
           let url = '{{ $video->url }}'.replace("watch?v=", "embed/");
           let id = new URL('{{ $video->url }}').searchParams.get('v');
-          let msDuration =
-              $('#y-video').attr('src', url);
-          $.ajax({
-              method: 'GET',
-              url: `https://www.googleapis.com/youtube/v3/videos`,
-              data: {
-                  'id': id,
-                  'part': 'contentDetails',
-                  'key': 'AIzaSyBJeGkOMO9elCJkQq4UnHTYrrKCc-XRK9w'
-              }
-          })
-              .done(function (data) {
-                  let msDuration = getMSDuration(data.items[0].contentDetails.duration);
-                  setTimeout(function () {
-                      $.ajax({
-                          method: 'GET',
-                          url: '{{ route('user.earn_video_score', ['course' => $course->id, 'video' => $video->id]) }}'
-                      })
-                          .done((res) => {
-                              if(res.status === 200){
-                                  alert('Congratulations! You earned {{ $video->score }} score from this video!');
-                              }
-                          });
-                  }, msDuration);
-              });
-      });
+          $('#y-video').attr('src', url);
 
-      function getMSDuration(YTduration) {
-          let a = YTduration.match(/\d+/g);
-          if (YTduration.indexOf('M') >= 0 && YTduration.indexOf('H') === -1 && YTduration.indexOf('S') === -1) {
-              a = [0, a[0], 0];
-          }
-          if (YTduration.indexOf('H') >= 0 && YTduration.indexOf('M') === -1) {
-              a = [a[0], 0, a[1]];
-          }
-          if (YTduration.indexOf('H') >= 0 && YTduration.indexOf('M') === -1 && YTduration.indexOf('S') === -1) {
-              a = [a[0], 0, 0];
-          }
-          YTduration = 0;
-          if (a.length === 3) {
-              YTduration = YTduration + parseInt(a[0]) * 3600;
-              YTduration = YTduration + parseInt(a[1]) * 60;
-              YTduration = YTduration + parseInt(a[2]);
-          }
-          if (a.length === 2) {
-              YTduration = YTduration + parseInt(a[0]) * 60;
-              YTduration = YTduration + parseInt(a[1]);
-          }
-          if (a.length === 1) {
-              YTduration = YTduration + parseInt(a[0]);
-          }
-          return YTduration * 1000;
-      }
+      });
   </script>
 @endsection

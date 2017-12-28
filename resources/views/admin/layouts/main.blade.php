@@ -35,7 +35,7 @@
 </head>
 <body>
 <div class="wrapper">
-  @include('includes.header-nav')
+  @include('admin.includes.header-nav')
 
   @yield('content')
 

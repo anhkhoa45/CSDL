@@ -25,7 +25,7 @@
             <th> <i class="fa fa-calendar"></i> Created at</th>
             <th> <i class="fa fa-star"></i> Status</th>
             <th> <i class="fa fa-bookmark"></i> Price</th>
-            <th> <i class="fa fa-users"></i> Buyers</th>
+            <th> <i class="fa fa-users"></i> Students</th>
             <th> <i class="fa fa-money"></i> Total Revenue</th>
             <th></th>
           </tr>
