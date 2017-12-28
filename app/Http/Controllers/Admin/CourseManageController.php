@@ -103,6 +103,49 @@ return view('admin.courses.edit',['courses'=>$courses,'categories'=>$categories]
         ]);
         return redirect()->route('admin.courses.pending');
     }
+    public function watchVideo($course_id, $video_id)
+    {
+        $course = Course::findOrFail($course_id);
+        $video = $course->videos()->findOrFail($video_id);
+        $prev = $course->videos()->where('order_in_course', $video->order_in_course - 1)->first();
+        if (!$prev) {
+            $prev = $course->projects()->where('order_in_course', $video->order_in_course - 1)->first();
+        }
+        $next = $course->videos()->where('course_id', $course_id)->where('order_in_course', $video->order_in_course + 1)->first();
+        if (!$next) {
+            $next = $course->projects()->where('order_in_course', $video->order_in_course + 1)->first();
+        }
 
+        $data = [
+            'course' => $course,
+            'video' => $video,
+            'prev' => $prev,
+            'next' => $next,
+        ];
 
+        return view('admin.learning-zone.watch_video', $data);
+    }
+
+    public function  getSubmitProject($course_id, $project_id)
+    {
+        $course = Course::findOrFail($course_id);
+        $project = $course->projects()->findOrFail($project_id);
+        $prev = $course->videos()->where('order_in_course', $project->order_in_course - 1)->first();
+        if (!$prev) {
+            $prev = $course->projects()->where('order_in_course', $project->order_in_course - 1)->first();
+        }
+        $next = $course->videos()->where('course_id', $course_id)->where('order_in_course', $project->order_in_course + 1)->first();
+        if (!$next) {
+            $next = $course->projects()->where('order_in_course', $project->order_in_course + 1)->first();
+        }
+
+        $data = [
+            'course' => $course,
+            'project' => $project,
+            'prev' => $prev,
+            'next' => $next,
+        ];
+
+        return view('admin.learning-zone.get_submit_project', $data);
+    }
 }

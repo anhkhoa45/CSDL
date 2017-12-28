@@ -42,7 +42,7 @@
                     <label for="statusTxt" class="col-sm-2 control-label">Status</label>
                     <div class="col-sm-10">
                         <select class="form-control" name="status" >
-                            <option value="{{ \App\Course::STATUS_PENDING }}">Pending</option>
+                            <option value="{{ \App\Course::STATUS_PENDING }}">PENDING</option>
                             <option value="{{ \App\Course::STATUS_ACTIVE }}">ACTIVE</option>
                             <option value="{{ \App\Course::STATUS_DEACTIVED}}">DEACTIVED</option>
                             <option value="{{ \App\Course::STATUS_REJECTED}}">REJECTED</option>

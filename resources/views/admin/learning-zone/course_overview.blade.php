@@ -1,5 +1,4 @@
-@extends('layouts.main')
-
+@extends('admin.layouts.main')
 @section('style')
   <link rel="stylesheet" href="{{asset('css/bootstrap-rating.css')}}">
 @endsection
@@ -66,7 +65,7 @@
                               <li>
                                 @if(get_class($courseContent) === \App\Video::class )
                                   <a class="list-group-item"
-                                     href="{{ route('user.watch_video', ['course' => $course->id, 'video' => $courseContent->id]) }}">
+                                     href="{{ route('admin.watch_video', ['course' => $course->id, 'video' => $courseContent->id]) }}">
                                     <ul class="list-inline">
                                       <li>
                                         <span>#{{ $courseContent->order_in_course }}</span>
@@ -81,7 +80,7 @@
                                   </a>
                                 @elseif(get_class($courseContent) === \App\RequiredProject::class )
                                   <a class="list-group-item"
-                                     href="{{ route('user.get_submit_project', ['course' => $course->id, 'project' => $courseContent->id]) }}">
+                                     href="{{ route('admin.get_submit_project', ['course' => $course->id, 'project' => $courseContent->id]) }}">
                                     <ul class="list-inline">
                                       <li>
                                         <span>#{{ $courseContent->order_in_course }}</span>
