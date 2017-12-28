@@ -81,7 +81,7 @@
             </form>
           </div>
         @endif
-        @if($status === -1 || $status === \App\StudentProject::STATUS_REJECTED)
+        @if($status === \App\StudentProject::STATUS_REJECTED)
           <div class="alert alert-danger error-msg">
             <strong>Your project is rejected by course teacher</strong> {{ $project->reject_reason }}
           </div>
