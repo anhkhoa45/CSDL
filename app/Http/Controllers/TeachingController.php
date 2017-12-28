@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Course;
 use App\CourseCategory;
 use App\Http\Requests\ChangeUserPassword;
+use App\Http\Requests\CreateCourseRequest;
 use App\Http\Requests\UpdateCourseContent;
 use App\Http\Requests\UpdateCouseInfo;
 use App\Http\Requests\UpdateUser;
@@ -31,7 +32,7 @@ class TeachingController extends Controller
         return view('user.teaching.create_course', ['courseCategories' => $courseCategories]);
     }
 
-    public function createCourse(Request $request)
+    public function createCourse(CreateCourseRequest $request)
     {
         $avatarURL = 'public/courses/avatars/default.png';
         $coverURL = 'public/courses/covers/default.png';

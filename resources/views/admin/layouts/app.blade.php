@@ -92,12 +92,10 @@
                 </div>
             </div>
         </nav>
-
         @yield('content')
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ asset('js/datatables.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/datatables.bootstrap.js') }}" type="text/javascript"></script>
     <script>

@@ -13,7 +13,7 @@ class UserTableSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
-        $emails = ['khoa.1997a@gmail.com', 'user1@test.com', 'user2@test.com'];
+        $emails = ['user@gmail.com', 'user1@test.com', 'user2@test.com'];
 
         foreach ($emails as $email){
             DB::table('users')->insert([
