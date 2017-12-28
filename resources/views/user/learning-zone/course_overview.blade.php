@@ -2,6 +2,14 @@
 
 @section('style')
   <link rel="stylesheet" href="{{asset('css/bootstrap-rating.css')}}">
+  <style>
+    .its-tdu .btn-sm {
+      font-size: 13px;
+      height: 2.2rem;
+      padding: 1px 10px;
+      color: white;
+    }
+  </style>
 @endsection
 
 @section('content')
@@ -88,7 +96,7 @@
                                         </li>
                                         <li class="pull-right">
                                           <div class="its-tdu">
-                                            Last seen: {{ (new \Carbon\Carbon($seenInfo[0]->last_seen))->format('h:i d/m/Y') }}
+                                            Last seen: {{ (new \Carbon\Carbon($seenInfo[0]->last_seen))->format('d/m/Y') }}
                                           </div>
                                         </li>
                                       @endif
@@ -97,7 +105,7 @@
                                 @elseif(get_class($courseContent) === \App\RequiredProject::class )
                                   <a class="list-group-item"
                                      href="{{ route('user.get_submit_project', ['course' => $course->id, 'project' => $courseContent->id]) }}">
-                                    <ul class="list-inline">
+                                    <ul class="list-inline clearfix">
                                       <li>
                                         <span>#{{ $courseContent->order_in_course }}</span>
                                       </li>
@@ -113,12 +121,18 @@
                                       @if($submitInfo)
                                         <li class="pull-right">
                                           <div class="its-tdu">
-                                            Status: {{ $submitInfo[0]->status }}
+                                            @if($submitInfo[0]->status === \App\StudentProject::STATUS_REJECTED)
+                                              <button class="btn btn-sm btn-danger">Rejected</button>
+                                            @elseif($submitInfo[0]->status === \App\StudentProject::STATUS_PASSED)
+                                              <button class="btn btn-sm btn-success">Passed</button>
+                                            @elseif($submitInfo[0]->status === \App\StudentProject::STATUS_WAITING_FOR_APPROVE)
+                                              <button class="btn btn-sm btn-info">Pending</button>
+                                            @endif
                                           </div>
                                         </li>
                                         <li class="pull-right">
                                           <div class="its-tdu">
-                                            Last submit: {{ (new \Carbon\Carbon($submitInfo[0]->created_at))->setTimezone('UTC')->format('h:i d/m/Y') }}
+                                            Last submit: {{ (new \Carbon\Carbon($submitInfo[0]->created_at))->format('d/m/Y') }}
                                           </div>
                                         </li>
                                       @endif

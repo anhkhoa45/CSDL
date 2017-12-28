@@ -33,7 +33,7 @@
       < Back to course
     </a>
   </div>
-  <div class="container-fluid text-center">
+  <div class="container-fluid">
     <div class="row margin-bottom-20">
       <div class="col-md-8 col-md-offset-2">
         <h1>{{ $project->name }} <small class="pull-right text-thm2">Score: {{ $project->score }}</small></h1>
@@ -81,7 +81,7 @@
             </form>
           </div>
         @endif
-        @if($status === -1 || $status === \App\StudentProject::STATUS_REJECTED)
+        @if($status === \App\StudentProject::STATUS_REJECTED)
           <div class="alert alert-danger error-msg">
             <strong>Your project is rejected by course teacher</strong> {{ $project->reject_reason }}
           </div>
