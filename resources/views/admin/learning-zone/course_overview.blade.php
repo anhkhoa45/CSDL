@@ -23,17 +23,19 @@
                       <span class="text-thm2"> {{ $course->teacher->name }}</span>
                     </a>
                   </li>
+                  @foreach($stud as  $stud)
                   <li>
-                    <a class="btn btn-success"
+                    <a type="button"  class="btn btn-success" @if($stud->numb !==0) disabled @endif
                        href="{{ route('admin.course.approve',['course'=>$course->id] ) }}">Approve</a>
                   </li>
                   <li>
-                    <button type="button" id="btnReject" class="btn btn-danger">
+                    <button type="button" id="btnReject" class="btn btn-danger" @if($stud->numb !==0) disabled @endif >
                       <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
                       Refuse
                     </button>
                   </li>
                   <li>
+                  @endforeach
                     <a class="btn btn-primary"
                        href="{{ route('admin.courses') }}">Back</a>
                   </li>
