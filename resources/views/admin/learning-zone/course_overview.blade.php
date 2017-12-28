@@ -86,7 +86,7 @@
                                       </li>
                                       <li>
                                         <span class="flaticon-pen text-thm2"></span> Project
-                                      </li>
+
                                       <li>
                                         <div class="its-tdu">{{ $courseContent->name }} </div>
                                       </li>
