@@ -96,7 +96,7 @@ class LearningController extends Controller
         }
     }
 
-    public function  getSubmitProject($course_id, $project_id)
+    public function getSubmitProject($course_id, $project_id)
     {
         $user = auth()->user();
         $course = Course::findOrFail($course_id);
@@ -116,7 +116,8 @@ class LearningController extends Controller
             'project' => $project,
             'prev' => $prev,
             'next' => $next,
-            'status' => $studentProject ? $studentProject->status : -1
+            'status' => $studentProject ? $studentProject->status : -1,
+            'reject_reason' => $studentProject->reject_reason
         ];
 
         return view('user.learning-zone.get_submit_project', $data);

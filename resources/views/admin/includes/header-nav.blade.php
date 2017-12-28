@@ -18,7 +18,6 @@
                   <li><a href="{{ route('admin.users') }}">Manage Users</a></li>
                   <li><a href="{{ route('admin.categories') }}">Manage Categories</a></li>
                   <li><a href="{{ route('admin.courses') }}">Manage Courses</a></li>
-                  <li><a href="{{ route('admin.courses.pending') }}">Courses Pending</a></li>
                 </ul>
               @endif
             </ul>

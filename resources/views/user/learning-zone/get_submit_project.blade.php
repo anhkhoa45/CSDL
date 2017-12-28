@@ -83,7 +83,7 @@
         @endif
         @if($status === \App\StudentProject::STATUS_REJECTED)
           <div class="alert alert-danger error-msg">
-            <strong>Your project is rejected by course teacher</strong> {{ $project->reject_reason }}
+            <strong>Your project is rejected by teacher</strong> <br> {{ $reject_reason }}
           </div>
         @elseif($status === \App\StudentProject::STATUS_WAITING_FOR_APPROVE)
           <div class="alert alert-info">
