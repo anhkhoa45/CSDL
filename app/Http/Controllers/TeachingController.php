@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Course;
 use App\CourseCategory;
 use App\Http\Requests\ChangeUserPassword;
+use App\Http\Requests\CreateCourseRequest;
 use App\Http\Requests\UpdateCourseContent;
 use App\Http\Requests\UpdateCouseInfo;
 use App\Http\Requests\UpdateUser;
@@ -31,7 +32,7 @@ class TeachingController extends Controller
         return view('user.teaching.create_course', ['courseCategories' => $courseCategories]);
     }
 
-    public function createCourse(Request $request)
+    public function createCourse(CreateCourseRequest $request)
     {
         $avatarURL = 'public/courses/avatars/default.png';
         $coverURL = 'public/courses/covers/default.png';
@@ -117,7 +118,8 @@ class TeachingController extends Controller
         $monthlyBuyers = $course->getMonthlyBuyers();
         $studentProjects = DB::select("
             SELECT COUNT(id) as student_projects FROM student_projects
-            WHERE required_project_id IN (
+            WHERE status = 0
+              AND required_project_id IN (
               SELECT id FROM required_projects WHERE course_id = $course->id
             );
         ")[0]->student_projects;
@@ -193,6 +195,22 @@ class TeachingController extends Controller
         }
 
         return view('user.teaching.course_updated_message', ['course_id' => $course->id]);
+    }
+
+    public function deleteCourse($course_id){
+        $course = Course::findOrFail($course_id);
+
+        $avatarURL = $course->avatar;
+        $coverURL = $course->cover;
+
+        if ($avatarURL !== 'public/courses/avatars/default.jpg') {
+            Storage::delete($avatarURL);
+        }
+        if ($coverURL !== 'public/courses/covers/default.jpg') {
+            Storage::delete($coverURL);
+        }
+        $course->delete();
+        return redirect()->route('profile');
     }
 
     public function getUpdateCourseContents($course_id)

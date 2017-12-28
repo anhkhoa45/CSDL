@@ -20,6 +20,7 @@ class LearningController extends Controller
         $course = $user->enrolledCourses()->with('teacher')->findOrFail($course_id);
         $courseContents = $course->videos->merge($course->projects)->sortBy('order_in_course');
         $data = [
+            'user' => $user,
             'course' => $course,
             'courseContents' => $courseContents
         ];

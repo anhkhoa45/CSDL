@@ -42,7 +42,6 @@
                             <li><a href="{{ route('admin.users') }}">Manage Users</a></li>
                             <li><a href="{{ route('admin.categories') }}">Manage Categories</a></li>
                             <li><a href="{{ route('admin.courses') }}">Manage Courses</a></li>
-                            <li><a href="{{ route('admin.courses.pending') }}">Courses Pending</a></li>
                         </ul>
                     @endif
                 </div>
@@ -92,12 +91,10 @@
                 </div>
             </div>
         </nav>
-
         @yield('content')
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ asset('js/datatables.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/datatables.bootstrap.js') }}" type="text/javascript"></script>
     <script>

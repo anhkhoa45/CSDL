@@ -29,11 +29,11 @@
 
 @section('content')
   <div class="col-md-12">
-    <a href="{{ route('admin.course.request', ['course' => $course->id]) }}" class="btn btn-lg">
+    <a href="{{ route('user.learn_course', ['course' => $course->id]) }}" class="btn btn-lg">
       < Back to course
     </a>
   </div>
-  <div class="container-fluid text-center">
+  <div class="container-fluid">
     <div class="row margin-bottom-20">
       <div class="col-md-8 col-md-offset-2">
         <h1>{{ $project->name }} <small class="pull-right text-thm2">Score: {{ $project->score }}</small></h1>
@@ -79,6 +79,11 @@
               <button id="btnAddFile" type="button" class="btn btn-lg btn-warning">+ Add File</button>
               <button type="submit" class="btn btn-lg btn-success">Submit</button>
             </form>
+          </div>
+        @endif
+        @if($status === \App\StudentProject::STATUS_REJECTED)
+          <div class="alert alert-danger error-msg">
+            <strong>Your project is rejected by course teacher</strong> {{ $project->reject_reason }}
           </div>
         @elseif($status === \App\StudentProject::STATUS_WAITING_FOR_APPROVE)
           <div class="alert alert-info">
@@ -126,12 +131,12 @@
                 <li>
                   <div class="form-horizontal">
                       <div class="file-input">
-                        <input type="file" name="file[]"  class="form-control">
+                        <input type="file" name="file[]"  class="form-control" required>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-sm-2 col-md-offset-2" for="name">File name: </label>
                         <div class="col-sm-6">
-                          <input type="text" name="name[]" class="form-control">
+                          <input type="text" name="name[]" class="form-control" required>
                         </div>
                       </div>
                       <div class="form-group">

@@ -2,6 +2,14 @@
 
 @section('style')
   <link rel="stylesheet" href="{{asset('css/bootstrap-rating.css')}}">
+  <style>
+    .its-tdu .btn-sm {
+      font-size: 13px;
+      height: 2.2rem;
+      padding: 1px 10px;
+      color: white;
+    }
+  </style>
 @endsection
 
 @section('content')
@@ -77,12 +85,27 @@
                                       <li>
                                         <div class="its-tdu">{{ $courseContent->name }} </div>
                                       </li>
+                                      @php
+                                        $seenInfo = \DB::select("SELECT total_view, last_seen FROM watch_videos WHERE video_id = $courseContent->id AND user_id = $user->id");
+                                      @endphp
+                                      @if($seenInfo)
+                                        <li class="pull-right">
+                                          <div class="its-tdu">
+                                            Total view: {{ $seenInfo[0]->total_view }}
+                                          </div>
+                                        </li>
+                                        <li class="pull-right">
+                                          <div class="its-tdu">
+                                            Last seen: {{ (new \Carbon\Carbon($seenInfo[0]->last_seen))->format('d/m/Y') }}
+                                          </div>
+                                        </li>
+                                      @endif
                                     </ul>
                                   </a>
                                 @elseif(get_class($courseContent) === \App\RequiredProject::class )
                                   <a class="list-group-item"
                                      href="{{ route('user.get_submit_project', ['course' => $course->id, 'project' => $courseContent->id]) }}">
-                                    <ul class="list-inline">
+                                    <ul class="list-inline clearfix">
                                       <li>
                                         <span>#{{ $courseContent->order_in_course }}</span>
                                       </li>
@@ -92,6 +115,27 @@
                                       <li>
                                         <div class="its-tdu">{{ $courseContent->name }} </div>
                                       </li>
+                                      @php
+                                        $submitInfo = \DB::select("SELECT created_at, status FROM student_projects WHERE required_project_id = $courseContent->id AND performer_id = $user->id");
+                                      @endphp
+                                      @if($submitInfo)
+                                        <li class="pull-right">
+                                          <div class="its-tdu">
+                                            @if($submitInfo[0]->status === \App\StudentProject::STATUS_REJECTED)
+                                              <button class="btn btn-sm btn-danger">Rejected</button>
+                                            @elseif($submitInfo[0]->status === \App\StudentProject::STATUS_PASSED)
+                                              <button class="btn btn-sm btn-success">Passed</button>
+                                            @elseif($submitInfo[0]->status === \App\StudentProject::STATUS_WAITING_FOR_APPROVE)
+                                              <button class="btn btn-sm btn-info">Pending</button>
+                                            @endif
+                                          </div>
+                                        </li>
+                                        <li class="pull-right">
+                                          <div class="its-tdu">
+                                            Last submit: {{ (new \Carbon\Carbon($submitInfo[0]->created_at))->format('d/m/Y') }}
+                                          </div>
+                                        </li>
+                                      @endif
                                     </ul>
                                   </a>
                                 @endif

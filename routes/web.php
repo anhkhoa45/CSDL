@@ -33,17 +33,6 @@ Route::middleware(['auth'])->group(function(){
         Route::get('teaching-course/{course}', 'TeachingController@teachingCourseDetail')
             ->name('user.teaching_course_detail');
 
-        Route::middleware(['can_update'])->group(function() {
-            Route::get('update-course-info/{course}', 'TeachingController@getUpdateCourseInfo')
-                ->name('user.get_update_course_info');
-            Route::put('update-course-info/{course}', 'TeachingController@postUpdateCourseInfo')
-                ->name('user.post_update_course_info');
-            Route::get('update-course-contents/{course}', 'TeachingController@getUpdateCourseContents')
-                ->name('user.get_update_course_contents');
-            Route::put('update-course-contents/{course}', 'TeachingController@postUpdateCourseContents')
-                ->name('user.post_update_course_contents');
-        });
-
         Route::middleware(['enrolled'])->group(function() {
             Route::get('learn-course/{course}', 'LearningController@learnCourse')->name('user.learn_course');
             Route::post('rate-course/{course}', 'LearningController@rateCourse')->name('user.rate_course');
@@ -70,8 +59,21 @@ Route::middleware(['auth'])->group(function(){
                     ->name('user.download_project_file');
                 Route::get('{course}/student-project/{student_project}/approve', 'TeachingController@approveStudentProject')
                     ->name('user.approve_student_project');
-                Route::post('{course}/student-project/{student_project}/approve', 'TeachingController@rejectStudentProject')
+                Route::post('{course}/student-project/{student_project}/reject', 'TeachingController@rejectStudentProject')
                     ->name('user.reject_student_project');
+
+                Route::middleware(['can_update'])->group(function() {
+                    Route::get('update-course-info/{course}', 'TeachingController@getUpdateCourseInfo')
+                        ->name('user.get_update_course_info');
+                    Route::put('update-course-info/{course}', 'TeachingController@postUpdateCourseInfo')
+                        ->name('user.post_update_course_info');
+                    Route::get('update-course-contents/{course}', 'TeachingController@getUpdateCourseContents')
+                        ->name('user.get_update_course_contents');
+                    Route::put('update-course-contents/{course}', 'TeachingController@postUpdateCourseContents')
+                        ->name('user.post_update_course_contents');
+                    Route::get('{course}/delete', 'TeachingController@deleteCourse')
+                        ->name('user.delete_course');
+                });
             });
         });
     });
