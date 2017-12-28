@@ -26,16 +26,6 @@ class CourseManageController extends Controller
         return view('admin.courses.home', ['courses'=>$courses]);
     }
 
-    public function courseShow($id)
-    {
-        $courses = DB::select("SELECT courses.*,course_categories.name as category,users.name as teacher 
-                                    FROM courses,course_categories,users
-                                    WHERE courses.course_category_id=course_categories.id
-                                       AND courses.teacher_id=users.id
-                                       AND courses.id=$id");
-        return view('admin.courses.show', ['course' => $courses]);
-    }
-
     public function courseEdit($id)
     {
         $courses = DB::select("SELECT courses.*,course_categories.name as category,users.name as teacher 
@@ -62,10 +52,16 @@ class CourseManageController extends Controller
     {
         $course = Course::findOrFail($id);
         $courseContents = $course->videos->merge($course->projects)->sortBy('order_in_course');
+        $stud=DB::select("SELECT count(*) as numb
+                                   FROM buy_courses
+                                   WHERE buy_courses.course_id=$id
+                                   ");
         $data = [
             'course' => $course,
-            'courseContents' => $courseContents
+            'courseContents' => $courseContents,
+            'stud'=>$stud,
         ];
+        //dd($data);
         return view('admin.learning-zone.course_overview', $data);
     }
 
