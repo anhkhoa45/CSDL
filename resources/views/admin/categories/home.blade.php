@@ -69,18 +69,14 @@
                                 method="POST"
                                 action="{{ route('admin.categories.destroy', ['categories' => $categories->id]) }}"
                         >
-
                             <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
-
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         </form>
                     </td>
                 </tr>
             @endforeach
-
             </tbody>
         </table>
     </div>
-
 @endsection
