@@ -58,7 +58,7 @@
                     <td>{{ $course->name }}</td>
                     <td>{{ $course->category}}</td>
                     <td>{{ $course->teacher}}</td>
-                    <td>{{"PENDING"}}</td>
+                    <td>PENDING</td>
                     <td>{{ $course->cost}}</td>
                     <td>
                         <a class="btn btn-success" href="{{ route('admin.course.request', ['course' => $course->id]) }}">Show</a>

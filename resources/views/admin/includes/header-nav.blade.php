@@ -10,29 +10,17 @@
             <a class="navbar-brand" href="{{ route('index') }}"><img
                   src="{{ asset('img/logo.png') }}" style="max-width: 161px; max-height: 50px"  class="logo img-responsive" alt="header-logo.png"></a>
           </div>
-          @php
-            $categories = \App\CourseCategory::all();
-          @endphp
           <div class="collapse navbar-collapse" id="navbar-menu">
             <ul class="nav navbar-nav navbar-left">
-              </li>
-              <li class="dropdown"><a href="{{ route('all-course') }}" >All Courses</a>
-              </li>
-              <li class="dropdown"><a href="#" class="dropdown-toggle"
-                                      data-toggle="dropdown">Categories</a>
-                <ul class="dropdown-menu">
-                   @foreach($categories as $category)
-
-                  <li><a href="{{route('category', ['id' => $category->id])}}">{{$category->name}}</a></li>
-
-                  @endforeach
+              @if(Auth::guard('admin')->check())
+                <ul class="nav navbar-nav navbar-left">
+                  <li><a href="{{ route('admin.home') }}">Admin Home</a></li>
+                  <li><a href="{{ route('admin.users') }}">Manage Users</a></li>
+                  <li><a href="{{ route('admin.categories') }}">Manage Categories</a></li>
+                  <li><a href="{{ route('admin.courses') }}">Manage Courses</a></li>
+                  <li><a href="{{ route('admin.courses.pending') }}">Courses Pending</a></li>
                 </ul>
-              </li>
-              <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Features</a>
-                <ul class="dropdown-menu">
-                  <li><a href="{{ route('user.get_create_course') }}">Become A Teacher</a></li>
-                </ul>
-
+              @endif
             </ul>
           </div>
         </div>

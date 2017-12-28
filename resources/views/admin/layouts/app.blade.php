@@ -32,7 +32,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        {{ config('app.name', 'ITE') }}
                     </a>
                     @if(Auth::guard('admin')->check())
                         <ul class="nav navbar-nav navbar-left">
@@ -42,7 +42,6 @@
                             <li><a href="{{ route('admin.courses') }}">Manage Courses</a></li>
                             <li><a href="{{ route('admin.courses.pending') }}">Courses Pending</a></li>
                         </ul>
-
                     @endif
                 </div>
 

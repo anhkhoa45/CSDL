@@ -78,7 +78,7 @@ Route::middleware(['auth'])->group(function(){
 });
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function (){
-    Route::group(['middleware'=>'guest'],function()
+    Route::group(['middleware'=>'guest:admin'],function()
     {
         Route::get('login', 'AdminController@showLogin')->name('admin.show_login');
         Route::post('login','AdminController@login')->name('admin.get_login');

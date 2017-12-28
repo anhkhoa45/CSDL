@@ -1,4 +1,4 @@
-@extends('layouts.login')
+@extends('admin.layouts.app')
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('css/pages/login.min.css') }}">
