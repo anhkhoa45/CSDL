@@ -38,7 +38,7 @@
         </div>
       </div>
       <div class="portlet-body form">
-        <form class="form-horizontal form-bordered" enctype="multipart/form-data"
+        <form class="form-horizontal form-bordered" enctype="multipart/form-data" novalidate
               action="{{ route('user.create_course') }}" method="POST">
           {{ csrf_field() }}
           <div class="form-body">
@@ -190,8 +190,10 @@
                   <input data-id="${ countContent }" type="text" class="new-course-content form-control" disabled
                          name="title[]" required/>
                   <input data-id="${ countContent }" type="text" class="new-course-content form-control" disabled
+                         name="score[]" required/>
+                  <input data-id="${ countContent }" type="text" class="new-course-content form-control" disabled
                        name="url[]" required/>
-                  <textarea data-id="${ countContent }" rows="4" cols="70" class="form-control" disabled
+                  <textarea data-id="${ countContent }" rows="4" cols="96" class="form-control" disabled
                        name="description[]" required></textarea>
                   <button type="button" class="btn sbold uppercase btn-outline red-haze pull-right btn-remove">-</button>
                 </li>
@@ -232,12 +234,15 @@
               let indexEl = $(`span[data-id="${ id }"]`);
               let titleEl = $(`input[data-id="${ id }"][name^="title"]`);
               let urlEl = $(`input[data-id="${ id }"][name^="url"]`);
+              let scoreEl = $(`input[data-id="${ id }"][name^="score"]`);
               let descEl = $(`textarea[data-id="${ id }"][name^="description"]`);
               if (inputType) {
                   titleEl.prop('disabled', false);
                   urlEl.show();
                   urlEl.prop('disabled', false);
                   descEl.prop('disabled', false);
+                  scoreEl.prop('disabled', false);
+                  scoreEl.prop('placeholder', 'Score');
               }
               switch (inputType) {
                   case '0':

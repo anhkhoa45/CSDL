@@ -16,7 +16,8 @@ class CanUpdateCourse
     public function handle($request, Closure $next)
     {
         $user = auth()->user();
-        if ($user->enrolledCourses()->where('id', $request->course)->buyers()->count()) {
+        $course = $user->teachingCourses()->findOrFail($request->course);
+        if ($course->buyers()->count()) {
             return redirect()->route('profile');
         }
 

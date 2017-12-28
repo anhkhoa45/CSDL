@@ -15,8 +15,8 @@
       border-right: solid 1px #ddd;
     }
 
-    textarea[name^="description"] {
-      margin-top: 20px !important;
+    textarea {
+      margin-top: 10px !important;
     }
   </style>
 @endsection
@@ -78,7 +78,8 @@
                                 style="background-color: #1BBC9B; color: white;">
                             {{ $no }}
                           </span>
-                          <input data-id="{{ $no }}" type="hidden" value="{{ $courseContent->id }}" name="id[{{ $no }}]">
+                          <input data-id="{{ $no }}" type="hidden" value="{{ $courseContent->id }}"
+                                 name="id[{{ $no }}]">
                           <input data-id="{{ $no }}" type="hidden" value="0" name="old_type[{{ $no }}]">
                           <select data-id="{{ $no }}" class="form-control" name="content_type[{{ $no }}]" required>
                             <option value="">Content type</option>
@@ -90,7 +91,9 @@
                                  name="title[{{ $no }}]" value="{{$courseContent->name }}" required/>
                           <input data-id="{{ $no }}" type="text"
                                  class="new-course-content form-control" placeholder="URL"
-                                 name="url[{{ $no }}]" value="{{$courseContent->url }}" required/>
+                                 name="score[{{ $no }}]" value="{{$courseContent->score }}" required/>
+                          <textarea data-id="{{ $no }}" rows="1" cols="70" class="form-control"
+                                    name="url[{{ $no }}]" required>{{ $courseContent->url }}</textarea>
                           <textarea data-id="{{ $no }}" rows="4" cols="70" class="form-control"
                                     name="description[{{ $no }}]" required>{{ $courseContent->description }}</textarea>
                           <button type="button" class="btn sbold uppercase btn-outline red-haze pull-right btn-remove">
@@ -106,7 +109,8 @@
                                 style="background-color: #F7CA18; color: white;">
                             {{ $no }}
                           </span>
-                          <input data-id="{{ $no }}" type="hidden" value="{{ $courseContent->id }}" name="id[{{ $no }}]">
+                          <input data-id="{{ $no }}" type="hidden" value="{{ $courseContent->id }}"
+                                 name="id[{{ $no }}]">
                           <input data-id="{{ $no }}" type="hidden" value="2" name="old_type[{{ $no }}]">
                           <select data-id="{{ $no }}" class="form-control" name="content_type[{{ $no }}]" required>
                             <option value="">Content type</option>
@@ -116,6 +120,9 @@
                           <input data-id="{{ $no }}" type="text"
                                  class="new-course-content form-control"
                                  name="title[{{ $no }}]" value="{{$courseContent->name }}" required/>
+                          <input data-id="{{ $no }}" type="text"
+                                 class="new-course-content form-control" placeholder="Score"
+                                 name="score[{{ $no }}]" value="{{$courseContent->score }}" required/>
                           <textarea data-id="{{ $no }}" rows="4" cols="70" class="form-control"
                                     name="description[{{ $no }}]" required>{{ $courseContent->description }}</textarea>
                           <button type="button" class="btn sbold uppercase btn-outline red-haze pull-right btn-remove">
@@ -163,7 +170,7 @@
 
           $('#btn-add').click(appendCourseContent);
 
-          let urlInps = $('input[name^="url"]');
+          let urlInps = $('textarea[name^="url"]');
 
           urlInps.each(function (i, urlInp) {
               updateIframeVideo.call(urlInp);
@@ -202,7 +209,7 @@
               newLi.find('select').change(function () {
                   changeInputType.call(this);
               });
-              newLi.find('input[name^="url"]').change(function () {
+              newLi.find('textarea[name^="url"]').change(function () {
                   updateIframeVideo.call(this);
               });
               newLi.find('.btn-remove').click(function () {
@@ -231,7 +238,7 @@
               let li = $(this).closest('li');
               let contentID = li.find('input[name^="id"]').length > 0 ? li.find('input[name^="id"]').val() : null;
               if (contentID) {
-                  if(li.find('select[name^="content_type"]').val() === '0'){
+                  if (li.find('select[name^="content_type"]').val() === '0') {
                       $('form').append(`
                         <input type="hidden" name="deleted_video[]" value="${ contentID }">
                       `);

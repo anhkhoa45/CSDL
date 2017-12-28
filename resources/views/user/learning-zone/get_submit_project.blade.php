@@ -31,7 +31,7 @@
   <div class="container-fluid text-center">
     <div class="row margin-bottom-20">
       <div class="col-md-8 col-md-offset-2">
-        <h1>{{ $project->name }}</h1>
+        <h1>{{ $project->name }} <small class="pull-right text-thm2">Score: {{ $project->score }}</small></h1>
         <p>{{ $project->description }}</p>
       </div>
     </div>

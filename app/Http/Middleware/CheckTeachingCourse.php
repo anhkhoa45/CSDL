@@ -17,7 +17,7 @@ class CheckTeachingCourse
     {
         $user = auth()->user();
         if (!$user->teachingCourses()->where('id', $request->course)->count()) {
-            return redirect('index');
+            return redirect()->route('index');
         }
 
         return $next($request);
