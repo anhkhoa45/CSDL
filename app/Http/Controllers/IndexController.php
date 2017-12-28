@@ -29,7 +29,7 @@ class IndexController extends Controller
                 DB::raw('avg(CASE WHEN buy_courses.rating != 0 THEN buy_courses.rating ELSE NULL END) as avg_rating'),
             ])->get();
 
-        $recently_courses = $courses->sortByDesc('created_at')->take(4);
+        $recently_courses = $courses->sortByDesc('updated_at')->take(4);
         $popular_courses = $courses->sortByDesc('buyers')->take(4);
         $toprating_courses = $courses->sortByDesc('avg_rating')->take(4);
 
@@ -43,7 +43,9 @@ class IndexController extends Controller
     }
 
     public function showTeacherInfo($id){
-        $teacher = User::with(['teachingCourses'])->findOrFail($id);
+        $teacher = User::with(['teachingCourses' => function($query){
+            $query->where('status', Course::STATUS_ACTIVE);
+        }])->findOrFail($id);
         return view('teacher-info', ['teacher' => $teacher]);
     }
 
@@ -79,6 +81,7 @@ class IndexController extends Controller
 
         $category = CourseCategory::findOrFail($category_id);
         $courses = $category->courses()->whereNotIn('id', $enrolledCourses)
+            ->where('status', Course::STATUS_ACTIVE)
             ->whereNotIn('id', $teachingCourses)
             ->with(['teacher', 'buyers'])
             ->paginate(config('view.paginate'));
@@ -102,6 +105,7 @@ class IndexController extends Controller
         }
 
         $courses = Course::whereNotIn('id', $enrolledCourses)
+            ->where('status', Course::STATUS_ACTIVE)
             ->whereNotIn('id', $teachingCourses)
             ->with(['teacher', 'buyers'])
             ->paginate(config('view.paginate'));

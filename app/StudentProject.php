@@ -11,7 +11,7 @@ class StudentProject extends Model
     const STATUS_REJECTED = 2;
 
     protected $fillable = [
-        'performer_id', 'required_project_id', 'status', 'created_at', 'updated_at'
+        'performer_id', 'required_project_id', 'status', 'created_at', 'updated_at', 'reject_reason'
     ];
 
     public function requiredProject()

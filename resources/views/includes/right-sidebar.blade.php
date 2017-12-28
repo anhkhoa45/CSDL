@@ -12,7 +12,7 @@
         </ul>
     </div>
     @php
-        $recently_courses = \App\Course::orderBy('created_at', 'desc')->take(4)->get();
+        $recently_courses = \App\Course::where('status', \App\Course::STATUS_ACTIVE)->orderBy('updated_at', 'desc')->take(4)->get();
     @endphp
     <div class="irs-sb-lcourses">
         <h3 class="irs-sbc-title text-center">Latest Courses</h3>

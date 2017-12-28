@@ -19,7 +19,9 @@ class Course extends Model
     const STATUS_DEACTIVED = 2;
     const STATUS_REJECTED = 3;
 
-    protected $fillable = ['name', 'description', 'cost', 'status', 'teacher_id', 'course_category_id', 'avatar', 'cover'];
+    protected $fillable = [
+        'name', 'description', 'cost', 'status', 'teacher_id', 'course_category_id', 'avatar', 'cover', 'reject_reason'
+    ];
 
     public function teacher()
     {

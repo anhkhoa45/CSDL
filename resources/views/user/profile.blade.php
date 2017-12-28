@@ -5,6 +5,7 @@
   <link rel="stylesheet" href="{{ asset('css/pages/profile.min.css') }}">
   <link rel="stylesheet" href="{{ asset('css/bootstrap-fileinput.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('css/datatables.min.css') }}"/>
+  <link href="{{ asset('css/bootstrap-datepicker3.min.css') }}" rel="stylesheet" type="text/css" />
 
   <style>
     .sale-summary {
@@ -73,7 +74,9 @@
   <script src="{{ asset('js/bootstrap-fileinput.js') }}" type="text/javascript"></script>
   <script src="{{ asset('js/datatables.min.js') }}" type="text/javascript"></script>
   <script src="{{ asset('js/datatables.bootstrap.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('js/bootstrap-datepicker.min.js') }}" type="text/javascript"></script>
   <script>
+
       $(document).ready( function () {
           let cols = $('#tabTeachingCourse').find('th').length;
 
@@ -90,6 +93,10 @@
                   "searchable": false,
                   "targets": [cols - 1]
               }]
+          });
+
+          $('.datepicker').datepicker({
+              format: 'yyyy-mm-dd',
           });
       });
   </script>
