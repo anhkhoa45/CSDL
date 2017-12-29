@@ -154,4 +154,16 @@ class IndexController extends Controller
 
         return view('page-search-courses-category', $data);
     }
+
+    public function learningLeaderBoard(){
+        $topUsers = User::orderBy('learning_score', 'desc')->take(50)->get();
+
+        return view('learning_leaderboard', ['topUsers' => $topUsers]);
+    }
+
+    public function teachingLeaderBoard(){
+        $topUsers = User::orderBy('teaching_score', 'desc')->take(50)->get();
+
+        return view('teaching_leaderboard', ['topUsers' => $topUsers]);
+    }
 }
