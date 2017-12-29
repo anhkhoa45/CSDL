@@ -135,5 +135,7 @@ Route::get('course-info/{id}', 'IndexController@showCourseInfo')->name('course-i
 Route::get('teacherinfo/{id}', 'IndexController@showTeacherInfo')->name('teacher-info');
 Route::get('category/{id}','IndexController@showCategoryCourse')->name('category');
 Route::get('all-course','IndexController@showAllCourse')->name('all-course');
+Route::get('learning-leaderboard','IndexController@learningLeaderBoard')->name('learning_leaderboard');
+Route::get('teaching-leaderboard','IndexController@teachingLeaderBoard')->name('teaching_leaderboard');
 
 Route::get('courses-search','SearchController@coursesSearch')->name('courses.search');

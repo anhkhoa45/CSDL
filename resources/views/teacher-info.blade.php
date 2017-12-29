@@ -42,7 +42,7 @@
             </div>
             <div class="col-md-8 irs-mrgnbtm-sxty">
               <div class="irs-courses-td-sngle-dtls irs-all-course-bb">
-                <h2>{{ $teacher->gender.$teacher->name }}</h2>
+                <h2>{{ $teacher->name }}</h2>
                 <p style="color: grey"><i class="fa fa-birthday-cake" aria-hidden="true"></i> {{ $teacher->DOB }}</p>
                 <h3>Teaching score:</h3>
                 <p><i style="color: gold" class="fa fa-trophy" aria-hidden="true"></i> {{ $teacher->teaching_score }}
