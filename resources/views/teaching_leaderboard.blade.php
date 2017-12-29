@@ -30,7 +30,7 @@
             <tr @if($index === 0) style="color: #F7CA18;" @endif>
               <td>{{ $index + 1 }}</td>
               <td>{{ $topUser->name }}</td>
-              <td>{{ $topUser->learning_score }}</td>
+              <td>{{ $topUser->teaching_score }}</td>
             </tr>
           @endforeach
           </tbody>
