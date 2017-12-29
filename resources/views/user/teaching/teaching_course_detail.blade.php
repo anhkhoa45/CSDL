@@ -205,7 +205,7 @@
               data: [
                   {
                       yValueFormatString: "$#,###",
-                      xValueFormatString: "DD/MM/YYYY",
+                      xValueFormatString: "MM/YYYY",
                       type: "spline",
                       dataPoints: [
                           @foreach($monthlyBuyers as $monthlyBuyer)

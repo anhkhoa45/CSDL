@@ -117,7 +117,7 @@ class LearningController extends Controller
             'prev' => $prev,
             'next' => $next,
             'status' => $studentProject ? $studentProject->status : -1,
-            'reject_reason' => $studentProject->reject_reason
+            'reject_reason' => $studentProject ? $studentProject->reject_reason : ''
         ];
 
         return view('user.learning-zone.get_submit_project', $data);
@@ -140,6 +140,11 @@ class LearningController extends Controller
                 if($studentProject->status === StudentProject::STATUS_PASSED) {
                     throw new Exception('Action denied');
                 }
+
+                $studentProject->update([
+                    'status' => StudentProject::STATUS_WAITING_FOR_APPROVE
+                ]);
+
                 $studentProject->files()->delete();
                 Storage::deleteDirectory('studentProjects/' . $user->id . '/' . $project->id);
             } else {
@@ -170,7 +175,7 @@ class LearningController extends Controller
         } catch (Exception $e){
             DB::rollBack();
             return redirect()->route('user.create_course')
-                ->withErrors(['create_failed', 'Project create failed']);
+                ->withErrors(['create_failed', 'Project submit failed']);
         }
 
         return view('user.learning-zone.project_submited_message', ['course_id' => $course->id, 'project_id' => $project->id]);

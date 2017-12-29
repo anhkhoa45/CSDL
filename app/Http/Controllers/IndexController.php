@@ -122,6 +122,7 @@ class IndexController extends Controller
         }
 
         $courses = Course::whereNotIn('id', $enrolledCourses)
+            ->where('status', Course::STATUS_ACTIVE)
             ->where(DB::raw('LOWER("name")'), 'like', '%'.strtolower(request()->name).'%')
             ->whereNotIn('id', $teachingCourses)
             ->with(['teacher', 'buyers'])
@@ -140,6 +141,7 @@ class IndexController extends Controller
 
         $category = CourseCategory::findOrFail($category_id);
         $courses = $category->courses()
+            ->where('status', Course::STATUS_ACTIVE)
             ->where(DB::raw('LOWER("name")'), 'like', '%'.strtolower(request()->name).'%')
             ->whereNotIn('id', $enrolledCourses)
             ->whereNotIn('id', $teachingCourses)
